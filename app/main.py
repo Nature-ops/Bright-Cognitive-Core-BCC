@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from app.models.chat import ChatRequest, ChatResponse
 
 app = FastAPI(
     title="Bright Assistant",
@@ -21,3 +22,9 @@ def health():
     return {
         "status": "healthy"
     }
+
+@app.post("/chat", response_model=ChatResponse)
+def chat(request: ChatRequest):
+    return ChatResponse(
+        response=f"Hello! You said: {request.message}"
+    )
