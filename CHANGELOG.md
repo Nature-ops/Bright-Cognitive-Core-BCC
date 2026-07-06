@@ -28,3 +28,12 @@
 - Separated API routes from business logic.
 - Added Swagger API testing support.
 - Created the initial project documentation.
+## v0.3.0 - Configuration Layer
+
+### Added
+
+- Created centralized application settings.
+- Added `.env` configuration support.
+- Added `.env.example`.
+- Configured FastAPI to use centralized settings.
+- Prepared the project for environment-based configuration.
