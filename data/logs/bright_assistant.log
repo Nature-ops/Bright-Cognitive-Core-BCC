@@ -19,3 +19,13 @@
 2026-07-08 00:32:32,459 | INFO | bright-assistant | Received message: Who are you?
 2026-07-08 00:47:26,658 | INFO | bright-assistant | Received message: Who are you?
 2026-07-08 00:47:26,660 | INFO | bright-assistant | User message saved to memory.
+2026-07-08 00:54:26,852 | INFO | bright-assistant | Received message: Who are you?
+2026-07-08 00:54:26,854 | INFO | bright-assistant | User message saved to memory.
+2026-07-08 00:54:26,854 | INFO | bright-assistant | System prompt loaded.
+2026-07-08 00:54:30,278 | INFO | bright-assistant | AI response generated.
+2026-07-08 00:54:30,286 | INFO | bright-assistant | Assistant response saved to memory.
+2026-07-08 00:54:57,192 | INFO | bright-assistant | Received message: What is your duty?
+2026-07-08 00:54:57,202 | INFO | bright-assistant | User message saved to memory.
+2026-07-08 00:54:57,202 | INFO | bright-assistant | System prompt loaded.
+2026-07-08 00:54:58,578 | INFO | bright-assistant | AI response generated.
+2026-07-08 00:54:58,585 | INFO | bright-assistant | Assistant response saved to memory.

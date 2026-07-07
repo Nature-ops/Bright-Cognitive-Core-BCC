@@ -224,3 +224,239 @@ Different AI models can later be swapped without changing the application.
 Build for change.
 
 Software should be easy to extend without rewriting existing code.
+
+# Engineering Notebook
+
+## Date
+2026-07-08
+
+---
+
+# Session Goal
+
+Continue building Bright Assistant into a modular AI Engineering Operating System by integrating a local Large Language Model (LLM), persistent memory, and improving the software architecture.
+
+---
+
+# Accomplishments
+
+## AI Provider Integration
+
+- Installed and configured Ollama.
+- Installed the official Ollama Python package.
+- Downloaded and tested:
+  - Llama 3.1 8B
+  - Qwen3 8B
+- Connected Bright Assistant to a local LLM through the Ollama API.
+- Removed the simulated responses and replaced them with real AI-generated responses.
+
+---
+
+## AI Architecture
+
+Created a provider-based architecture.
+
+```
+BaseAIProvider
+      │
+      ├── OllamaProvider
+      ├── OpenAIProvider
+      ├── BedrockProvider
+      └── AnthropicProvider
+```
+
+This architecture allows Bright Assistant to support multiple AI providers without changing the rest of the application.
+
+---
+
+## Prompt Management
+
+Created a centralized PromptService.
+
+Organized prompts inside:
+
+app/prompts/
+
+Current prompts include:
+
+- system_prompt.txt
+- coding_prompt.txt
+- aws_tutor.txt
+- devops_tutor.txt
+- drone_engineer.txt
+- python_mentor.txt
+- affiliate_marketing.txt
+- trading_assistant.txt
+- career_coach.txt
+- summarizer_prompt.txt
+
+Bright can now load prompts dynamically.
+
+---
+
+## Conversation Memory
+
+Implemented MemoryService.
+
+Features:
+
+- Persistent JSON conversation storage
+- Conversation history loading
+- Conversation saving
+- Memory clearing
+- Fault tolerance for invalid JSON
+
+Conversation history is stored in:
+
+data/conversation.json
+
+---
+
+## Logging
+
+Improved logging throughout ChatService.
+
+Current logging includes:
+
+- Incoming user messages
+- Prompt loading
+- AI response generation
+- Memory updates
+
+Logs are stored in:
+
+data/logs/bright_assistant.log
+
+---
+
+## Chat Pipeline
+
+Current execution flow:
+
+User
+
+↓
+
+FastAPI
+
+↓
+
+ChatService
+
+↓
+
+MemoryService (save user)
+
+↓
+
+PromptService
+
+↓
+
+OllamaProvider
+
+↓
+
+Local LLM (Llama / Qwen)
+
+↓
+
+MemoryService (save assistant)
+
+↓
+
+Response
+
+---
+
+## Documentation
+
+Updated:
+
+- CHANGELOG.md
+- README.md
+- Project Vision
+- Engineering Notebook
+
+Committed and pushed all changes to GitHub.
+
+---
+
+# Lessons Learned
+
+- Build software using small, modular services.
+- Separate prompts from business logic.
+- Design for future AI providers from the beginning.
+- Good logging makes debugging significantly easier.
+- Persistent memory should be implemented before long-term reasoning.
+- Clean architecture reduces future technical debt.
+
+---
+
+# New Product Vision
+
+Brainstormed a future product named:
+
+## Bright Care
+
+An AI companion for elderly care.
+
+Potential capabilities:
+
+- Medication reminders
+- Birthday reminders
+- Voice companionship
+- Reading books aloud
+- Calling family members
+- Wellness check-ins
+- Memory exercises
+- Daily scheduling
+- Staff documentation assistance
+- Patient status summaries
+- Shift reporting
+
+Core principle:
+
+> Bright Care assists caregivers—it does not replace professional medical judgment.
+
+---
+
+# Current Project Status
+
+Version: 0.2
+
+Current capabilities:
+
+✅ FastAPI Backend
+
+✅ Local LLM
+
+✅ Modular AI Providers
+
+✅ Prompt Management
+
+✅ Logging
+
+✅ Configuration Management
+
+✅ Persistent Memory
+
+✅ Conversation Storage
+
+---
+
+# Next Session Goals
+
+1. Feed conversation history into the LLM.
+2. Build contextual memory retrieval.
+3. Improve MemoryService with timestamps.
+4. Begin designing long-term memory.
+5. Continue evolving Bright into an Engineering Operating System.
+
+---
+
+# Personal Reflection
+
+Today marked the transition of Bright Assistant from a simple chatbot into a real AI platform.
+
+The architecture is becoming stable, modular, and scalable. The project now has a solid foundation for future features including RAG, autonomous agents, cloud integration, and specialized AI assistants such as Bright Care.
