@@ -3,7 +3,7 @@ from pathlib import Path
 
 class PromptService:
 
-    def load(self, filename: str) -> str:
+    def get(self, filename: str) -> str:
 
         prompt_path = Path("app/prompts") / filename
 

@@ -114,3 +114,41 @@ Bright Assistant will evolve into a complete Engineering Operating System contai
 ## Motto
 
 > Learn. Build. Grow. Repeat.
+
+## Future Products
+
+Bright Assistant is designed as a modular Engineering Operating System.
+
+Its architecture allows specialized AI assistants to be built on top of the same platform for different industries.
+
+### Bright Care
+
+An AI companion designed to improve the quality of life of elderly people living independently or in assisted living facilities.
+
+Potential capabilities include:
+
+- Medication reminders.
+- Birthday and anniversary reminders.
+- Daily wellness check-ins.
+- Voice companionship.
+- Reading books, newspapers and messages aloud.
+- Music and entertainment.
+- Calling family members on request.
+- Scheduling doctor appointments.
+- Emergency assistance.
+- Memory exercises for cognitive health.
+- Translation between residents and caregivers.
+- Meal reminders.
+- Hydration reminders.
+
+For caregivers and nursing staff:
+
+- Generate shift summaries.
+- Record patient observations.
+- Assist with documentation.
+- Report changes in patient condition.
+- Generate daily care reports.
+- Help prioritize patient tasks.
+- Reduce administrative workload.
+
+The goal is not to replace caregivers, but to give them more time to provide compassionate human care.

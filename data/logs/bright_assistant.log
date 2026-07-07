@@ -17,3 +17,5 @@
 2026-07-08 00:13:48,834 | INFO | bright-assistant | Received message: Hello Bright, this is a memory test.
 2026-07-08 00:13:49,936 | INFO | bright-assistant | Received message: Hello Bright, this is a memory test.
 2026-07-08 00:32:32,459 | INFO | bright-assistant | Received message: Who are you?
+2026-07-08 00:47:26,658 | INFO | bright-assistant | Received message: Who are you?
+2026-07-08 00:47:26,660 | INFO | bright-assistant | User message saved to memory.
