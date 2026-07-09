@@ -78,3 +78,29 @@
 - ChatService refactored into a coordinator.
 - OllamaProvider updated to support full chat history.
 - Bright now remembers previous conversations within stored history.
+
+
+## v0.4.0 - Knowledge Engine Foundation
+
+### Added
+
+- MemoryClassifier service
+- KnowledgeService
+- Structured knowledge storage
+- knowledge.json
+- Memory architecture documentation
+- Knowledge architecture documentation
+- Rule-based memory classification
+- Automatic knowledge persistence
+
+### Improved
+
+- Separated conversation memory from structured knowledge.
+- Refactored Bright architecture toward a modular knowledge engine.
+- Strengthened service-based architecture.
+
+### Documentation
+
+- Added memory-architecture.md
+- Added knowledge-architecture.md
+- Updated Engineering Notebook

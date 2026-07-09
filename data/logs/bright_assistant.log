@@ -109,3 +109,15 @@
 2026-07-09 18:05:20,846 | INFO | bright-assistant | User message saved to memory.
 2026-07-09 18:05:23,366 | INFO | bright-assistant | AI response generated.
 2026-07-09 18:05:23,367 | INFO | bright-assistant | Assistant response saved to memory.
+2026-07-09 18:57:59,200 | INFO | bright-assistant | Received message: I want to become a cloud engineer hoe can you help?.
+2026-07-09 18:57:59,201 | INFO | bright-assistant | Message classified as: {'type': 'goal', 'category': 'personal'}
+2026-07-09 18:57:59,201 | INFO | bright-assistant | Message stored successfully.
+2026-07-09 18:57:59,202 | INFO | bright-assistant | User message saved to memory.
+2026-07-09 18:58:04,352 | INFO | bright-assistant | AI response generated.
+2026-07-09 18:58:04,353 | INFO | bright-assistant | Assistant response saved to memory.
+2026-07-09 18:59:45,190 | INFO | bright-assistant | Received message: I want to build Bright Sports.
+2026-07-09 18:59:45,190 | INFO | bright-assistant | Message classified as: {'type': 'goal', 'category': 'personal'}
+2026-07-09 18:59:45,191 | INFO | bright-assistant | Message stored successfully.
+2026-07-09 18:59:45,201 | INFO | bright-assistant | User message saved to memory.
+2026-07-09 18:59:47,409 | INFO | bright-assistant | AI response generated.
+2026-07-09 18:59:47,410 | INFO | bright-assistant | Assistant response saved to memory.

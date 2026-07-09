@@ -480,3 +480,276 @@ Lessons Learned:
 - Separation of concerns makes refactoring easier.
 - Conversation construction belongs in its own service.
 - Small architectural changes early prevent major refactoring later.
+
+# Engineering Notebook
+
+## Date
+2026-07-09
+
+---
+
+# Sprint
+
+BA-012 — Knowledge Engine Foundation
+
+---
+
+# Session Goal
+
+Continue transforming Bright Assistant from a conversational AI into an intelligent engineering platform capable of storing structured knowledge separately from conversation history.
+
+---
+
+# Accomplishments
+
+## Architecture
+
+Designed the long-term memory architecture for the Bright Platform.
+
+Separated:
+
+- Conversation Memory
+- Knowledge Storage
+
+Created architecture documentation:
+
+- docs/memory-architecture.md
+- docs/knowledge-architecture.md
+
+Established the principle that:
+
+Conversation answers **"What happened?"**
+
+Knowledge answers **"What is true?"**
+
+---
+
+## New Services
+
+Created:
+
+- MemoryClassifier
+- KnowledgeService
+
+MemoryClassifier is responsible for identifying the type of information contained in user messages.
+
+KnowledgeService is responsible for storing structured knowledge independently of conversation history.
+
+---
+
+## Knowledge Storage
+
+Created:
+
+data/knowledge.json
+
+Current knowledge structure:
+
+- Facts
+- Goals
+- Projects
+- Learning
+- Preferences
+- Tasks
+- Contacts
+- Events
+
+Knowledge is now stored separately from conversations.
+
+---
+
+## Memory Pipeline
+
+Current pipeline:
+
+User
+
+↓
+
+MemoryClassifier
+
+↓
+
+KnowledgeService
+
+↓
+
+MemoryService
+
+↓
+
+ConversationService
+
+↓
+
+AI Provider
+
+↓
+
+Assistant Response
+
+This architecture separates temporary conversation memory from long-term knowledge.
+
+---
+
+## Classification
+
+Implemented the first rule-based memory classifier.
+
+Current classifications:
+
+- Fact
+- Goal
+- Learning
+- Project
+- Conversation
+
+Verified classification through logging.
+
+---
+
+## Knowledge Integration
+
+Integrated KnowledgeService into ChatService.
+
+Bright now automatically stores structured knowledge while continuing normal conversations.
+
+Successfully tested:
+
+- Goal storage
+- Learning storage
+- Fact storage
+
+Knowledge entries are automatically written to knowledge.json.
+
+---
+
+# Engineering Principles Reinforced
+
+Every service has one responsibility.
+
+Current services:
+
+- ChatService
+- PromptService
+- MemoryService
+- ConversationService
+- MemoryClassifier
+- KnowledgeService
+- OllamaProvider
+
+Each service remains modular and reusable.
+
+---
+
+# Lessons Learned
+
+Architecture before implementation results in cleaner code.
+
+Separating memory from knowledge makes future AI reasoning significantly easier.
+
+Small services are easier to understand, test, and extend.
+
+Incremental development reduces debugging complexity.
+
+---
+
+# Platform Vision
+
+The Bright Platform continues to evolve into a collection of AI-powered products built on a shared architecture.
+
+Current platform vision:
+
+- Bright Assistant
+- Bright Care
+- Bright Sports
+- Bright Engineering
+- Bright Cloud
+- Bright Robotics
+
+All modules will reuse:
+
+- AI Providers
+- Prompt Engine
+- Memory Engine
+- Knowledge Engine
+- Conversation Engine
+
+---
+
+# New Business Vision
+
+Identified a new product opportunity:
+
+## Bright Sports
+
+AI-powered football intelligence platform.
+
+Potential features:
+
+- Match analysis
+- Training analysis
+- Player tracking
+- Tactical reports
+- Automatic highlight generation
+- Funny moment detection
+- Player behaviour analysis
+- Coaching reports
+- Social media clip generation
+
+This product will leverage the same AI, memory, and knowledge systems being developed for Bright Assistant.
+
+---
+
+# Current Project Status
+
+Bright has evolved beyond a chatbot.
+
+Current capabilities:
+
+✅ Modular architecture
+
+✅ FastAPI backend
+
+✅ Local LLM (Ollama)
+
+✅ Prompt management
+
+✅ Conversation memory
+
+✅ Contextual conversations
+
+✅ Knowledge classification
+
+✅ Structured knowledge storage
+
+✅ Memory API
+
+---
+
+# Next Sprint
+
+BA-013 — Knowledge Retrieval
+
+Goals:
+
+- Retrieve facts directly from KnowledgeService.
+- Retrieve goals.
+- Retrieve learning progress.
+- Retrieve projects.
+- Answer user questions using structured knowledge instead of relying solely on conversation history.
+- Prepare Bright for reasoning over its knowledge base.
+
+---
+
+# Personal Reflection
+
+Today marked the beginning of Bright's transition from remembering conversations to building knowledge.
+
+This distinction is fundamental.
+
+Conversation records interactions.
+
+Knowledge captures understanding.
+
+This architecture lays the foundation for future capabilities including Bright Care, Bright Sports, long-term memory, reasoning, and retrieval-augmented generation (RAG).
