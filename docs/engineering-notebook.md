@@ -753,3 +753,164 @@ Conversation records interactions.
 Knowledge captures understanding.
 
 This architecture lays the foundation for future capabilities including Bright Care, Bright Sports, long-term memory, reasoning, and retrieval-augmented generation (RAG).
+# Engineering Notebook
+
+## Date
+2026-07-10
+
+---
+
+# Sprint
+
+BA-013 — Knowledge Retrieval
+
+---
+
+# Session Goal
+
+Enable Bright to retrieve structured knowledge from its knowledge base instead of relying solely on the language model.
+
+---
+
+# Accomplishments
+
+## Knowledge Service
+
+Refactored KnowledgeService to reduce duplicate code.
+
+Added a generic retrieval method:
+
+- get(category)
+
+Built convenience methods:
+
+- get_learning()
+- get_goals()
+- get_projects()
+- get_facts()
+- get_preferences()
+- get_tasks()
+
+---
+
+## Chat Service
+
+Integrated knowledge retrieval into ChatService.
+
+Implemented the first direct knowledge lookup.
+
+Bright now checks its knowledge base before calling the AI model for supported questions.
+
+Current supported query:
+
+- What am I studying?
+
+---
+
+## Knowledge Storage
+
+Improved the knowledge data model.
+
+Knowledge entries are now stored as structured objects.
+
+Example:
+
+{
+    "content": "I am studying AWS"
+}
+
+instead of plain strings.
+
+This prepares Bright for future metadata including:
+
+- timestamps
+- confidence
+- priority
+- tags
+- status
+
+---
+
+## Testing
+
+Successfully tested:
+
+- Knowledge classification
+- Knowledge storage
+- Knowledge retrieval
+
+Verified that Bright answers learning questions directly from knowledge.json without calling the language model.
+
+---
+
+# Engineering Lessons
+
+Today's work reinforced an important design principle:
+
+Never ask the language model for information Bright already knows.
+
+Bright should always retrieve structured knowledge before generating a response.
+
+---
+
+# Architecture
+
+Current flow:
+
+User
+
+↓
+
+MemoryClassifier
+
+↓
+
+KnowledgeService
+
+↓
+
+knowledge.json
+
+↓
+
+Knowledge Retrieval
+
+↓
+
+ConversationService
+
+↓
+
+AI Provider
+
+↓
+
+Assistant Response
+
+---
+
+# Current Capabilities
+
+Bright can now:
+
+✓ Remember conversations
+
+✓ Store structured knowledge
+
+✓ Retrieve learning information
+
+✓ Answer knowledge-based questions without AI inference
+
+---
+
+# Next Sprint
+
+BA-014 — Knowledge Reasoning
+
+Objectives:
+
+- Retrieve goals
+- Retrieve projects
+- Retrieve facts
+- Build "What do you know about me?"
+- Begin reasoning over multiple knowledge categories

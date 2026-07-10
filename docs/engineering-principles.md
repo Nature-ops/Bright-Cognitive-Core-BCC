@@ -275,3 +275,43 @@ Before implementing any feature:
 - [ ] Does it follow the Single Responsibility Principle?
 - [ ] Can another module reuse it?
 - [ ] If this component changed tomorrow, what would break?
+
+# Bright Engineering Principles
+
+## 1. Single Responsibility
+
+Every service should have one clear responsibility.
+
+---
+
+## 2. Architecture Before Implementation
+
+Design first.
+Implement second.
+
+---
+
+## 3. Never Ask the LLM What Bright Already Knows
+
+If information exists inside Bright's knowledge base,
+retrieve it before calling the language model.
+
+---
+
+## 4. Prefer Simple Solutions
+
+Start with the simplest implementation that solves the problem.
+
+Complexity must be earned.
+
+---
+
+## 5. Modular Design
+
+Every service should be replaceable without changing the rest of the platform.
+
+---
+
+## 6. Build for the Long Term
+
+Every architectural decision should still make sense one year from now.

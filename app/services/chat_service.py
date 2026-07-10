@@ -1,10 +1,14 @@
+
+
+from urllib import response
+
 from app.services.ai.ollama_provider import OllamaProvider
 from app.services.prompt_service import PromptService
 from app.services.memory_service import MemoryService
 from app.utils.logger import logger
 from app.services.conversation_service import ConversationService
 from app.services.memory_classifier import MemoryClassifier
-from app.services.ai.knowledge_service import KnowledgeService
+from app.services.knowledge_service import KnowledgeService
 
 
 class ChatService:
@@ -31,8 +35,35 @@ class ChatService:
               message
         )
         logger.info(
-            "Message stored successfully."
+            "Knowledge stored successfully."
         )
+#-----------------------------------------
+#knowledge retrieval for learning information
+#-----------------------------------------
+
+
+
+        message_lower = message.lower()
+
+        if "what am i studying" in message_lower:
+
+            learning = self.knowledge_service.get_learning()
+
+            if learning:
+
+                knowledge_response = "you are currently studying:\n\n"
+
+                for item in learning:
+                    knowledge_response += f"- {item['content']}\n"
+                    
+                return knowledge_response
+                 
+            return "I don't have any learning information stored  yet."
+
+
+#-----------------------------------------
+#Continue with the chat process
+#-----------------------------------------
 
         # Save the user's message
         self.memory.add(
@@ -68,3 +99,5 @@ class ChatService:
         logger.info("Assistant response saved to memory.")
 
         return response
+        
+        

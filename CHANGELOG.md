@@ -104,3 +104,28 @@
 - Added memory-architecture.md
 - Added knowledge-architecture.md
 - Updated Engineering Notebook
+
+
+## v0.4.1 - Knowledge Retrieval
+
+### Added
+
+- Generic knowledge retrieval method
+- Learning retrieval
+- Goal retrieval
+- Project retrieval
+- Fact retrieval
+- Preference retrieval
+- Task retrieval
+
+### Improved
+
+- Refactored KnowledgeService to reduce duplicate code.
+- Updated knowledge storage to use structured objects.
+- Bright now retrieves learning information directly from its knowledge base.
+
+### Fixed
+
+- Corrected knowledge storage format.
+- Fixed retrieval logic for structured knowledge entries.
+- Fixed ChatService knowledge lookup workflow.

@@ -85,20 +85,59 @@ class KnowledgeService:
 
         memory_type = classification["type"]
 
+        entry = {
+            "content": message
+        }
+
         if memory_type == "fact":
-            self.add_fact(message)
+            self.add_fact(entry)
 
         elif memory_type == "goal":
-            self.add_goal(message)
+            self.add_goal(entry)
 
         elif memory_type == "learning":
-            self.add_learning(message)
+            self.add_learning(entry)
 
         elif memory_type == "project":
-            self.add_project(message)
+            self.add_project(entry)
 
         elif memory_type == "preference":
-            self.add_preference(message)
+            self.add_preference(entry)
 
         elif memory_type == "task":
-            self.add_task(message)
+            self.add_task(entry)
+
+    
+    def get(self, category: str):
+
+        knowledge = self.load()
+
+        return knowledge.get(category, [])
+    
+    
+    def get_learning(self):
+        return self.get("learning")
+
+
+    def get_goals(self):
+        return self.get("goals")
+    
+
+
+    def get_facts(self):
+        return self.get("facts")
+
+    
+    def get_projects(self):
+        return self.get("projects")
+        
+
+    
+    def get_preferences(self):
+        return self.get("preferences")
+
+    
+    def get_tasks(self):
+        return self.get("tasks")
+    
+    

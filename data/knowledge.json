@@ -1,11 +1,15 @@
 {
     "facts": [],
-    "goals": [
-        "I want to become a cloud engineer hoe can you help?.",
-        "I want to build Bright Sports."
-    ],
+    "goals": [],
     "projects": [],
-    "learning": [],
+    "learning": [
+        {
+            "content": "I am studying AWS"
+        },
+        {
+            "content": "I am studying Terraform"
+        }
+    ],
     "preferences": [],
     "tasks": [],
     "contacts": [],
