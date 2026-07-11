@@ -154,3 +154,112 @@
 2026-07-10 17:34:48,363 | INFO | bright-assistant | Received message: what am i studying
 2026-07-10 17:34:48,363 | INFO | bright-assistant | Message classified as: {'type': 'conversation', 'category': 'general'}
 2026-07-10 17:34:48,363 | INFO | bright-assistant | Knowledge stored successfully.
+2026-07-10 17:46:28,352 | INFO | bright-assistant | Received message: I am studying AWS
+2026-07-10 17:46:28,352 | INFO | bright-assistant | Message classified as: {'type': 'learning', 'category': 'education'}
+2026-07-10 17:46:28,353 | INFO | bright-assistant | Knowledge stored successfully.
+2026-07-10 17:46:28,363 | INFO | bright-assistant | User message saved to memory.
+2026-07-10 17:46:32,951 | INFO | bright-assistant | AI response generated.
+2026-07-10 17:46:32,952 | INFO | bright-assistant | Assistant response saved to memory.
+2026-07-10 17:46:49,747 | INFO | bright-assistant | Received message: I am studying Terraform
+2026-07-10 17:46:49,747 | INFO | bright-assistant | Message classified as: {'type': 'learning', 'category': 'education'}
+2026-07-10 17:46:49,748 | INFO | bright-assistant | Knowledge stored successfully.
+2026-07-10 17:46:49,757 | INFO | bright-assistant | User message saved to memory.
+2026-07-10 17:46:53,039 | INFO | bright-assistant | AI response generated.
+2026-07-10 17:46:53,040 | INFO | bright-assistant | Assistant response saved to memory.
+2026-07-10 17:47:09,907 | INFO | bright-assistant | Received message: what am i studying?
+2026-07-10 17:47:09,908 | INFO | bright-assistant | Message classified as: {'type': 'conversation', 'category': 'general'}
+2026-07-10 17:47:09,908 | INFO | bright-assistant | Knowledge stored successfully.
+2026-07-10 17:47:14,787 | INFO | bright-assistant | Received message: what am i studying
+2026-07-10 17:47:14,787 | INFO | bright-assistant | Message classified as: {'type': 'conversation', 'category': 'general'}
+2026-07-10 17:47:14,787 | INFO | bright-assistant | Knowledge stored successfully.
+2026-07-10 17:47:20,290 | INFO | bright-assistant | Received message: what am i studying
+2026-07-10 17:47:20,290 | INFO | bright-assistant | Message classified as: {'type': 'conversation', 'category': 'general'}
+2026-07-10 17:47:20,290 | INFO | bright-assistant | Knowledge stored successfully.
+2026-07-11 12:27:14,759 | INFO | bright-assistant | Received message: What do you know about me?
+2026-07-11 12:27:14,759 | INFO | bright-assistant | Message classified as: {'type': 'conversation', 'category': 'general'}
+2026-07-11 12:27:14,759 | INFO | bright-assistant | Knowledge stored successfully.
+2026-07-11 12:27:14,774 | INFO | bright-assistant | User message saved to memory.
+2026-07-11 12:27:22,634 | INFO | bright-assistant | AI response generated.
+2026-07-11 12:27:22,635 | INFO | bright-assistant | Assistant response saved to memory.
+2026-07-11 12:37:18,578 | INFO | bright-assistant | Received message: what do you know about me
+2026-07-11 12:37:18,578 | INFO | bright-assistant | Message classified as: {'type': 'conversation', 'category': 'general'}
+2026-07-11 12:37:18,578 | INFO | bright-assistant | Knowledge stored successfully.
+2026-07-11 12:37:18,580 | INFO | bright-assistant | User message saved to memory.
+2026-07-11 12:37:22,206 | INFO | bright-assistant | AI response generated.
+2026-07-11 12:37:22,207 | INFO | bright-assistant | Assistant response saved to memory.
+2026-07-11 13:19:46,223 | INFO | bright-assistant | Received message: I am studying Docker
+2026-07-11 13:19:46,223 | INFO | bright-assistant | Message classified as: {'type': 'learning', 'category': 'education'}
+2026-07-11 13:19:46,224 | INFO | bright-assistant | Knowledge stored successfully.
+2026-07-11 13:19:46,233 | INFO | bright-assistant | User message saved to memory.
+2026-07-11 13:19:51,067 | INFO | bright-assistant | AI response generated.
+2026-07-11 13:19:51,069 | INFO | bright-assistant | Assistant response saved to memory.
+2026-07-11 13:20:02,214 | INFO | bright-assistant | Received message: I want to become an AWS Solutions Architect.
+2026-07-11 13:20:02,215 | INFO | bright-assistant | Message classified as: {'type': 'goal', 'category': 'personal'}
+2026-07-11 13:20:02,215 | INFO | bright-assistant | Knowledge stored successfully.
+2026-07-11 13:20:02,224 | INFO | bright-assistant | User message saved to memory.
+2026-07-11 13:20:05,417 | INFO | bright-assistant | AI response generated.
+2026-07-11 13:20:05,419 | INFO | bright-assistant | Assistant response saved to memory.
+2026-07-11 13:20:15,382 | INFO | bright-assistant | Received message: I am building Bright Assistant.t.
+2026-07-11 13:20:15,383 | INFO | bright-assistant | Message classified as: {'type': 'conversation', 'category': 'general'}
+2026-07-11 13:20:15,383 | INFO | bright-assistant | Knowledge stored successfully.
+2026-07-11 13:20:15,385 | INFO | bright-assistant | User message saved to memory.
+2026-07-11 13:20:18,242 | INFO | bright-assistant | AI response generated.
+2026-07-11 13:20:18,244 | INFO | bright-assistant | Assistant response saved to memory.
+2026-07-11 13:20:36,350 | INFO | bright-assistant | Received message: I prefer studying in the morning..
+2026-07-11 13:20:36,350 | INFO | bright-assistant | Message classified as: {'type': 'conversation', 'category': 'general'}
+2026-07-11 13:20:36,350 | INFO | bright-assistant | Knowledge stored successfully.
+2026-07-11 13:20:36,352 | INFO | bright-assistant | User message saved to memory.
+2026-07-11 13:20:38,819 | INFO | bright-assistant | AI response generated.
+2026-07-11 13:20:38,820 | INFO | bright-assistant | Assistant response saved to memory.
+2026-07-11 13:20:52,934 | INFO | bright-assistant | Received message: Remind me to review Terraform.
+2026-07-11 13:20:52,934 | INFO | bright-assistant | Message classified as: {'type': 'conversation', 'category': 'general'}
+2026-07-11 13:20:52,934 | INFO | bright-assistant | Knowledge stored successfully.
+2026-07-11 13:20:52,936 | INFO | bright-assistant | User message saved to memory.
+2026-07-11 13:20:54,891 | INFO | bright-assistant | AI response generated.
+2026-07-11 13:20:54,893 | INFO | bright-assistant | Assistant response saved to memory.
+2026-07-11 13:21:02,149 | INFO | bright-assistant | Received message: Remind me to review Terraform.
+2026-07-11 13:21:02,149 | INFO | bright-assistant | Message classified as: {'type': 'conversation', 'category': 'general'}
+2026-07-11 13:21:02,149 | INFO | bright-assistant | Knowledge stored successfully.
+2026-07-11 13:21:02,151 | INFO | bright-assistant | User message saved to memory.
+2026-07-11 13:21:03,948 | INFO | bright-assistant | AI response generated.
+2026-07-11 13:21:03,949 | INFO | bright-assistant | Assistant response saved to memory.
+2026-07-11 13:21:23,597 | INFO | bright-assistant | Received message: What do you know about me?
+2026-07-11 13:21:23,597 | INFO | bright-assistant | Message classified as: {'type': 'conversation', 'category': 'general'}
+2026-07-11 13:21:23,597 | INFO | bright-assistant | Knowledge stored successfully.
+2026-07-11 13:22:30,843 | INFO | bright-assistant | Received message: I prefer studying in the morning.
+2026-07-11 13:22:30,844 | INFO | bright-assistant | Message classified as: {'type': 'conversation', 'category': 'general'}
+2026-07-11 13:22:30,844 | INFO | bright-assistant | Knowledge stored successfully.
+2026-07-11 13:22:30,846 | INFO | bright-assistant | User message saved to memory.
+2026-07-11 13:22:32,822 | INFO | bright-assistant | AI response generated.
+2026-07-11 13:22:32,823 | INFO | bright-assistant | Assistant response saved to memory.
+2026-07-11 13:26:35,879 | INFO | bright-assistant | Received message: I prefer studying in at night.
+2026-07-11 13:26:35,880 | INFO | bright-assistant | Message classified as: {'type': 'preference', 'category': 'general'}
+2026-07-11 13:26:35,880 | INFO | bright-assistant | Knowledge stored successfully.
+2026-07-11 13:26:35,881 | INFO | bright-assistant | User message saved to memory.
+2026-07-11 13:26:37,888 | INFO | bright-assistant | AI response generated.
+2026-07-11 13:26:37,890 | INFO | bright-assistant | Assistant response saved to memory.
+2026-07-11 13:27:18,175 | INFO | bright-assistant | Received message: remind me to study at night.
+2026-07-11 13:27:18,175 | INFO | bright-assistant | Message classified as: {'type': 'task', 'category': 'general'}
+2026-07-11 13:27:18,176 | INFO | bright-assistant | Knowledge stored successfully.
+2026-07-11 13:27:18,177 | INFO | bright-assistant | User message saved to memory.
+2026-07-11 13:27:20,022 | INFO | bright-assistant | AI response generated.
+2026-07-11 13:27:20,023 | INFO | bright-assistant | Assistant response saved to memory.
+2026-07-11 15:20:52,522 | INFO | bright-assistant | Received message: I am studying AWS
+2026-07-11 15:20:52,522 | INFO | bright-assistant | Message classified as: {'intent': 'store', 'memory_type': 'learning', 'category': 'education', 'importance': 'high', 'confidence': 1.0, 'action': 'create'}
+2026-07-11 15:20:52,522 | INFO | bright-assistant | Memory evolution: {'intent': 'store', 'memory_type': 'learning', 'category': 'education', 'importance': 'high', 'confidence': 1.0, 'action': 'create'}
+2026-07-11 15:20:52,523 | INFO | bright-assistant | Knowledge stored successfully.
+2026-07-11 15:20:52,525 | INFO | bright-assistant | User message saved to memory.
+2026-07-11 15:20:57,172 | INFO | bright-assistant | AI response generated.
+2026-07-11 15:20:57,174 | INFO | bright-assistant | Assistant response saved to memory.
+2026-07-11 15:21:06,837 | INFO | bright-assistant | Received message: What am I studying?
+2026-07-11 15:21:06,838 | INFO | bright-assistant | Message classified as: {'intent': 'conversation', 'memory_type': 'conversation', 'category': 'general', 'importance': 'low', 'confidence': 1.0, 'action': 'ignore'}
+2026-07-11 15:21:06,838 | INFO | bright-assistant | Memory evolution: {'intent': 'conversation', 'memory_type': 'conversation', 'category': 'general', 'importance': 'low', 'confidence': 1.0, 'action': 'ignore'}
+2026-07-11 15:21:06,838 | INFO | bright-assistant | Knowledge stored successfully.
+2026-07-11 15:21:08,477 | INFO | bright-assistant | Received message: What am I studying?
+2026-07-11 15:21:08,477 | INFO | bright-assistant | Message classified as: {'intent': 'conversation', 'memory_type': 'conversation', 'category': 'general', 'importance': 'low', 'confidence': 1.0, 'action': 'ignore'}
+2026-07-11 15:21:08,477 | INFO | bright-assistant | Memory evolution: {'intent': 'conversation', 'memory_type': 'conversation', 'category': 'general', 'importance': 'low', 'confidence': 1.0, 'action': 'ignore'}
+2026-07-11 15:21:08,477 | INFO | bright-assistant | Knowledge stored successfully.
+2026-07-11 15:21:23,405 | INFO | bright-assistant | Received message: What do you know about me?
+2026-07-11 15:21:23,405 | INFO | bright-assistant | Message classified as: {'intent': 'conversation', 'memory_type': 'conversation', 'category': 'general', 'importance': 'low', 'confidence': 1.0, 'action': 'ignore'}
+2026-07-11 15:21:23,406 | INFO | bright-assistant | Memory evolution: {'intent': 'conversation', 'memory_type': 'conversation', 'category': 'general', 'importance': 'low', 'confidence': 1.0, 'action': 'ignore'}
+2026-07-11 15:21:23,406 | INFO | bright-assistant | Knowledge stored successfully.

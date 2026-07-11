@@ -1,6 +1,10 @@
 {
     "facts": [],
-    "goals": [],
+    "goals": [
+        {
+            "content": "I want to become an AWS Solutions Architect."
+        }
+    ],
     "projects": [],
     "learning": [
         {
@@ -8,10 +12,31 @@
         },
         {
             "content": "I am studying Terraform"
+        },
+        {
+            "content": "I am studying Docker"
+        },
+        {
+            "content": "I am studying AWS"
         }
     ],
-    "preferences": [],
-    "tasks": [],
+    "preferences": [
+        {
+            "content": "I prefer studying in at night."
+        }
+    ],
+    "tasks": [
+        {
+            "content": "remind me to study at night."
+        }
+    ],
     "contacts": [],
-    "events": []
+    "events": [],
+    "archivements": [],
+    "memories": [],
+    "achievements": [
+        {
+            "content": "I passed my first python code exams?"
+        }
+    ]
 }

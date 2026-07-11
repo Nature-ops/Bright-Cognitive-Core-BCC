@@ -129,3 +129,54 @@
 - Corrected knowledge storage format.
 - Fixed retrieval logic for structured knowledge entries.
 - Fixed ChatService knowledge lookup workflow.
+
+
+## BCC-004 - Memory Evolution Foundation
+
+### Added
+
+- Bright Cognitive Core architecture
+- Memory Evolution Engine
+- Reasoning Service integration
+- Generic knowledge processing
+- Generic knowledge storage
+
+### Improved
+
+- Refactored MemoryClassifier to support:
+  - intent
+  - action
+  - confidence
+  - importance
+  - category
+- Simplified KnowledgeService
+- Reduced duplicated storage code
+- Refactored ChatService into an orchestration layer
+
+### Architecture
+
+Introduced the Bright Cognitive Core.
+
+Current cognitive pipeline:
+
+MemoryClassifier
+
+↓
+
+MemoryEvolutionEngine
+
+↓
+
+KnowledgeService
+
+↓
+
+ReasoningService
+
+↓
+
+ConversationService
+
+↓
+
+AI Provider

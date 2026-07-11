@@ -8,7 +8,14 @@ class KnowledgeService:
 
         self.knowledge_file = Path("data/knowledge.json")
 
-    def load(self):
+    # --------------------------------------------------
+    # File Management
+    # --------------------------------------------------
+
+    def load(self) -> dict:
+
+        if not self.knowledge_file.exists():
+            return {}
 
         with open(
             self.knowledge_file,
@@ -18,7 +25,7 @@ class KnowledgeService:
 
             return json.load(file)
 
-    def save(self, knowledge):
+    def save(self, knowledge: dict):
 
         with open(
             self.knowledge_file,
@@ -33,111 +40,130 @@ class KnowledgeService:
                 ensure_ascii=False
             )
 
-    def add_fact(self, fact):
+    # --------------------------------------------------
+    # Generic Storage
+    # --------------------------------------------------
+
+    def add(self, category: str, entry: dict):
 
         knowledge = self.load()
-        knowledge["facts"].append(fact)
+
+        if category not in knowledge:
+            knowledge[category] = []
+
+        knowledge[category].append(entry)
+
         self.save(knowledge)
 
-    def add_goal(self, goal):
+    # --------------------------------------------------
+    # Memory Processing
+    # --------------------------------------------------
 
-        knowledge = self.load()
-        knowledge["goals"].append(goal)
-        self.save(knowledge)
+    def process_memory(
+        self,
+        classification: dict,
+        message: str
+    ):
 
-    def add_learning(self, learning):
-
-        knowledge = self.load()
-        knowledge["learning"].append(learning)
-        self.save(knowledge)
-
-    def add_project(self, project):
-
-        knowledge = self.load()
-        knowledge["projects"].append(project)
-        self.save(knowledge)
-
-    def add_preference(self, preference):
-
-        knowledge = self.load()
-        knowledge["preferences"].append(preference)
-        self.save(knowledge)
-
-    def add_task(self, task):
-
-        knowledge = self.load()
-        knowledge["tasks"].append(task)
-        self.save(knowledge)
-
-    def add_contact(self, contact):
-
-        knowledge = self.load()
-        knowledge["contacts"].append(contact)
-        self.save(knowledge)
-
-    def add_event(self, event):
-
-        knowledge = self.load()
-        knowledge["events"].append(event)
-        self.save(knowledge)
-
-    def store_classification(self, classification, message):
-
-        memory_type = classification["type"]
+        action = classification["action"]
+        memory_type = classification["memory_type"]
 
         entry = {
             "content": message
         }
 
-        if memory_type == "fact":
-            self.add_fact(entry)
+        category_map = {
+            "fact": "facts",
+            "goal": "goals",
+            "learning": "learning",
+            "project": "projects",
+            "preference": "preferences",
+            "task": "tasks",
+            "contact": "contacts",
+            "event": "events",
+            "achievement": "achievements"
+        }
 
-        elif memory_type == "goal":
-            self.add_goal(entry)
+        if action == "create":
 
-        elif memory_type == "learning":
-            self.add_learning(entry)
+            category = category_map.get(memory_type)
 
-        elif memory_type == "project":
-            self.add_project(entry)
+            if category:
+                self.add(
+                    category,
+                    entry
+                )
 
-        elif memory_type == "preference":
-            self.add_preference(entry)
+        elif action == "update":
 
-        elif memory_type == "task":
-            self.add_task(entry)
+            # BA-016
+            pass
 
-    
+        elif action == "archive":
+
+            # BA-017
+            pass
+
+        elif action == "delete":
+
+            # Future
+            pass
+
+    # --------------------------------------------------
+    # Generic Retrieval
+    # --------------------------------------------------
+
     def get(self, category: str):
 
         knowledge = self.load()
 
         return knowledge.get(category, [])
-    
-    
-    def get_learning(self):
-        return self.get("learning")
 
-
-    def get_goals(self):
-        return self.get("goals")
-    
-
+    # --------------------------------------------------
+    # Convenience Methods
+    # --------------------------------------------------
 
     def get_facts(self):
         return self.get("facts")
 
-    
+    def get_goals(self):
+        return self.get("goals")
+
+    def get_learning(self):
+        return self.get("learning")
+
     def get_projects(self):
         return self.get("projects")
-        
 
-    
     def get_preferences(self):
         return self.get("preferences")
 
-    
     def get_tasks(self):
         return self.get("tasks")
+
+    def get_contacts(self):
+        return self.get("contacts")
+
+    def get_events(self):
+        return self.get("events")
     
-    
+    def get_achievements(self):
+        return self.get("achievements")
+
+    # --------------------------------------------------
+    # Knowledge Snapshot
+    # --------------------------------------------------
+
+    def get_all(self):
+
+        return {
+            "Goals": self.get_goals(),
+            "Learning": self.get_learning(),
+            "Projects": self.get_projects(),
+            "Facts": self.get_facts(),
+            "Preferences": self.get_preferences(),
+            "Tasks": self.get_tasks(),
+            "Contacts": self.get_contacts(),
+            "Events": self.get_events(),
+            "Achievements": self.get_achievements()
+        }

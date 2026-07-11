@@ -914,3 +914,283 @@ Objectives:
 - Retrieve facts
 - Build "What do you know about me?"
 - Begin reasoning over multiple knowledge categories
+
+
+# Engineering Notebook
+
+## Date
+2026-07-11
+
+---
+
+# Sprint
+
+BCC-004 — Memory Evolution Foundation
+
+---
+
+# Sprint Objective
+
+Continue the development of the Bright Cognitive Core by introducing the first version of the Memory Evolution Engine and further separating cognitive responsibilities.
+
+---
+
+# Accomplishments
+
+## Cognitive Core
+
+Created the initial structure for the Bright Cognitive Core.
+
+Current architecture:
+
+app/core/
+
+- classification
+- reasoning
+- evolution
+- planning
+- learning
+- decision
+- routing (planned)
+
+The Cognitive Core will become the intelligence layer shared by every future Bright product.
+
+---
+
+## Memory Classifier
+
+Redesigned MemoryClassifier.
+
+Previous version:
+
+- returned only memory type
+
+New version returns:
+
+- intent
+- memory_type
+- category
+- importance
+- confidence
+- action
+
+Example:
+
+{
+    "intent": "store",
+    "memory_type": "learning",
+    "category": "education",
+    "importance": "high",
+    "confidence": 1.0,
+    "action": "create"
+}
+
+This prepares Bright for future memory evolution and intelligent decision making.
+
+---
+
+## Memory Evolution Engine
+
+Created the first version of:
+
+MemoryEvolutionEngine
+
+Current responsibility:
+
+Receive the classification and prepare it for future memory evolution.
+
+Current pipeline:
+
+User
+
+↓
+
+MemoryClassifier
+
+↓
+
+MemoryEvolutionEngine
+
+↓
+
+KnowledgeService
+
+↓
+
+ReasoningService
+
+↓
+
+ConversationService
+
+↓
+
+AI Provider
+
+Although the engine currently performs a pass-through operation, it establishes the architectural location where future memory updates, conflict detection, duplicate detection, and archival logic will be implemented.
+
+---
+
+## Knowledge Service
+
+Refactored KnowledgeService.
+
+Major improvements:
+
+- Introduced generic add() method.
+- Introduced process_memory().
+- Added get_all().
+- Removed duplicated storage logic.
+- Simplified future expansion.
+
+KnowledgeService now focuses on knowledge storage rather than knowledge decisions.
+
+---
+
+## Chat Service
+
+Refactored ChatService.
+
+Responsibilities now include:
+
+- orchestrating the conversation
+- calling MemoryClassifier
+- calling MemoryEvolutionEngine
+- calling KnowledgeService
+- calling ReasoningService
+- calling ConversationService
+- calling AI Provider
+
+Formatting and reasoning have been moved into dedicated services.
+
+---
+
+## Reasoning Service
+
+ReasoningService now owns:
+
+- user knowledge summaries
+- learning recommendations
+- task recommendations
+
+ChatService delegates reasoning instead of generating responses directly.
+
+---
+
+# Architecture Evolution
+
+Old architecture:
+
+User
+
+↓
+
+Classifier
+
+↓
+
+Knowledge
+
+↓
+
+LLM
+
+New architecture:
+
+User
+
+↓
+
+MemoryClassifier
+
+↓
+
+MemoryEvolutionEngine
+
+↓
+
+KnowledgeService
+
+↓
+
+ReasoningService
+
+↓
+
+ConversationService
+
+↓
+
+AI Provider
+
+Bright now has a true cognitive pipeline.
+
+---
+
+# Engineering Principles Reinforced
+
+✓ Single Responsibility
+
+✓ Separation of Concerns
+
+✓ Architecture Before Implementation
+
+✓ Never ask the AI what Bright already knows.
+
+✓ Design every component to be reusable by future Bright products.
+
+---
+
+# Current Bright Cognitive Core
+
+Completed
+
+✓ Memory Engine
+
+✓ Knowledge Engine
+
+✓ Memory Classification
+
+✓ Knowledge Retrieval
+
+✓ Reasoning Engine
+
+✓ Memory Evolution Framework
+
+Planned
+
+□ Intent Router
+
+□ Planning Engine
+
+□ Reflection Engine
+
+□ Learning Engine
+
+□ Decision Engine
+
+□ Tool Engine
+
+---
+
+# Lessons Learned
+
+Today's biggest lesson was that architecture should evolve before functionality.
+
+The Memory Evolution Engine currently performs minimal work, but introducing it now prevents future architectural rewrites.
+
+We also recognized that the Cognitive Core should own every intelligent capability while application services should primarily orchestrate workflow.
+
+---
+
+# Next Sprint
+
+BCC-005
+
+Objectives:
+
+- Move MemoryClassifier into the Cognitive Core.
+- Introduce IntentRouter.
+- Implement first memory evolution rule.
+- Add achievement memories.
+- Begin duplicate detection.

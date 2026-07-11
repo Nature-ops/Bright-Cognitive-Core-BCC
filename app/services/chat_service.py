@@ -1,14 +1,14 @@
 
-
-from urllib import response
-
 from app.services.ai.ollama_provider import OllamaProvider
 from app.services.prompt_service import PromptService
 from app.services.memory_service import MemoryService
 from app.utils.logger import logger
 from app.services.conversation_service import ConversationService
-from app.services.memory_classifier import MemoryClassifier
+from app.core.classification.memory_classifier import MemoryClassifier
 from app.services.knowledge_service import KnowledgeService
+from app.core.reasoning.reasoning_service import ReasoningService
+from app.core.evolution.memory_evolution_engin import MemoryEvolutionEngine
+
 
 
 class ChatService:
@@ -19,51 +19,73 @@ class ChatService:
         self.memory = MemoryService()
         self.conversation = ConversationService()
         self.classifier = MemoryClassifier()
+        self.reasoning = ReasoningService()
+        self.evolution = MemoryEvolutionEngine()
+
+
 
     def chat(self, message: str) -> str:
         
 
         logger.info(f"Received message: {message}")
-        
+
+        # Step 1: Classify the message
         classification = self.classifier.classify(message)
-        
+
         logger.info(
             f"Message classified as: {classification}"
         )
-        self.knowledge_service.store_classification(
-            classification,
-              message
+
+        # Step 2: Allow the Evolution Engine to modify the decision
+        classification = self.evolution.evolve(
+        classification,
+        message
         )
+
         logger.info(
-            "Knowledge stored successfully."
+            f"Memory evolution: {classification}"
         )
-#-----------------------------------------
-#knowledge retrieval for learning information
-#-----------------------------------------
 
+        # Step 3: Store the memory if needed
+        if classification["intent"] == "store":
 
+            self.knowledge_service.process_memory(
+            classification,
+            message
+            )
+
+        logger.info("Knowledge stored successfully.")
+        #knowledge retrieval for learning information
+        #-----------------------------------------
 
         message_lower = message.lower()
 
+        # ----------------------------------
+        # Learning retrieval
+        # ----------------------------------
+
         if "what am i studying" in message_lower:
+            knowledge = {
+                "Goals": self.knowledge_service.get_goals(),
+                "Learning": self.knowledge_service.get_learning(),
+                }
 
-            learning = self.knowledge_service.get_learning()
+            return self.reasoning.recommend_learning(knowledge)
 
-            if learning:
+        # ----------------------------------
+        # Knowledge summary
+        # ----------------------------------
 
-                knowledge_response = "you are currently studying:\n\n"
+        if "what do you know about me" in message_lower:
 
-                for item in learning:
-                    knowledge_response += f"- {item['content']}\n"
-                    
-                return knowledge_response
-                 
-            return "I don't have any learning information stored  yet."
+            knowledge = self.knowledge_service.get_all()
+            
 
+            return self.reasoning.summarize_user(knowledge)
 
-#-----------------------------------------
-#Continue with the chat process
-#-----------------------------------------
+        #-----------------------------------------
+        #Continue with the chat process
+        #-----------------------------------------
 
         # Save the user's message
         self.memory.add(
@@ -81,12 +103,8 @@ class ChatService:
             history=self.memory.recent(20)
         )
 
-
-        
-
         # Generate AI response 
         response = self.provider.generate(messages)
-
 
         logger.info("AI response generated.")
 
