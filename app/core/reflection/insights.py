@@ -9,6 +9,8 @@ class Insight:
 
     description: str
 
+    category: str
+
     confidence: float
 
     source: str

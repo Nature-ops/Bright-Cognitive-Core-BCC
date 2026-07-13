@@ -1,3 +1,20 @@
 {
-    "insights": []
+    "insights": [
+        {
+            "title": "Learning Milestone",
+            "description": "User completed a learning objective.",
+            "category": "learning",
+            "confidence": 0.95,
+            "source": "reflection",
+            "created_at": "2026-07-13T09:40:06.890625+00:00"
+        },
+        {
+            "title": "Achievement",
+            "description": "User achieved an important milestone",
+            "category": "achievement",
+            "confidence": 0.9,
+            "source": "reflection",
+            "created_at": "2026-07-13T11:50:48.839983+00:00"
+        }
+    ]
 }

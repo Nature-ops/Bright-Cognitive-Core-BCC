@@ -1212,3 +1212,46 @@ Objectives:
 - Integrate InsightService into ReflectionEngine.
 - Generate and persist real insights.
 - Feed insights into ReasoningEngine.
+
+# Sprint Summary
+
+## Completed
+
+- Continued CognitiveState migration.
+- Migrated Classification pipeline to dataclasses.
+- Implemented Reflection Engine.
+- Implemented Reflection Rules.
+- Added Insight model.
+- Created Insight Service foundation.
+- Created insights.json datastore.
+
+## Architecture
+
+Bright now contains:
+
+- Routing Engine
+- Classification Engine
+- Evolution Engine
+- Context Engine
+- Reflection Engine
+- Reasoning Engine
+
+## Next Sprint
+
+- Connect ReflectionEngine to InsightService.
+- Generate and persist real insights.
+- Use insights during reasoning.
+## BCC-009 - Reflection & Insight Engine
+
+### Added
+
+- Reflection Engine
+- Reflection Rules
+- Insight Model
+- Insight Service
+- Persistent Insight Storage
+- Automatic Achievement Detection
+
+### Improved
+
+- Cognitive pipeline now generates derived knowledge.

@@ -196,3 +196,22 @@ AI Provider
 
 - Continued CognitiveState migration
 - Expanded Bright Cognitive Core
+
+## Sprint Summary
+
+Completed Reflection Engine v1.
+
+Bright can now:
+
+- Detect achievements.
+- Create insights.
+- Persist insights.
+- Build higher-level knowledge from memories.
+
+Reflection follows the standard pattern:
+
+process()
+→ detect()
+→ create()
+→ store()
+→ return state
