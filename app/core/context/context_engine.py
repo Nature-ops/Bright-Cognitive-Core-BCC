@@ -1,9 +1,9 @@
 from app.core.state.cognitive_state import (CognitiveState,Context,)
 from app.services.knowledge_service import KnowledgeService
+from app.core.base.cognitive_engine import CognitiveEngine
 
 
-
-class ContextEngine:
+class ContextEngine(CognitiveEngine):
 
     def __init__(self):
 

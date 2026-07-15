@@ -1,9 +1,13 @@
 from app.core.state.cognitive_state import Classification
 from app.utils.logger import logger
 from app.core.state.cognitive_state import (CognitiveState,Classification,)
+from app.core.base.cognitive_engine import CognitiveEngine
 
 
-class MemoryClassifier:
+
+  
+
+class MemoryClassifier(CognitiveEngine):
 
     def __init__(self):
 

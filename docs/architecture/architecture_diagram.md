@@ -1,0 +1,29 @@
+                 User
+                  │
+                  ▼
+            ChatService
+                  │
+                  ▼
+         CognitivePipeline
+                  │
+      ┌───────────┴────────────┐
+      │                        │
+IntentRouter
+      │
+MemoryClassifier
+      │
+MemoryEvolution
+      │
+KnowledgeEngine
+      │
+ReflectionEngine
+      │
+ContextEngine
+      │
+ReasoningEngine
+      │
+      ▼
+    Response
+      │
+      ▼
+Language Model

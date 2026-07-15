@@ -13,21 +13,23 @@ logger = logging.getLogger(__name__)
 class CognitivePipeline:
 
     def __init__(self):
+        self.engines = [
 
-        self.router = IntentRouter()
+            IntentRouter(),
 
-        self.classifier = MemoryClassifier()
+            MemoryClassifier(),
 
-        self.evolution = MemoryEvolutionEngine()
+            MemoryEvolutionEngine(),
 
-        self.context = ContextEngine()
+            KnowledgeEngine(),
 
-        self.reflection = ReflectionEngine()
+            ReflectionEngine(),
 
-        self.reasoning = ReasoningEngine()
+            ContextEngine(),
 
+            ReasoningEngine(),
 
-        self.knowledge = KnowledgeEngine()
+         ]
 
         
 
@@ -35,64 +37,16 @@ class CognitivePipeline:
         self,
         state: CognitiveState
     ) -> CognitiveState:
-
-        # -----------------------------------
-        # Intent Routing
-        # -----------------------------------
-
-        state = self.router.process(
-            state
-        )
-
-
         
+        logger.info("Cognitive Pipeline started.")
 
-        # -------------------------------------------------
-         # Classification
-        # -------------------------------------------------
 
-        state = self.classifier.process(
+        for engine in self.engines:
+            state = engine.process(
             state
         )
-
-        #-------------------------
-        #Evolution
-        #------------------------
-
-        state = self.evolution.process(
-            state
-        )
-
-
-        # -------------------------------------------------
-        # Knowledge
-        # -------------------------------------------------
-
-        state = self.knowledge.process(
-        state
-        )
-
-        # -------------------------------------------------
-        # Reflection
-        # -------------------------------------------------
-
-        state = self.reflection.process(
-        state
-        )
-
-
-        # -------------------------------------------------
-        # Context
-        # -------------------------------------------------
-
-        state = self.context.process(state)
-
-
-        # -------------------------------------------------
-        # Reasoning
-        # -------------------------------------------------
-
-        state = self.reasoning.process(state)
+            
+        logger.info("Cognitive Pipeline completed.")   
 
         return state
 

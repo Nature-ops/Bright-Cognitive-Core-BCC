@@ -430,3 +430,20 @@
 2026-07-14 18:44:52,530 | INFO | bright-assistant | Cognetive Pipeline completed.
 2026-07-14 18:44:52,539 | INFO | bright-assistant | User message saved.
 2026-07-14 18:45:01,099 | INFO | bright-assistant | Assistant response saved.
+2026-07-14 19:08:03,608 | INFO | bright-assistant | Received message: Hello Bright
+2026-07-14 19:08:03,608 | INFO | bright-assistant | Intent routed: conversation
+2026-07-14 19:08:03,608 | INFO | bright-assistant | Classification created: conversation
+2026-07-14 19:08:03,610 | INFO | bright-assistant | Cognetive Pipeline completed.
+2026-07-14 19:08:03,611 | INFO | bright-assistant | User message saved.
+2026-07-14 19:08:06,809 | INFO | bright-assistant | Assistant response saved.
+2026-07-14 19:08:17,253 | INFO | bright-assistant | Received message: I am learning Kubernetes.
+2026-07-14 19:08:17,253 | INFO | bright-assistant | Intent routed: conversation
+2026-07-14 19:08:17,253 | INFO | bright-assistant | Classification created: learning
+2026-07-14 19:08:17,254 | INFO | bright-assistant | Knowledge stored successfully.
+2026-07-14 19:08:17,263 | INFO | bright-assistant | Cognetive Pipeline completed.
+2026-07-14 19:08:17,265 | INFO | bright-assistant | User message saved.
+2026-07-14 19:08:24,961 | INFO | bright-assistant | Assistant response saved.
+2026-07-14 19:08:32,029 | INFO | bright-assistant | Received message: What do you know about me?
+2026-07-14 19:08:32,029 | INFO | bright-assistant | Intent routed: knowledge_summary
+2026-07-14 19:08:32,029 | INFO | bright-assistant | Classification created: conversation
+2026-07-14 19:08:32,031 | INFO | bright-assistant | Cognetive Pipeline completed.

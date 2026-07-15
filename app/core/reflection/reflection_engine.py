@@ -1,5 +1,5 @@
 from datetime import UTC, datetime
-
+from app.core.base.cognitive_engine import CognitiveEngine
 from app.core.reflection.insights import Insight
 from app.core.reflection.reflection_rules import ReflectionRules
 from app.core.state.cognitive_state import CognitiveState

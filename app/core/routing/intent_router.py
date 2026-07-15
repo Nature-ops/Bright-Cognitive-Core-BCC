@@ -1,8 +1,13 @@
 from app.core.state.cognitive_state import CognitiveState
 from app.utils.logger import logger
+from app.core.base.cognitive_engine import CognitiveEngine
 
 
-class IntentRouter:
+class IntentRouter(CognitiveEngine):
+
+    """
+    Determines the user's conversational intent.
+    """
 
     def process(
         self,

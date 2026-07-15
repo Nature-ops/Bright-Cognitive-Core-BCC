@@ -1,8 +1,8 @@
 from app.core.state.cognitive_state import CognitiveState
 from app.utils.logger import logger
+from app.core.base.cognitive_engine import CognitiveEngine
 
-
-class MemoryEvolutionEngine:
+class MemoryEvolutionEngine(CognitiveEngine):
 
     def process(
         self,

@@ -1,9 +1,9 @@
 from app.core.state.cognitive_state import (CognitiveState,Response,)
+from app.core.base.cognitive_engine import CognitiveEngine
 
 
 
-
-class ReasoningEngine:
+class ReasoningEngine(CognitiveEngine):
 
     def process(
         self,

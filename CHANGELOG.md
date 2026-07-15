@@ -232,3 +232,44 @@ process()
 
 - ChatService now delegates cognitive processing to the pipeline.
 - Reduced ChatService complexity.
+
+
+# BCC-013 — Bright Cognitive Core v1
+
+**Date:** 2026-07-14
+
+## Added
+
+- ContextEngine integrated into the Cognitive Pipeline.
+- ReasoningEngine integrated into the Cognitive Pipeline.
+- Standardized cognitive engines using `process(state)`.
+- Pipeline now produces responses through `state.response`.
+
+## Changed
+
+- Migrated KnowledgeEngine into the Cognitive Pipeline.
+- Migrated ReflectionEngine into the Cognitive Pipeline.
+- Migrated ContextEngine into the Cognitive Pipeline.
+- Migrated ReasoningEngine into the Cognitive Pipeline.
+- Simplified ChatService responsibilities.
+
+## Improved
+
+- Established a unified cognitive workflow.
+- Standardized engine interfaces.
+- Reduced coupling between ChatService and cognitive logic.
+- Improved maintainability and extensibility.
+
+## Architecture
+
+Bright Cognitive Core v1 completed.
+
+Current cognitive execution order:
+
+Intent Router
+→ Memory Classifier
+→ Memory Evolution
+→ Knowledge Engine
+→ Reflection Engine
+→ Context Engine
+→ Reasoning Engine

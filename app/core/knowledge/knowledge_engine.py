@@ -1,9 +1,10 @@
 from app.core.state.cognitive_state import CognitiveState
 from app.services.knowledge_service import KnowledgeService
 from app.utils.logger import logger
+from app.core.base.cognitive_engine import CognitiveEngine
 
 
-class KnowledgeEngine:
+class KnowledgeEngine(CognitiveEngine):
 
     def __init__(self):
 

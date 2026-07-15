@@ -13,6 +13,10 @@ class Classification:
     importance: str
     source: str
 
+    """
+    Result of classifying a user message.
+    """
+
     
 
 @dataclass
@@ -24,11 +28,21 @@ class Context:
     goals: list[str] | None = None
     tasks: list[str] | None = None
 
+    """
+    Context assembled for reasoning.
+    """
+
 
 @dataclass
 class Response:
 
     message: str
+
+    """
+    Final response produced by the cognitive pipeline.
+    """
+
+    
 
 
 @dataclass
