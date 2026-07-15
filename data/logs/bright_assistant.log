@@ -447,3 +447,13 @@
 2026-07-14 19:08:32,029 | INFO | bright-assistant | Intent routed: knowledge_summary
 2026-07-14 19:08:32,029 | INFO | bright-assistant | Classification created: conversation
 2026-07-14 19:08:32,031 | INFO | bright-assistant | Cognetive Pipeline completed.
+2026-07-15 12:36:40,623 | INFO | bright-assistant | Received message: What am I studying?
+2026-07-15 12:36:40,624 | INFO | bright-assistant | Intent routed: learning
+2026-07-15 12:36:40,624 | INFO | bright-assistant | Classification created: conversation
+2026-07-15 12:36:40,633 | INFO | bright-assistant | Planning: learning plan created.
+2026-07-15 12:36:40,633 | INFO | bright-assistant | Cognetive Pipeline completed.
+2026-07-15 12:36:42,094 | INFO | bright-assistant | Received message: What am I studying?
+2026-07-15 12:36:42,095 | INFO | bright-assistant | Intent routed: learning
+2026-07-15 12:36:42,095 | INFO | bright-assistant | Classification created: conversation
+2026-07-15 12:36:42,096 | INFO | bright-assistant | Planning: learning plan created.
+2026-07-15 12:36:42,097 | INFO | bright-assistant | Cognetive Pipeline completed.

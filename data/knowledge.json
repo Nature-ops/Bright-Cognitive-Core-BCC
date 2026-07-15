@@ -47,6 +47,9 @@
         },
         {
             "content": "I am learning Kubernetes."
+        },
+        {
+            "content": "I'm learning Terraform."
         }
     ],
     "preferences": [

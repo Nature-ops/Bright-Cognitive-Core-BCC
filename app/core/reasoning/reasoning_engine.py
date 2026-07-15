@@ -17,7 +17,7 @@ class ReasoningEngine(CognitiveEngine):
         if state.intent == "learning":
 
             message = self.recommend_learning(
-                state.context.knowledge
+                state
 
             )
 
@@ -59,14 +59,23 @@ class ReasoningEngine(CognitiveEngine):
                 else:
                     lines.append(f"- {item}")
 
-            lines.append("")
+            
+
 
         return "\n".join(lines)
+        
 
-    def recommend_learning(self, context: dict) -> str:
 
-        learning = context.get("Learning", [])
-        goals = context.get("Goals", [])
+    def recommend_learning(
+            self,
+            state: CognitiveState
+        ) -> str:
+
+        context = state.context
+        knowledge = getattr(context, "knowledge", {}) or {}
+
+        learning = knowledge.get("Learning", [])
+        goals = knowledge.get("Goals", [])
 
         if not learning:
             return (
@@ -98,6 +107,15 @@ class ReasoningEngine(CognitiveEngine):
             "Recommendation: Continue building consistent progress before moving to a new topic."
         )
 
+        
+        if state.plan:
+
+            lines.append("")
+            lines.append("Recommended Next Steps:")
+
+            for step in state.plan.steps:
+                lines.append(f"- {step}")  
+
         return "\n".join(lines)
 
     def recommend_tasks(self, context: dict) -> str:
@@ -114,7 +132,6 @@ class ReasoningEngine(CognitiveEngine):
             ""
         ]
 
-        for task in tasks:
-            lines.append(f"- {task['content']}")
+         
 
         return "\n".join(lines)

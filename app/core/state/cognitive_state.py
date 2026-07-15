@@ -5,6 +5,12 @@ from typing import Any
 @dataclass
 class Classification:
 
+
+    
+    """
+    Result of classifying a user message.
+    """
+
     intent: str
     memory_type: str
     action: str
@@ -13,9 +19,6 @@ class Classification:
     importance: str
     source: str
 
-    """
-    Result of classifying a user message.
-    """
 
     
 
@@ -27,6 +30,9 @@ class Context:
     learning: list[str] | None = None
     goals: list[str] | None = None
     tasks: list[str] | None = None
+    
+
+
 
     """
     Context assembled for reasoning.
@@ -42,6 +48,12 @@ class Response:
     Final response produced by the cognitive pipeline.
     """
 
+
+@dataclass
+class Plan:
+
+    title: str
+    steps: list[str]
     
 
 
@@ -63,5 +75,7 @@ class CognitiveState:
     classification: Classification | None = None
 
     context: Context | None = None
+
+    plan: Plan | None = None
 
     response: Response | None = None
