@@ -35,16 +35,18 @@ class PlanningEngine(CognitiveEngine):
 
                     steps.extend(topic_steps)
 
+
+
+
         if not steps:
 
             steps = [
                 "Continue your current learning journey."
             ]
 
-
-
-
-
+        # Remove duplicate steps while preserving order
+        steps = list(dict.fromkeys(steps))
+            
         state.plan = Plan(
             title=f"Plan for: {goal_title}",
             steps=steps,

@@ -17,9 +17,21 @@ Ideas:
 
 - Bright Assistant should remember AWS mistakes.
 
-# Bright Assistant
+# Mentor Notes
 
-## Architecture Version
+Today's biggest realization:
+
+Planning should not simply generate tasks.
+
+Planning should create the shortest realistic path from the current state to the desired goal.
+
+Future planning should eventually consider:
+
+- Goal progress
+- Available study time
+- User habits
+- Historical consistency
+- Self-analysis
 
 ### Bright Cognitive Core v1
 
@@ -1393,3 +1405,195 @@ Planned work:
 - Prioritization Engine
 - Task Recommendation Engine
 - Logistics Domain Integration
+
+
+# Engineering Notebook
+
+## Date
+<Today's Date>
+
+---
+
+# Sprint
+
+BCC-017 — Goal Engine v1
+
+BCC-018 — Priority Engine v1
+
+BCC-019 — Memory Consolidation v1
+
+---
+
+# Objectives
+
+Continue building the Bright Cognitive Core by introducing
+goal-oriented cognition, priority-based planning,
+and improving long-term memory quality.
+
+---
+
+# Completed
+
+## Goal Engine
+
+- Added Goal dataclass.
+- Added GoalEngine.
+- GoalEngine detects the current active goal.
+- Stores active goal in CognitiveState.
+
+---
+
+## Priority Engine
+
+- Added Priority dataclass.
+- Added PriorityEngine.
+- PriorityEngine selects the active goal as the current priority.
+- Integrated into the cognitive pipeline.
+
+---
+
+## Planning Engine
+
+- Refactored PlanningEngine to use planning rules.
+- Replaced static planning with dynamic planning.
+- Planning now consumes Priority instead of Goal.
+- Plan titles now reflect the active priority.
+
+---
+
+## Knowledge Service
+
+- Implemented duplicate memory detection.
+- Prevented duplicate knowledge entries.
+- Added logging for duplicate detection.
+- Improved long-term memory quality.
+
+---
+
+# Architecture
+
+Current Cognitive Pipeline
+
+Intent
+↓
+
+Classification
+↓
+
+Memory Evolution
+↓
+
+Knowledge
+
+↓
+
+Reflection
+
+↓
+
+Context
+
+↓
+
+Goal
+
+↓
+
+Priority
+
+↓
+
+Planning
+
+↓
+
+Reasoning
+
+↓
+
+Response
+
+---
+
+# Major Architectural Decisions
+
+1. Every engine has a single responsibility.
+
+2. CognitiveState remains the communication model.
+
+3. Engines communicate only through CognitiveState.
+
+4. KnowledgeService is responsible for memory quality.
+
+5. Planning consumes Priority rather than Goal.
+
+---
+
+# Lessons Learned
+
+- Good architecture makes adding new cognitive engines much easier.
+- Improving one service (KnowledgeService) improved every downstream engine.
+- Small, well-tested commits are easier to maintain than large feature dumps.
+- Clean separation of responsibilities reduced integration complexity.
+
+---
+
+# Ideas
+
+Potential future engine:
+
+Insight Engine
+
+Purpose:
+Analyze long-term patterns in user behavior and learning.
+
+Examples:
+
+- Study consistency
+- Goal progress
+- Learning habits
+- Project completion trends
+- Personalized recommendations
+
+---
+
+# Next Sprint
+
+BCC-020
+
+Goal Progress Engine
+
+Objectives:
+
+- Measure progress toward active goals.
+- Connect progress with PlanningEngine.
+- Move Bright from task planning toward milestone planning.
+
+---
+
+# Personal Reflection
+
+Today felt like a transition from building infrastructure to building intelligence.
+
+Bright is beginning to evolve into a Cognitive Operating System rather than a traditional chatbot.
+
+
+Sprint: BCC-020
+
+Objective
+Introduce explicit goal progress tracking.
+
+Architecture
+Goal → GoalProgress → Priority → Planning → Reasoning
+
+Lessons
+- Progress deserves its own engine.
+- Planning should consume Priority.
+- Reasoning should present decisions, not make them.
+- Duplicate planning should be removed before presentation.
+
+Future Improvements
+- Milestone Templates
+- Real progress percentages
+- Consistency tracking
+- Adaptive planning

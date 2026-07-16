@@ -10,6 +10,7 @@ from app.core.knowledge.knowledge_engine import KnowledgeEngine
 from app.core.planning.planning_engine import PlanningEngine
 from app.core.priority.priority_engine import PriorityEngine
 from app.core.goals.goal_engine import GoalEngine
+from app.core.progress.progress_engine import ProgressEngine
 logger = logging.getLogger(__name__)
 
 
@@ -32,6 +33,8 @@ class CognitivePipeline:
             ContextEngine(),
 
             GoalEngine(),
+
+            ProgressEngine(),
 
             PriorityEngine(),
 

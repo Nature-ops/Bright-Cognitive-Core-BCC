@@ -273,3 +273,63 @@ Intent Router
 → Reflection Engine
 → Context Engine
 → Reasoning Engine
+
+# Changelog
+
+All notable changes to Bright Assistant are documented in this file.
+
+The format follows the principles of Keep a Changelog.
+
+---
+
+## [Unreleased]
+
+### Added
+
+#### Cognitive Core
+
+- Added GoalEngine to detect the user's active goal.
+- Added PriorityEngine to determine the user's current priority.
+- Added Priority dataclass to CognitiveState.
+- Added Goal dataclass to CognitiveState.
+
+#### Planning
+
+- PlanningEngine now uses the active Priority instead of directly using the Goal.
+- Planning rules continue to generate dynamic learning plans.
+
+#### Memory
+
+- Added duplicate detection to KnowledgeService.
+- Prevented duplicate knowledge entries from being stored.
+- Added logging for duplicate memory detection.
+
+#### Architecture
+
+- Extended the Cognitive Pipeline with:
+  - GoalEngine
+  - PriorityEngine
+- Improved separation of responsibilities between cognitive engines.
+
+#### Documentation
+
+- Created VISION.md.
+- Created MILESTONES.md.
+- Updated Engineering Notebook.
+
+## BCC-020 - Goal Progress Engine
+
+### Added
+- GoalProgress dataclass
+- ProgressEngine
+- Goal progress tracking
+- Progress-aware PriorityEngine
+
+### Changed
+- ReasoningEngine now reports goal progress.
+- PlanningEngine removes duplicate planning steps.
+- Cognitive pipeline includes ProgressEngine.
+
+### Fixed
+- Duplicate knowledge entries.
+- Duplicate planning recommendations.

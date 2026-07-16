@@ -13,6 +13,11 @@ class PriorityEngine(CognitiveEngine):
         
         if state.goal is None:
             return state
+
+
+        
+        if state.goal_progress is None:
+            return state
         
 
         state.priority = Priority(
@@ -20,11 +25,9 @@ class PriorityEngine(CognitiveEngine):
             reason="Current active goal",
         )
 
+        
         logger.info(
-            f"Priority selected: {state.priority.title}"
+            f"Current progress: {state.goal_progress.progress}%"
         )
-
-
-
 
         return state

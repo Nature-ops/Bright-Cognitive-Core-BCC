@@ -72,6 +72,25 @@ class Goal:
 
 
 
+
+
+@dataclass
+class GoalProgress:
+
+    """
+    Responsible for tracking Goal progress
+    """
+
+    goal: str
+
+    progress: float
+
+    completed: list[str]
+
+    remaining: list[str]
+
+
+
 @dataclass
 class Priority:
     """
@@ -103,6 +122,8 @@ class CognitiveState:
     context: Context | None = None
 
     goal: Goal | None = None
+
+    goal_progress: GoalProgress | None = None
 
     priority: Priority | None = None
 
