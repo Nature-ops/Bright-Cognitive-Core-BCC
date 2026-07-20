@@ -333,3 +333,39 @@ The format follows the principles of Keep a Changelog.
 ### Fixed
 - Duplicate knowledge entries.
 - Duplicate planning recommendations.
+
+## [BCC-022A] - Knowledge Framework Design
+
+### Added
+
+- Designed Bright Knowledge Layer architecture.
+- Added `knowledge/` directory.
+- Added domain organization:
+  - Cloud
+  - Drones
+  - Logistics
+  - Software
+  - Business
+  - Personal
+- Defined Bright Knowledge Standard (BKS).
+- Added architecture documentation for knowledge frameworks.
+
+### Planned
+
+- Framework models
+- Framework loader
+- YAML validation
+
+## BCC-022
+
+### Added
+
+- Knowledge Layer architecture
+- Framework model
+- GoalTemplate model
+- Milestone model
+- Skill model
+- Resource model
+- FrameworkLoader
+- KnowledgeEngine
+- AWS reference framework

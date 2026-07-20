@@ -1595,5 +1595,62 @@ Lessons
 Future Improvements
 - Milestone Templates
 - Real progress percentages
-- Consistency tracking
-- Adaptive planning
+- Knowledge Frameworks
+- Milestone Templates
+- Consistency Tracking
+- Adaptive Planning
+- Real progress percentages
+
+
+# BCC-022A — Knowledge Framework Design
+
+## Objective
+
+Design Bright's Knowledge Layer before implementation.
+
+## Decisions
+
+- Knowledge is stored as data, not hard-coded in Python.
+- Bright Core contains behavior.
+- Knowledge Packages contain expertise.
+- Introduced the `knowledge/` directory.
+- Organized knowledge into domains:
+  - cloud
+  - drones
+  - logistics
+  - software
+  - business
+  - personal
+- Each domain contains:
+  - frameworks/
+  - skills/
+  - resources/
+  - templates/
+- Frameworks will follow the Bright Knowledge Standard (BKS).
+- `aws-sa.yaml` will serve as the reference implementation.
+
+## Lessons Learned
+
+- Separating behavior from knowledge creates a scalable architecture.
+- Frameworks should describe learning, not user progress.
+- Skills and resources should be reusable across frameworks.
+
+## Next Sprint
+
+BCC-022B
+
+Implement:
+
+- Framework model
+- Milestone model
+- Skill model
+- Resource model
+
+BCC-022 — Knowledge Layer
+
+- Designed Bright Knowledge Standard.
+- Created reusable knowledge models.
+- Added FrameworkLoader.
+- Added KnowledgeEngine.
+- Implemented AWS reference framework.
+- Verified end-to-end YAML loading.

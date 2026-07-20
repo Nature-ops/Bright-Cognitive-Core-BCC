@@ -1,0 +1,53 @@
+
+
+id: aws-sa
+
+name: AWS Solutions Architect Associate
+
+version: "1.0"
+
+domain: cloud
+
+description: >
+  A structured learning framework for preparing
+  for the AWS Certified Solutions Architect Associate certification.
+
+difficulty: intermediate
+
+estimated_duration: "12 weeks"
+
+tags:
+  - aws
+  - cloud
+  - certification
+
+goal_template:
+  title: Become an AWS Solutions Architect
+  description: Learn the core AWS services and pass the certification exam.
+  success_criteria:
+    - Complete all milestones
+    - Build hands-on projects
+    - Pass practice exams
+
+milestones:
+  - id: aws-fundamentals
+    title: AWS Fundamentals
+    description: Learn the basic concepts of AWS Cloud.
+    completion:
+      method: manual
+      required: true
+
+  - id: iam
+    title: Identity and Access Management
+    description: Learn IAM users, groups, roles, and policies.
+    depends_on:
+      - aws-fundamentals
+    skills:
+      - iam-users
+      - iam-policies
+    completion:
+      method: manual
+      required: true
+
+
+ 

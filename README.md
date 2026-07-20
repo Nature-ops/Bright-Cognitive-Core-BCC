@@ -71,6 +71,12 @@ Build software that helps engineers become capable of building anything.
 
 
 
+Knowledge Layer
+
+- YAML-based knowledge definitions
+- Framework Loader
+- Knowledge Engine
+- Structured learning frameworks
 ---
 
 ## License
