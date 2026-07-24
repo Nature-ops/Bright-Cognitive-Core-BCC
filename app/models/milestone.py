@@ -1,5 +1,5 @@
 from typing import List
-
+from typing import Optional
 from pydantic import BaseModel, Field
 
 
@@ -17,8 +17,12 @@ class Milestone(BaseModel):
 
     depends_on: List[str] = Field(default_factory=list)
 
-    skills: List[str] = Field(default_factory=list)
+    skill_ids: List[str] = Field(default_factory=list)
 
-    resources: List[str] = Field(default_factory=list)
+    resource_ids: List[str] = Field(default_factory=list)
+
+    exercise_ids: list[str] = Field(default_factory=list)
+
+    assessment_id: str | None = None
 
     completion: CompletionRule

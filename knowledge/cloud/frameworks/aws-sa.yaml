@@ -25,18 +25,24 @@ goal_template:
     - Pass practice exams
 
 milestones:
+
   - id: aws-fundamentals
     title: AWS Fundamentals
     description: Learn the basic concepts of AWS Cloud.
 
-    skills:
+    skill_ids:
       - cloud-basics
       - aws-global-infrastructure
       - shared-responsibility
 
-    resources:
+    resource_ids:
       - aws-docs
       - aws-skill-builder
+
+    exercise_ids:
+      - aws-fundamentals-lab
+
+     
 
     completion:
       method: manual
@@ -44,18 +50,24 @@ milestones:
 
   - id: iam
     title: Identity and Access Management
+    
     description: Learn IAM users, groups, roles, and policies.
 
     depends_on:
       - aws-fundamentals
 
-    skills:
+    skill_ids:
       - iam-users
       - iam-policies
 
-    resources:
+    resource_ids:
       - aws-docs
       - aws-skill-builder
+
+    exercise_ids:
+      - iam-lab
+
+    
 
     completion:
       method: manual
@@ -68,13 +80,18 @@ milestones:
     depends_on:
       - iam
 
-    skills:
+    skill_ids:
       - ec2-basics
       - ec2-networking
 
-    resources:
+    resource_ids:
       - aws-docs
       - aws-skill-builder
+
+    exercise_ids:
+      - ec2-lab
+    
+   
 
     completion:
       method: manual
@@ -87,13 +104,18 @@ milestones:
     depends_on:
       - ec2
 
-    skills:
+    skill_ids:
       - s3-buckets
       - s3-security
 
-    resources:
+    resource_ids:
       - aws-docs
       - aws-skill-builder
+
+    exercise_ids:
+      - s3-lab
+
+    
 
     completion:
       method: manual
@@ -106,14 +128,19 @@ milestones:
     depends_on:
       - s3
 
-    skills:
+    skill_ids:
       - subnets
       - route-tables
       - security-groups
 
-    resources:
+    resource_ids:
       - aws-docs
       - aws-skill-builder
+
+    exercise_ids:
+      - vpc-lab
+
+    
 
     completion:
       method: manual

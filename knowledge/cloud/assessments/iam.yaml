@@ -1,0 +1,21 @@
+id: iam-assessment
+
+title: IAM Assessment
+
+passing_score: 70
+
+questions:
+
+  - id: q1
+
+    prompt: What does IAM stand for?
+
+    options:
+      - Internet Access Manager
+      - Identity and Access Management
+      - Internal Account Manager
+      - Identity Authentication Module
+
+    answer: Identity and Access Management
+
+    explanation: IAM is AWS's identity service.

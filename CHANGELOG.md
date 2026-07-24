@@ -369,3 +369,64 @@ The format follows the principles of Keep a Changelog.
 - FrameworkLoader
 - KnowledgeEngine
 - AWS reference framework
+
+
+# Changelog
+
+## [Unreleased]
+
+### Added
+
+- Implemented `Progress` domain model for tracking learner progress.
+- Added `ProgressService` with persistent JSON storage.
+- Added support for:
+  - `get_progress()`
+  - `update_progress()`
+  - `complete_milestone()`
+- Added `tests/test_progress_service.py`.
+- Integrated `PlanningEngine` with `ProgressService`.
+- Added automatic generation of learning plans based on saved learner progress.
+- Improved learning plan output with resolved Skill and Resource objects.
+- Expanded AWS framework with foundational AWS Fundamentals skills.
+- Added new AWS skill catalog entries:
+  - Cloud Basics
+  - AWS Global Infrastructure
+  - Shared Responsibility Model
+
+### Changed
+
+- `PlanningEngine` can now generate learning plans directly from learner progress.
+- Learning plans now automatically continue from the learner's last completed milestone.
+
+### Fixed
+
+- Fixed milestone YAML structure.
+- Fixed skill catalog definitions.
+- Corrected milestone skill/resource resolution.
+- Fixed LearningPlan generation for AWS Fundamentals.
+
+
+# Changelog
+
+## [Sprint 32] - 2026-07-24
+
+### Added
+- Implemented `StudySession` model to represent a complete learning session.
+- Added `Objective` model for structured learning objectives.
+- Implemented `StudySessionService` to orchestrate study session creation.
+- Added objective generation from LearningPlan skills.
+- Added exercise integration using ExerciseEngine.
+- Added resource integration using LearningPlan resources.
+- Added optional assessment support for milestones.
+- Added estimated study time calculation.
+- Created end-to-end integration test for study sessions.
+
+### Changed
+- Refactored `StudySession` to embed `LearningPlan` instead of duplicating framework and milestone data.
+- Renamed milestone collection fields to maintain naming consistency (`skill_ids`, `resource_ids`, `exercise_ids`).
+- Updated assessment workflow to support milestones without assessments.
+
+### Fixed
+- Resolved milestone validation issues caused by optional assessment IDs.
+- Fixed assessment lookup failures for milestones without assessments.
+- Verified complete study session generation pipeline.

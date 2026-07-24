@@ -1,0 +1,14 @@
+id: iam-lab
+
+title: IAM Hands-on Lab
+
+description: Practice AWS Identity and Access Management.
+
+steps:
+  - Sign in to the AWS Console.
+  - Create an IAM user named developer.
+  - Create a Developers group.
+  - Attach the ReadOnlyAccess policy.
+  - Sign in using the new IAM user.
+
+verification: Successfully sign in using the new IAM user.

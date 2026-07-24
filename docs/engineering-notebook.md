@@ -1654,3 +1654,205 @@ BCC-022 — Knowledge Layer
 - Added KnowledgeEngine.
 - Implemented AWS reference framework.
 - Verified end-to-end YAML loading.
+
+
+# Engineering Notebook
+
+## Date
+
+2026-07-23
+
+## Sprint
+
+BCC-026 — Progress Engine
+
+---
+
+## Objective
+
+Enable Bright to remember learner progress and automatically generate the next learning plan.
+
+---
+
+## Completed
+
+### Progress Model
+
+Implemented a persistent Progress model containing:
+
+- framework_id
+- completed_milestones
+- completed_skills
+- started_at
+- updated_at
+
+---
+
+### Progress Service
+
+Implemented:
+
+- load()
+- save()
+- get_progress()
+- update_progress()
+- complete_milestone()
+
+Progress is stored in:
+
+data/progress.json
+
+---
+
+### Planning Integration
+
+Integrated ProgressService with PlanningEngine.
+
+Added:
+
+create_learning_plan_for_framework()
+
+PlanningEngine now automatically loads learner progress before generating the next learning plan.
+
+---
+
+### Testing
+
+Successfully completed:
+
+- test_learning_plan.py
+- test_progress_service.py
+
+Verified:
+
+- Progress persistence
+- Automatic milestone progression
+- Skill resolution
+- Resource resolution
+- End-to-end learning plan generation
+
+---
+
+## Architecture
+
+KnowledgeEngine
+↓
+
+ProgressService
+↓
+
+PlanningEngine
+↓
+
+LearningPlan
+
+---
+
+## Lessons Learned
+
+- Keep services focused on a single responsibility.
+- Separate domain logic from presentation.
+- Resolve IDs into domain objects before exposing them to higher layers.
+- Persist learner state independently from framework knowledge.
+
+---
+
+## Next Sprint
+
+BCC-027 — Study Session Engine
+
+Goals:
+
+- Generate structured study sessions.
+- Create study objectives.
+- Introduce learning checklists.
+- Estimate study duration.
+
+
+# Engineering Notebook
+
+## Date
+2026-07-24
+
+## Sprint
+Sprint 32 – Integrated Study Sessions
+
+## Objective
+Design and implement the first complete study session generation pipeline for Bright Assistant.
+
+## Work Completed
+
+Completed the architecture for generating structured study sessions from a learning plan.
+
+Implemented:
+
+- Objective generation
+- Resource aggregation
+- Exercise aggregation
+- Optional assessment support
+- Study time estimation
+
+The study session now contains everything required for a learner to begin studying.
+
+Pipeline:
+
+Framework
+→ PlanningEngine
+→ LearningPlan
+→ StudySessionService
+→ StudySession
+
+## Architectural Decisions
+
+### LearningPlan Ownership
+
+StudySession now embeds the complete LearningPlan instead of duplicating framework and milestone information.
+
+This reduces duplication and keeps the architecture consistent.
+
+### Optional Assessments
+
+Assessments are now optional.
+
+The platform supports partially completed learning content while maintaining a consistent user experience.
+
+### Service Responsibility
+
+StudySessionService is responsible only for assembling a study session.
+
+Planning remains the responsibility of PlanningEngine.
+
+This separation keeps responsibilities clear and supports future expansion.
+
+## Validation
+
+Successfully executed the end-to-end integration test.
+
+Verified:
+
+- Framework loading
+- Learning plan generation
+- Objective creation
+- Resource retrieval
+- Exercise retrieval
+- Optional assessment handling
+- Study session generation
+
+## Lessons Learned
+
+Designing for incomplete content is important.
+
+The platform should gracefully support frameworks that are still under development rather than requiring every learning asset to exist before the learner can begin.
+
+## Next Sprint
+
+Sprint 33
+
+Focus on building an interactive Study Engine capable of:
+
+- Starting study sessions
+- Tracking objective completion
+- Managing learner progress
+- Launching exercises
+- Running assessments
+- Persisting session state

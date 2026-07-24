@@ -54,12 +54,12 @@ class PlanningEngine:
 
         skills = [
             self.knowledge.get_skill(skill_id)
-        for skill_id in milestone.skills
+        for skill_id in milestone.skill_ids
     ]
 
         resources = [
             self.knowledge.get_resource(resource_id)
-        for resource_id in milestone.resources
+        for resource_id in milestone.resource_ids
     ]
 
         return LearningPlan(
