@@ -1856,3 +1856,61 @@ Focus on building an interactive Study Engine capable of:
 - Launching exercises
 - Running assessments
 - Persisting session state
+# Date
+2026-07-28
+
+## Sprint
+Sprint 33 – Study Engine
+
+## Objective
+
+Implement the execution layer of Bright.
+
+## Summary
+
+Completed the first runtime engine capable of executing a study session.
+
+The engine is responsible for:
+
+- Starting sessions
+- Returning the current objective
+- Completing objectives
+- Tracking learner progress
+- Determining completion
+- Finishing sessions
+
+Unlike PlanningEngine, which determines *what* should be learned, StudyEngine manages *how* a learner progresses through a study session.
+
+## Architectural Decisions
+
+Separated immutable learning content from runtime learner state.
+
+StudySession remains immutable.
+
+StudyProgress stores dynamic execution state.
+
+This separation simplifies future persistence, synchronization, and analytics.
+
+## Validation
+
+Created a behavioral integration test.
+
+Verified:
+
+- Session initialization
+- Objective sequencing
+- Objective completion
+- Progress updates
+- Session completion
+
+Result:
+
+StudyEngine successfully executes a complete study session from start to finish.
+
+## Next Sprint
+
+Sprint 34
+
+Begin learner persistence by introducing a ProgressService responsible for saving and restoring StudyProgress.
+
+This will allow learners to pause and resume study sessions across application restarts.

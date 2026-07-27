@@ -430,3 +430,20 @@ The format follows the principles of Keep a Changelog.
 - Resolved milestone validation issues caused by optional assessment IDs.
 - Fixed assessment lookup failures for milestones without assessments.
 - Verified complete study session generation pipeline.
+## [Sprint 33] - 2026-07-28
+
+### Added
+- Implemented `StudyEngine` for interactive study session execution.
+- Added `StudyProgress` model for runtime learning state.
+- Added objective completion tracking.
+- Added study progress calculation.
+- Added study session completion workflow.
+- Added `test_study_engine.py` behavioral integration test.
+- Added shared `tests/test_utils.py` for reusable test setup.
+
+### Changed
+- Refactored test suite to reuse common study session construction.
+- Improved separation between immutable study content and runtime learner progress.
+
+### Validated
+- Verified complete learning execution pipeline from PlanningEngine through StudyEngine.

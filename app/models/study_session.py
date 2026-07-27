@@ -1,17 +1,13 @@
 from datetime import datetime
-
+from datetime import datetime, UTC
 from pydantic import BaseModel, Field
-
+from app.models.objective import Objective
 from app.models.assessment import Assessment
 from app.models.exercise import Exercise
 from app.models.learning_plan import LearningPlan
 from app.models.resource import Resource
 
 
-class Objective(BaseModel):
-    id: str
-    title: str
-    completed: bool = False
 
 
 class StudySession(BaseModel):
@@ -31,4 +27,6 @@ class StudySession(BaseModel):
 
     estimated_minutes: int = 0
 
-    created_at: datetime = Field(default_factory=datetime.utcnow)
+    created_at: datetime = Field(
+        default_factory=lambda: datetime.now(UTC)
+    )
