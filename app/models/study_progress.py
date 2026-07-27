@@ -1,9 +1,11 @@
-from datetime import datetime
+from datetime import datetime, UTC
 
 from pydantic import BaseModel, Field
 
 
 class StudyProgress(BaseModel):
+
+    session_id: str
 
     completed_objectives: list[str] = Field(default_factory=list)
 
@@ -11,6 +13,6 @@ class StudyProgress(BaseModel):
 
     assessment_completed: bool = False
 
-    started_at: datetime = Field(default_factory=datetime.utcnow)
+    started_at: datetime = Field(default_factory=lambda: datetime.now(UTC))
 
-    updated_at: datetime = Field(default_factory=datetime.utcnow)
+    updated_at: datetime = Field(default_factory=lambda: datetime.now(UTC))

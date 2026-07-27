@@ -14,6 +14,7 @@ class StudySession(BaseModel):
     """
     Represents a complete learning session generated from a LearningPlan.
     """
+    id: str
 
     learning_plan: LearningPlan
 

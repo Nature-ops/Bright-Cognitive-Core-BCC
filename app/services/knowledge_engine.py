@@ -102,5 +102,19 @@ class KnowledgeEngine:
         """Raise an error if no framework has been loaded."""
         if self._framework is None:
             raise RuntimeError("No framework has been loaded.")
+
+
+    @property
+    def framework(self) -> Framework:
+
+        if self._framework is None:
+            raise RuntimeError(
+            "No framework has been loaded."
+        )
+
+        return self._framework
+
+
+    
         
     

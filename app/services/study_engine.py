@@ -2,6 +2,7 @@ from app.models.study_session import StudySession
 from app.models.study_progress import StudyProgress
 from datetime import datetime, UTC 
 from app.models.objective import Objective
+from app.services.study_progress_service import StudyProgressService
 
 
 
@@ -11,7 +12,11 @@ class StudyEngine:
 
         self.session: StudySession | None = None
 
-        self.progress = StudyProgress()
+        self.progress_service = StudyProgressService()
+
+        self.progress: StudyProgress | None = None
+
+        
 
 
     def start_session(
@@ -21,9 +26,21 @@ class StudyEngine:
 
         self.session = session
 
-        self.progress = StudyProgress()
+        saved_progress = self.progress_service.load(session.id)
 
-        self.progress.updated_at = datetime.now(UTC)
+        if saved_progress is not None:
+
+            self.progress = saved_progress
+
+        else:
+
+            self.progress = StudyProgress(
+                session_id=session.id
+            )
+
+            self.progress.updated_at = datetime.now(UTC)
+
+            self.progress_service.save(self.progress)
 
 
 
@@ -33,6 +50,9 @@ class StudyEngine:
         self._require_session()
 
         assert self.session is not None
+
+    
+        assert self.progress is not None
 
         for objective in self.session.objectives:
 
@@ -56,13 +76,22 @@ class StudyEngine:
     ) -> None:
         self._require_session()
 
-    
+
+        assert self.progress is not None
+
 
         if objective_id not in self.progress.completed_objectives:
 
             self.progress.completed_objectives.append(objective_id)
 
             self.progress.updated_at = datetime.now(UTC)
+
+
+    
+
+            self.progress_service.save(
+                self.progress
+            )
 
 
 
@@ -72,6 +101,8 @@ class StudyEngine:
         self._require_session()
 
         assert self.session is not None
+
+        assert self.progress is not None
 
         total = len(self.session.objectives)
 
@@ -90,6 +121,8 @@ class StudyEngine:
 
         assert self.session is not None
 
+        assert self.progress is not None
+
         return len(
             self.progress.completed_objectives
         ) == len(self.
@@ -103,4 +136,14 @@ class StudyEngine:
 
         self._require_session()
 
-        return self.is_completed()
+        completed = self.is_completed()
+
+        if completed:
+
+            assert self.session is not None
+
+            self.progress_service.delete(
+                self.session.id
+            )
+
+        return completed

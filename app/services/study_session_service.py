@@ -3,7 +3,8 @@ from app.models.learning_plan import LearningPlan
 from app.models.study_session import StudySession
 from app.models.resource import Resource
 from app.models.assessment import Assessment
-from app.models.study_session import Objective
+from app.models.objective import Objective
+from app.services.framework_loader import FrameworkLoader
 from typing import Optional
 
 
@@ -69,7 +70,15 @@ class StudySessionService:
         learning_plan: LearningPlan
     ) -> StudySession:
 
+
+        session_id = (
+            f"{learning_plan.framework.id}-"
+            f"{learning_plan.milestone.id}"
+        )
+
+
         return StudySession(
+            id=session_id,
             learning_plan=learning_plan,
 
             objectives=self._build_objectives(

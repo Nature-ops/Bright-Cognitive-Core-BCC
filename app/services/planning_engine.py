@@ -45,7 +45,7 @@ class PlanningEngine:
         return None
     
 
-    def create_learning_plan(self,completed: list[str]) -> Optional[LearningPlan]:
+    def create_learning_plan(self,completed: list[str],) -> Optional[LearningPlan]:
 
         milestone = self.get_next_milestone(completed)
 
@@ -54,19 +54,20 @@ class PlanningEngine:
 
         skills = [
             self.knowledge.get_skill(skill_id)
-        for skill_id in milestone.skill_ids
-    ]
+            for skill_id in milestone.skill_ids
+        ]
 
         resources = [
             self.knowledge.get_resource(resource_id)
-        for resource_id in milestone.resource_ids
-    ]
+            for resource_id in milestone.resource_ids
+        ]
 
         return LearningPlan(
-        milestone=milestone,
-        skills=skills,
-        resources=resources
-    )
+            framework=self.knowledge.framework,
+            milestone=milestone,
+            skills=skills,
+            resources=resources
+        )
 
 
     def create_learning_plan_for_framework(
