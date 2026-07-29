@@ -9,6 +9,8 @@ def main():
 
     engine = StudyEngine()
 
+    engine.progress_service.delete(session.id)
+
     engine.start_session(session)
 
     print("=" * 50)
@@ -39,6 +41,27 @@ def main():
         )
 
         current = engine.current_objective()
+
+
+    print()
+
+    print("Exercise Status")
+    print("---------------")
+
+    exercise = engine.current_exercise()
+
+    while exercise:
+
+        print(f"Completing: {exercise.title}")
+
+        engine.complete_exercise(exercise.id)
+
+        print(
+            f"Exercise Progress: "
+            f"{engine.get_exercise_progress():.0f}%"
+        )
+
+        exercise = engine.current_exercise()
 
     print()
 

@@ -6,13 +6,23 @@ def main():
 
     session = build_study_session()
 
+    # -----------------------------------------
+    # Clean previous test state
+    # -----------------------------------------
+
+    cleanup_engine = StudyEngine()
+
+    cleanup_engine.progress_service.delete(
+        session.id
+    )
+
     print("=" * 50)
     print("Resume Session Test")
     print("=" * 50)
 
-    #
-    # First application instance
-    #
+    # -----------------------------------------
+    # First Bright instance
+    # -----------------------------------------
 
     engine1 = StudyEngine()
 
@@ -26,23 +36,26 @@ def main():
     print("----------------")
     print(first.title)
 
-    engine1.complete_objective(first.id)
+    engine1.complete_objective(
+        first.id
+    )
 
     print("\nCompleted:")
     print(first.title)
 
-    #
-    # Simulate closing Bright
-    #
+    # Do NOT finish the session.
+    # We want the progress to remain persisted.
+
+    # -----------------------------------------
+    # Simulate restarting Bright
+    # -----------------------------------------
 
     print("\n--- Restarting Bright ---")
 
-    #
-    # Second application instance
-    #
-
     engine2 = StudyEngine()
 
+    # Important:
+    # load the session before asking for an objective.
     engine2.start_session(session)
 
     resumed = engine2.current_objective()
@@ -53,16 +66,53 @@ def main():
     print("-----------------")
     print(resumed.title)
 
-    #
-    # Finish the session
-    #
+    # Complete the remaining objective.
+    engine2.complete_objective(
+        resumed.id
+    )
 
-    engine2.complete_objective(resumed.id)
+    # -----------------------------------------
+    # Complete exercises
+    # -----------------------------------------
+
+    print("\nExercises")
+    print("---------")
+
+    exercise = engine2.current_exercise()
+
+    while exercise:
+
+        print(
+            f"Completing: {exercise.title}"
+        )
+
+        engine2.complete_exercise(
+            exercise.id
+        )
+
+        print(
+            f"Exercise Progress: "
+            f"{engine2.get_exercise_progress():.0f}%"
+        )
+
+        exercise = engine2.current_exercise()
+
+    # -----------------------------------------
+    # Verify final state
+    # -----------------------------------------
 
     print("\nSession Status")
     print("--------------")
-    print(f"Completed : {engine2.is_completed()}")
-    print(f"Finished  : {engine2.finish_session()}")
+
+    print(
+        f"Completed : "
+        f"{engine2.is_completed()}"
+    )
+
+    print(
+        f"Finished  : "
+        f"{engine2.finish_session()}"
+    )
 
 
 if __name__ == "__main__":

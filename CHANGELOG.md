@@ -447,3 +447,20 @@ The format follows the principles of Keep a Changelog.
 
 ### Validated
 - Verified complete learning execution pipeline from PlanningEngine through StudyEngine.
+## Sprint 35 — Exercise Execution and Progress
+
+### Added
+- Exercise execution support in StudyEngine.
+- `current_exercise()` for retrieving the next incomplete exercise.
+- `complete_exercise()` for recording exercise completion.
+- `get_exercise_progress()` for calculating exercise progress.
+- Persistent exercise progress through StudyProgressService.
+- Exercise resume support across application restarts.
+- Session completion now requires both objectives and exercises.
+
+### Testing
+- Added study exercise execution tests.
+- Added session completion behavior tests.
+- Added exercise resume persistence tests.
+- Updated resume-session tests for the new completion rules.
+- Added deterministic test cleanup for persisted study progress.

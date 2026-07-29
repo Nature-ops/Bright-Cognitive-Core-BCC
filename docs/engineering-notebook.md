@@ -1914,3 +1914,32 @@ Sprint 34
 Begin learner persistence by introducing a ProgressService responsible for saving and restoring StudyProgress.
 
 This will allow learners to pause and resume study sessions across application restarts.
+
+## Sprint 35 — Exercise Execution
+
+The StudyEngine was extended so exercises are now part of the active
+study lifecycle rather than passive content attached to a StudySession.
+
+StudyProgress already contained `completed_exercises`, allowing exercise
+execution to reuse the persistence architecture introduced in Sprint 34.
+
+StudyEngine now supports:
+
+- retrieving the current incomplete exercise
+- completing exercises
+- calculating exercise progress
+- persisting exercise completion
+- restoring exercise progress after restart
+
+The session completion rule was strengthened.
+
+Previously:
+
+Objectives complete → Session complete
+
+Now:
+
+Objectives complete + Exercises complete → Session complete
+
+Tests that use persistent session state were also updated to clean their
+state before and after execution, making them deterministic and repeatable.

@@ -2,6 +2,7 @@ from app.models.study_session import StudySession
 from app.models.study_progress import StudyProgress
 from datetime import datetime, UTC 
 from app.models.objective import Objective
+from app.models.exercise import Exercise
 from app.services.study_progress_service import StudyProgressService
 
 
@@ -120,14 +121,23 @@ class StudyEngine:
         self._require_session()
 
         assert self.session is not None
-
         assert self.progress is not None
 
-        return len(
-            self.progress.completed_objectives
-        ) == len(self.
-            session.objectives
+        objectives_completed = (
+            len(self.progress.completed_objectives)
+            == len(self.session.objectives)
         )
+
+        exercises_completed = (
+            len(self.progress.completed_exercises)
+            == len(self.session.exercises)
+        )
+
+        return (
+            objectives_completed
+            and exercises_completed
+        )
+        
 
 
     
@@ -147,3 +157,61 @@ class StudyEngine:
             )
 
         return completed
+
+
+
+    def current_exercise(self) -> Exercise | None:
+
+        self._require_session()
+
+        assert self.session is not None
+        assert self.progress is not None
+
+        for exercise in self.session.exercises:
+
+            if exercise.id not in self.progress.completed_exercises:
+
+                return exercise
+
+        return None
+
+
+    def complete_exercise(
+        self,
+        exercise_id: str,
+    ) -> None:
+
+        self._require_session()
+
+        assert self.progress is not None
+
+        if exercise_id not in self.progress.completed_exercises:
+
+            self.progress.completed_exercises.append(
+                exercise_id
+            )
+
+            self.progress.updated_at = datetime.now(UTC)
+
+            self.progress_service.save(
+                self.progress
+            )
+    
+
+    def get_exercise_progress(self) -> float:
+
+        self._require_session()
+
+        assert self.session is not None
+        assert self.progress is not None
+
+        total = len(self.session.exercises)
+
+        completed = len(
+            self.progress.completed_exercises
+        )
+
+        if total == 0:
+            return 100.0
+
+        return completed / total * 100
