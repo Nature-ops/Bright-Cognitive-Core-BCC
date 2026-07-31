@@ -491,3 +491,29 @@ The format follows the principles of Keep a Changelog.
 - Added assessment persistence and resume test.
 - Updated study lifecycle tests for assessment requirements.
 - Updated resume-session test for the complete learning lifecycle.
+
+## Sprint 37 — Milestone Completion Integration
+
+### Added
+- Integrated StudyEngine session completion with framework progress.
+- Completed study sessions now record their milestone through ProgressService.
+- Added automatic milestone progression based on framework dependencies.
+- PlanningEngine now selects the next eligible milestone after completion.
+- Preserved separation between session-level StudyProgress and framework-level Progress.
+
+### Testing
+- Added milestone completion integration test.
+- Added automatic milestone progression test.
+- Added end-to-end study progression test.
+- Added test-state restoration to prevent framework progress contamination.
+- Verified progression tests are repeatable.
+
+### Verified Flow
+AWS Fundamentals
+→ IAM
+→ Complete objectives
+→ Complete hands-on exercise
+→ Pass assessment
+→ Finish session
+→ Record IAM milestone
+→ PlanningEngine selects Amazon EC2

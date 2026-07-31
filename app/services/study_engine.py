@@ -6,6 +6,7 @@ from app.models.exercise import Exercise
 from app.services.study_progress_service import StudyProgressService
 from app.models.assessment_result import AssessmentResult
 from app.services.assessment_service import AssessmentService
+from app.services.progress_service import ProgressService
 
 
 
@@ -20,6 +21,8 @@ class StudyEngine:
         self.progress: StudyProgress | None = None
 
         self.assessment_service = AssessmentService()
+
+        self.framework_progress_service = ProgressService()
 
         
 
@@ -161,6 +164,13 @@ class StudyEngine:
         if completed:
 
             assert self.session is not None
+
+            learning_plan = self.session.learning_plan
+
+            self.framework_progress_service.complete_milestone(
+                framework_id=learning_plan.framework.id,
+                milestone_id=learning_plan.milestone.id,
+            )
 
             self.progress_service.delete(
                 self.session.id

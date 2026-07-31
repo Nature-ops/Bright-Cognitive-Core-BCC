@@ -2000,3 +2000,59 @@ no assessment is attached.
 `test_exercise_progress_service` currently appears to reuse persisted
 exercise state. It should later be updated so each test starts from
 a deterministic clean state.
+## Sprint 37 — Milestone Completion Integration
+
+Sprint 37 connected the study lifecycle to framework-level progression.
+
+Previously, StudyEngine could determine that a StudySession was complete,
+but completion did not automatically update the broader learning framework.
+
+StudyEngine.finish_session() now records the completed milestone through
+ProgressService before deleting temporary StudyProgress.
+
+The architecture distinguishes two types of progress:
+
+StudyProgress
+- Temporary session-level state
+- Completed objectives
+- Completed exercises
+- Assessment completion
+
+Progress
+- Durable framework-level state
+- Completed milestones
+- Completed skills
+
+The completion flow is now:
+
+PlanningEngine
+    ↓
+LearningPlan
+    ↓
+StudySession
+    ↓
+StudyEngine
+    ↓
+Objectives + Exercises + Assessment
+    ↓
+finish_session()
+    ↓
+ProgressService.complete_milestone()
+    ↓
+PlanningEngine
+    ↓
+Next eligible milestone
+
+The AWS Solutions Architect framework currently demonstrates:
+
+AWS Fundamentals
+→ IAM
+→ EC2
+→ S3
+→ VPC
+
+The end-to-end integration test proved that completing IAM causes
+PlanningEngine to automatically select Amazon EC2 as the next milestone.
+
+Tests that modify framework progress preserve and restore the original
+progress data to keep test execution deterministic.
