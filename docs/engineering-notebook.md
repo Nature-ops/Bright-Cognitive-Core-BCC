@@ -1943,3 +1943,60 @@ Objectives complete + Exercises complete → Session complete
 
 Tests that use persistent session state were also updated to clean their
 state before and after execution, making them deterministic and repeatable.
+
+## Sprint 36 — Assessment Execution
+
+Sprint 36 extended the study lifecycle with assessment execution.
+
+The assessment architecture separates assessment definitions from
+assessment execution.
+
+AssessmentEngine remains responsible for loading and retrieving
+assessment definitions.
+
+AssessmentService is responsible for evaluating submitted answers,
+calculating scores, and determining pass/fail results.
+
+AssessmentResult represents the outcome of an assessment attempt.
+
+The lifecycle is now:
+
+StudySession
+    ↓
+Objectives
+    ↓
+Exercises
+    ↓
+Assessment
+    ↓
+AssessmentService
+    ↓
+AssessmentResult
+    ↓
+StudyProgress
+
+A required assessment must be passed before the StudySession can
+be considered complete.
+
+The completion rule is now:
+
+Objectives complete
++
+Exercises complete
++
+Required assessment passed
+=
+Study session complete
+
+Assessment completion is persisted through StudyProgressService,
+allowing a passed assessment to survive an application restart.
+
+Sessions without assessments remain compatible with the lifecycle
+because the assessment requirement is considered satisfied when
+no assessment is attached.
+
+### Technical Debt
+
+`test_exercise_progress_service` currently appears to reuse persisted
+exercise state. It should later be updated so each test starts from
+a deterministic clean state.

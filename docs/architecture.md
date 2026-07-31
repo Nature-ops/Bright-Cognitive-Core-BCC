@@ -394,3 +394,91 @@ Bright is designed as an Engineering Learning Platform rather than a collection 
 Knowledge, planning, assessment, and progress are treated as independent systems.
 
 This separation improves maintainability, scalability, and testability while making it easier to support new engineering disciplines in the future.
+
+
+Future Bright Tooling
+
+BCC-??? — Context-Efficient Tool Execution
+
+Inspired by output-compression patterns such as RTK:
+
+Command
+   ↓
+Tool Runner
+   ↓
+Output Processor
+   ↓
+Relevant engineering signal
+   ↓
+AI context
+
+
+
+## Future Platform Capabilities
+
+### Context-Efficient Tool Execution
+
+Bright will eventually execute engineering tools such as Git,
+Docker, Terraform, AWS CLI, test runners, and system commands.
+
+Raw tool output should not automatically be sent to the AI model.
+
+A future Tool Output Processor will:
+
+- filter irrelevant output
+- remove duplication
+- summarize repetitive information
+- preserve errors and actionable information
+- reduce AI context usage
+
+Architecture:
+
+ToolEngine
+    ↓
+CommandRunner
+    ↓
+OutputProcessor
+    ↓
+ContextBuilder
+    ↓
+AIProvider
+
+This design is inspired in part by context-efficient CLI systems
+such as RTK, while remaining independent of any specific tool.
+
+
+### Durable Agent Memory
+
+Bright will eventually require persistent memory beyond conversation
+history and study-progress storage.
+
+A future MemoryEngine will provide a common interface for durable
+agent memory.
+
+Potential memory categories:
+
+- working memory
+- conversation memory
+- episodic memory
+- learned user preferences
+- project knowledge
+- engineering decisions
+- mistakes and resolutions
+- learning history
+
+Architecture:
+
+Bright Core
+    ↓
+MemoryEngine
+    ↓
+MemoryStore
+    ├── LocalMemoryStore
+    ├── External memory adapter
+    └── Future cloud memory store
+
+External systems such as ICM may be evaluated as possible storage
+backends or architectural references.
+
+Bright services should depend on the MemoryEngine abstraction rather
+than directly on a specific memory implementation.

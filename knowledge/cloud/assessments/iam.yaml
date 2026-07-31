@@ -1,21 +1,53 @@
 id: iam-assessment
 
-title: IAM Assessment
+title: IAM Knowledge Assessment
+
+description: Test your understanding of AWS Identity and Access Management.
 
 passing_score: 70
 
 questions:
 
-  - id: q1
-
+  - id: iam-q1
     prompt: What does IAM stand for?
 
     options:
-      - Internet Access Manager
       - Identity and Access Management
-      - Internal Account Manager
-      - Identity Authentication Module
+      - Internet Access Manager
+      - Instance Access Management
 
     answer: Identity and Access Management
 
-    explanation: IAM is AWS's identity service.
+    explanation: >
+      IAM stands for Identity and Access Management and is used
+      to control access to AWS resources.
+
+
+  - id: iam-q2
+    prompt: Which IAM identity can be assumed by a user, application, or AWS service?
+
+    options:
+      - IAM Group
+      - IAM Role
+      - IAM Policy
+
+    answer: IAM Role
+
+    explanation: >
+      IAM roles can be assumed by trusted users, applications,
+      or AWS services to obtain temporary permissions.
+
+
+  - id: iam-q3
+    prompt: Which security principle should be used when assigning IAM permissions?
+
+    options:
+      - Maximum access
+      - Least privilege
+      - Public access
+
+    answer: Least privilege
+
+    explanation: >
+      The principle of least privilege means granting only the
+      permissions required to perform a task.

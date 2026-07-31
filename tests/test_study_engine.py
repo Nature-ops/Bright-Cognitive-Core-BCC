@@ -63,6 +63,40 @@ def main():
 
         exercise = engine.current_exercise()
 
+        print()
+
+        print("Assessment Status")
+        print("-----------------")
+
+        if session.assessment is not None:
+
+            answers = {
+                    "iam-q1": "Identity and Access Management",
+                    "iam-q2": "IAM Role",
+                    "iam-q3": "Least privilege",
+            }
+
+            result = engine.submit_assessment(
+                    answers
+            )
+
+            print(
+                    f"Assessment : {session.assessment.title}"
+            )
+
+            print(
+                    f"Score      : {result.score:.0f}%"
+            )
+            print(
+                    f"Passed     : {result.passed}"
+            )
+
+        else:
+
+            print("No assessment required.")
+
+    
+
     print()
 
     print("\nSession Status")

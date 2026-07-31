@@ -4,6 +4,8 @@ from datetime import datetime, UTC
 from app.models.objective import Objective
 from app.models.exercise import Exercise
 from app.services.study_progress_service import StudyProgressService
+from app.models.assessment_result import AssessmentResult
+from app.services.assessment_service import AssessmentService
 
 
 
@@ -16,6 +18,8 @@ class StudyEngine:
         self.progress_service = StudyProgressService()
 
         self.progress: StudyProgress | None = None
+
+        self.assessment_service = AssessmentService()
 
         
 
@@ -133,10 +137,16 @@ class StudyEngine:
             == len(self.session.exercises)
         )
 
+        assessment_completed = (
+        self.session.assessment is None
+        or self.progress.assessment_completed
+        )
+
         return (
             objectives_completed
             and exercises_completed
-        )
+            and assessment_completed
+     )
         
 
 
@@ -215,3 +225,38 @@ class StudyEngine:
             return 100.0
 
         return completed / total * 100
+
+
+    def submit_assessment(
+        self,
+        answers: dict[str, str],
+    ) -> AssessmentResult:
+
+        self._require_session()
+
+        assert self.session is not None
+        assert self.progress is not None
+
+        assessment = self.session.assessment
+
+        if assessment is None:
+            raise RuntimeError(
+                "This study session has no assessment."
+            )
+
+        result = self.assessment_service.evaluate(
+            assessment,
+            answers,
+        )
+
+        if result.passed:
+
+            self.progress.assessment_completed = True
+
+            self.progress.updated_at = datetime.now(UTC)
+
+            self.progress_service.save(
+                self.progress
+            )
+
+        return result

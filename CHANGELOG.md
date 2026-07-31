@@ -464,3 +464,30 @@ The format follows the principles of Keep a Changelog.
 - Added exercise resume persistence tests.
 - Updated resume-session tests for the new completion rules.
 - Added deterministic test cleanup for persisted study progress.
+
+## Sprint 36 — Assessment Execution
+
+### Added
+- Added `AssessmentResult` model for assessment outcomes.
+- Added `AssessmentService` for assessment evaluation and scoring.
+- Added real IAM knowledge assessment.
+- Added assessment execution to `StudyEngine`.
+- Added configurable passing-score evaluation.
+- Added assessment completion persistence.
+- Added assessment resume support across application restarts.
+- Session completion now requires required assessments to be passed.
+
+### Assessment Rules
+- Failed assessments do not complete the assessment requirement.
+- Scores equal to the configured passing score are considered passing.
+- Sessions without assessments are not blocked by assessment completion.
+- Sessions with assessments require a passing result before completion.
+
+### Testing
+- Added AssessmentService passing and failing tests.
+- Added exact passing-score boundary test.
+- Added StudyEngine assessment integration test.
+- Added failed-assessment session completion test.
+- Added assessment persistence and resume test.
+- Updated study lifecycle tests for assessment requirements.
+- Updated resume-session test for the complete learning lifecycle.

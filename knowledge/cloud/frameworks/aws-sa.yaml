@@ -50,7 +50,7 @@ milestones:
 
   - id: iam
     title: Identity and Access Management
-    
+    assessment_id: iam-assessment
     description: Learn IAM users, groups, roles, and policies.
 
     depends_on:
