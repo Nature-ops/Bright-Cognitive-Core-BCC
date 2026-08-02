@@ -1,0 +1,11 @@
+{
+  "session_id": "aws-sa-iam",
+  "completed_objectives": [
+    "iam-users",
+    "iam-policies"
+  ],
+  "completed_exercises": [],
+  "assessment_completed": false,
+  "started_at": "2026-08-01T20:41:30.827490Z",
+  "updated_at": "2026-08-02T22:06:24.892484Z"
+}
