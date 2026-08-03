@@ -50,7 +50,19 @@ class BrightCLI:
 
 
     def show_objectives(self):
-        print("Objectives coming soon.")
+
+        objectives = (
+            self.controller.objectives()
+        )
+
+        completed = (
+            self.controller.completed_objectives()
+        )
+
+        self.renderer.render_objectives(
+            objectives,
+            completed,
+        )
 
     def show_resources(self):
         print("Resources coming soon.")
@@ -126,7 +138,7 @@ class BrightCLI:
             print()
 
             print("All objectives have been completed.")
-            
+
             return
     
         input(

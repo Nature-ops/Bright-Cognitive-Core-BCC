@@ -1,6 +1,7 @@
 from pathlib import Path
-from app.cli.renderer import BrightRenderer
 
+
+from app.models.objective import Objective
 from app.services.assessment_engine import AssessmentEngine
 from app.services.exercise_engine import ExerciseEngine
 from app.services.planning_engine import PlanningEngine
@@ -89,7 +90,7 @@ class SessionController:
         return session
 
     
-    def current_objective(self):
+    def current_objective(self) -> Objective | None:
         return self.study_engine.current_objective()
 
 
@@ -110,8 +111,23 @@ class SessionController:
     def objective_progress(self) -> float:
         return self.study_engine.get_progress()
 
+    
 
 
+    def objectives(self) -> list[Objective]:
+
+        assert self.study_engine.session is not None
+
+        return self.study_engine.session.objectives
+
+
+    def completed_objectives(self) -> list[str]:
+
+        assert self.study_engine.progress is not None
+
+        return self.study_engine.progress.completed_objectives
+
+    
     # def next_activity(self) -> Activity:
 
         objective = self.study_engine.current_objective()

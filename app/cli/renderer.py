@@ -31,16 +31,6 @@ class BrightRenderer:
 
             print(milestone.description)
 
-    def render_objectives(
-        self,
-        objectives,
-    ) -> None:
-
-        self.render_heading("Objectives")
-
-        for objective in objectives:
-
-            print(f"• {objective.title}")
 
 
     def render_resources(
@@ -160,3 +150,31 @@ class BrightRenderer:
         print()
 
         print(f"✓ {objective.title} completed.")
+
+
+
+    def render_objectives(
+        self,
+        objectives,
+        completed_ids,
+    ):
+
+        self.render_heading("Objectives")
+
+        if not objectives:
+
+            print("No objectives.")
+
+            return
+
+        for objective in objectives:
+
+            mark = (
+                "✓"
+                if objective.id in completed_ids
+                else "☐"
+            )
+
+            print(
+                f"{mark} {objective.title}"
+            )
