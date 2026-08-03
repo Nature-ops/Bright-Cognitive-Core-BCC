@@ -1,6 +1,7 @@
 from pathlib import Path
 
 
+from app.models.activity import Activity, ActivityType
 from app.models.objective import Objective
 from app.services.assessment_engine import AssessmentEngine
 from app.services.exercise_engine import ExerciseEngine
@@ -127,33 +128,88 @@ class SessionController:
 
         return self.study_engine.progress.completed_objectives
 
-    
-    # def next_activity(self) -> Activity:
 
-        objective = self.study_engine.current_objective()
+    def resources(self):
+
+        assert self.study_engine.session is not None
+
+        return self.study_engine.session.learning_plan.resources
+
+
+    def exercises(self):
+
+        assert self.study_engine.session is not None
+
+        return self.study_engine.session.exercises
+
+
+    def current_assessment(self):
+        return self.study_engine.current_assessment()
+
+    
+
+    def current_exercise(self):
+        return self.study_engine.current_exercise()
+
+
+
+    def finish_session(self):
+        return self.study_engine.finish_session()
+
+
+
+    def learning_state(self):
+        objective = self.current_objective()
 
         if objective is not None:
-            return Activity(
-                type=ActivityType.OBJECTIVE,
-                item=objective,
-            )
+            return "objective", objective
 
-        exercise = self.study_engine.current_exercise()
+        exercise = self.current_exercise()
 
         if exercise is not None:
             return Activity(
                 type=ActivityType.EXERCISE,
                 item=exercise,
-            )
+)
 
-        assessment = self.study_engine.current_assessment()
+        assessment = self.current_assessment()
 
         if assessment is not None:
-            return Activity(
-                type=ActivityType.ASSESSMENT,
-                item=assessment,
-            )
+            return "assessment", assessment
 
-        return Activity(
-            type=ActivityType.COMPLETED
+        return "completed", None
+
+
+    def complete_current_exercise(self):
+
+        exercise = (
+            self.study_engine.current_exercise()
         )
+
+        if exercise is None:
+            return None
+
+        self.study_engine.complete_exercise(
+            exercise.id
+        )
+
+        return exercise
+
+
+    def exercise_progress(self) -> float:
+
+        return (
+            self.study_engine.get_exercise_progress()
+        )
+
+
+    def submit_assessment(
+        self,
+        answers,
+    ):
+
+        return self.study_engine.submit_assessment(
+            answers
+        )
+
+    

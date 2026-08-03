@@ -270,3 +270,12 @@ class StudyEngine:
             )
 
         return result
+
+
+    def current_assessment(self):
+
+        self._require_session()
+
+        assert self.session is not None
+
+        return self.session.assessment

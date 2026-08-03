@@ -1,3 +1,9 @@
+
+
+
+
+
+
 class BrightRenderer:
     """Responsible for rendering information to the terminal."""
 
@@ -177,4 +183,74 @@ class BrightRenderer:
 
             print(
                 f"{mark} {objective.title}"
+
+
             )
+
+    def render_current_exercise(
+        self,
+        exercise,
+    ):
+
+        self.render_heading(
+            "Current Exercise"
+        )
+
+        if exercise is None:
+
+            print("No exercises remaining.")
+
+            return
+
+        print(exercise.title)   
+
+
+
+    def render_exercise_completed(
+        self,
+        exercise,
+    ):
+
+        print()
+
+        print(f"✓ {exercise.title} completed.")
+
+
+    def render_exercise_progress(
+        self,
+        progress: float,
+    ):
+
+        print()
+
+        print(
+            f"Exercise Progress: {progress:.0f}%"
+        )
+
+
+    def render_question(
+        self,
+        question,
+        number: int,
+        total: int,
+    ):
+
+        self.render_heading(
+            f"Question {number} of {total}"
+        )
+
+        print(question.prompt)
+
+        print()
+
+        for option in question.options:
+
+            print(option)
+
+
+
+            
+
+
+        
+                

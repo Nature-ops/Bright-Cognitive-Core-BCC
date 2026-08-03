@@ -3,6 +3,7 @@ from app.cli.renderer import BrightRenderer
 from app.core.learning.session_controller import SessionController
 
 
+
 class BrightCLI:
 
     def __init__(
@@ -65,13 +66,28 @@ class BrightCLI:
         )
 
     def show_resources(self):
-        print("Resources coming soon.")
+
+        resources = (
+            self.controller.resources()
+        )
+
+        self.renderer.render_resources(
+            resources
+        )
 
     def show_exercises(self):
-        print("Exercises coming soon.")
+        self.renderer.render_exercises(
+        self.controller.exercises()
+        )
 
     def take_assessment(self):
-        print("Assessment coming soon.")
+        assessment = (
+        self.controller.current_assessment()
+        )
+
+        self.renderer.render_assessment(
+            assessment
+        )
 
     def show_progress(self):
         print("Progress coming soon.")
@@ -128,40 +144,150 @@ class BrightCLI:
         return True
 
     def continue_learning(self):
-        objective = self.controller.current_objective()
-    
-        self.renderer.render_current_objective(
-            objective
-        )
-    
-        if objective is None:
-            print()
+        
 
-            print("All objectives have been completed.")
+        state, item = self.controller.learning_state()
+    
+        if state == "objective":
+
+            self.renderer.render_current_objective(
+                item
+            )
+
+            input(
+                "\nPress ENTER when completed..."
+            )
+
+            completed = (
+                self.controller.complete_current_objective()
+            )
+
+            if completed is not None:
+
+                self.renderer.render_objective_completed(
+                    completed
+                )
+
+                self.renderer.render_progress(
+                    self.controller.objective_progress()
+                )
+
+
+                next_state, next_item = (
+                    self.controller.learning_state()
+                )
+
+                if next_state == "objective":
+
+                    self.renderer.render_current_objective(
+                        next_item
+                    )
+
+                    return
+
+
+
+                
+
+        elif state == "exercise":
+
+            self.renderer.render_current_exercise(
+                item
+            )
+
+            input(
+                "\nPress ENTER when completed..."
+            )
+
+            completed = (
+                self.controller.complete_current_exercise()
+            )
+
+            if completed is not None:
+
+                self.renderer.render_exercise_completed(
+                    completed
+                )
+
+                self.renderer.render_exercise_progress(
+                    self.controller.exercise_progress()
+                )
+
+            next_state, next_item = (
+                self.controller.learning_state()
+            )
+
+            if next_state == "assessment":
+
+                self.renderer.render_assessment(
+                    next_item
+                )
 
             return
-    
-        input(
-            "\nPress ENTER when completed..."
-        )
-    
-        completed = (
-            self.controller.complete_current_objective()
-        )
-    
-        if completed is not None:
-    
-           self.renderer.render_objective_completed(
-            completed
-            )
-           self.renderer.render_progress(
-                self.controller.objective_progress()
-              )
-           next_objective = self.controller.current_objective()
 
-           self.renderer.render_current_objective(
-               next_objective
-              )
+
+        elif state == "assessment":
+
+            self.renderer.render_assessment(
+                item
+            )
+
+            return
+
+
+        else:
+            print()
+
+            print("🎉 Session completed!")
+
+            print()
+
+            print("Congratulations!")
+
+
+    def run_assessment(
+        self,
+        assessment,
+    ):
+        answers = {}
+
+        for index, question in enumerate(
+            assessment.questions,
+            start=1,
+        ):
+
+            self.renderer.render_question(
+                question,
+                index,
+                len(assessment.questions),
+            )
+
+            answer = input("\nYour answer: ")
+
+            answers[question.id] = answer.upper()
+
+            result = self.controller.submit_assessment(
+                answers
+            )
+
+
+
+            print()
+
+            print(
+                f"Score: {result.score:.0f}%"
+            )
+
+            print(
+                f"Passed: {result.passed}"
+            )
+
+
+
+        
+
+
+        
         
             
 
