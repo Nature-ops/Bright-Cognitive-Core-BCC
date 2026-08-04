@@ -18,8 +18,14 @@ class AssessmentService:
                 question.id
             )
 
-            if submitted_answer == question.answer:
+            if (
+                submitted_answer is not None
+                and submitted_answer.strip().casefold()
+                == question.answer.strip().casefold()
+            ):
                 correct_answers += 1
+
+    
 
         total_questions = len(
             assessment.questions
@@ -38,6 +44,21 @@ class AssessmentService:
         passed = (
             score >= assessment.passing_score
         )
+
+
+
+        for question in assessment.questions:
+
+            submitted_answer = answers.get(question.id)
+
+            print()
+            
+
+            if submitted_answer == question.answer:
+                correct_answers += 1
+
+
+
 
         return AssessmentResult(
             assessment_id=assessment.id,

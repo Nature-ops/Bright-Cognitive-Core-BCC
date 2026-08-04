@@ -208,6 +208,9 @@ class SessionController:
         answers,
     ):
 
+        print()
+
+        
         return self.study_engine.submit_assessment(
             answers
         )

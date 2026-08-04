@@ -187,8 +187,6 @@ class BrightCLI:
 
 
 
-                
-
         elif state == "exercise":
 
             self.renderer.render_current_exercise(
@@ -228,7 +226,7 @@ class BrightCLI:
 
         elif state == "assessment":
 
-            self.renderer.render_assessment(
+            self.run_assessment(
                 item
             )
 
@@ -266,21 +264,25 @@ class BrightCLI:
 
             answers[question.id] = answer.upper()
 
-            result = self.controller.submit_assessment(
-                answers
+
+        result = self.controller.submit_assessment(
+            answers
+        )
+
+        print()
+
+        print(
+            f"Score: {result.score:.0f}%"
+            )
+
+        print(
+            f"Passed: {result.passed}"
             )
 
 
 
-            print()
+    
 
-            print(
-                f"Score: {result.score:.0f}%"
-            )
-
-            print(
-                f"Passed: {result.passed}"
-            )
 
 
 
