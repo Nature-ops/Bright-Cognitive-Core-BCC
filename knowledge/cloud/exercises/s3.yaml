@@ -1,0 +1,15 @@
+id: s3-lab
+
+title: S3 Hands-on Lab
+
+description: Practice creating and managing an Amazon S3 bucket.
+
+steps:
+  - Open the AWS Console.
+  - Navigate to Amazon S3.
+  - Create an S3 bucket.
+  - Configure the bucket settings.
+  - Upload an object to the bucket.
+  - Verify that the object is stored successfully.
+
+verification: Successfully create an S3 bucket and upload an object.

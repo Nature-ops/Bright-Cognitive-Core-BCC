@@ -1,0 +1,16 @@
+
+id: ec2-lab
+
+title: EC2 Hands-on Lab
+
+description: Practice launching and managing an Amazon EC2 instance.
+
+steps:
+  - Open the AWS Console.
+  - Navigate to Amazon EC2.
+  - Launch an EC2 instance.
+  - Configure the instance networking.
+  - Connect to the running instance.
+  - Verify that the instance is running correctly.
+
+verification: Successfully launch and connect to the EC2 instance.

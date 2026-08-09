@@ -33,3 +33,15 @@
 - id: s3-security
   name: S3 Security
   description: Secure S3 buckets using IAM and bucket policies.
+
+- id: subnets
+  name: VPC Subnets
+  description: Understand public and private subnets and how they divide a VPC network.
+
+- id: route-tables
+  name: Route Tables
+  description: Understand how route tables control traffic between subnets and network destinations.
+
+- id: security-groups
+  name: Security Groups
+  description: Understand how security groups control inbound and outbound traffic for AWS resources.

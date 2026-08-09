@@ -2056,3 +2056,103 @@ PlanningEngine to automatically select Amazon EC2 as the next milestone.
 
 Tests that modify framework progress preserve and restore the original
 progress data to keep test execution deterministic.
+
+
+## 2026-08-09 — AWS Learning Framework Completion
+
+### Session Summary
+
+Today we completed and validated the first functional AWS Solutions Architect learning framework in Bright Assistant.
+
+The framework now supports progression through:
+
+1. AWS Fundamentals
+2. IAM
+3. Amazon EC2
+4. Amazon S3
+5. Amazon VPC
+
+### Completed Features
+
+- Learning objectives can be presented and completed.
+- Objective progress is calculated automatically.
+- Exercises can be loaded from YAML knowledge files.
+- Exercises can be completed and tracked.
+- Exercise progress is calculated automatically.
+- Assessments are supported by the learning architecture.
+- Milestone completion is persisted through the framework progress system.
+- Completed milestones are stored in `data/progress.json`.
+- Completed study-session state is stored separately under `data/study_progress/`.
+- The system can detect when all framework milestones are completed.
+- The CLI correctly displays the framework completion message.
+
+### Knowledge Base Improvements
+
+Added and validated AWS knowledge entries for:
+
+- EC2 exercise
+- S3 exercise
+- VPC exercise
+- VPC skills:
+  - Subnets
+  - Route Tables
+  - Security Groups
+
+The AWS Solutions Architect framework now references these skills and exercises correctly.
+
+### Bugs Fixed
+
+#### Missing Exercise IDs
+
+The framework referenced exercises that did not initially exist in the exercise catalog.
+
+Examples included:
+
+- `ec2-lab`
+- `s3-lab`
+- `vpc-lab`
+
+The corresponding YAML exercise definitions were added.
+
+#### Missing VPC Skills
+
+The framework referenced:
+
+- `subnets`
+- `route-tables`
+- `security-groups`
+
+These were added to `aws-skills.yaml`.
+
+A YAML indentation error was also identified and corrected while adding the VPC skills.
+
+### Progress Architecture
+
+The study engine now distinguishes between:
+
+- Objective completion
+- Exercise completion
+- Assessment completion
+- Overall study-session completion
+- Framework milestone completion
+
+A milestone is only considered complete when the required study-session components have been completed.
+
+### Current Framework State
+
+AWS Solutions Architect:
+
+- AWS Fundamentals — completed
+- IAM — completed
+- EC2 — completed
+- S3 — completed
+- VPC — completed
+
+The framework completion state is now detected correctly by the CLI.
+
+### Validation
+
+The CLI was repeatedly tested with:
+
+```powershell
+python -m tests.test_cli

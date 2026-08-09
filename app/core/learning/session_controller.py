@@ -1,7 +1,5 @@
 from pathlib import Path
 
-
-from app.models.activity import Activity, ActivityType
 from app.models.objective import Objective
 from app.services.assessment_engine import AssessmentEngine
 from app.services.exercise_engine import ExerciseEngine
@@ -41,6 +39,8 @@ class SessionController:
 
         self.study_engine = StudyEngine()
 
+        self._session_finished = False
+
 
 
     def start(self):
@@ -76,9 +76,7 @@ class SessionController:
         )
 
         if learning_plan is None:
-            raise RuntimeError(
-                "No learning plan available."
-            )
+            return None
 
         session = self.study_session_service.create_session(
             learning_plan
@@ -111,6 +109,26 @@ class SessionController:
 
     def objective_progress(self) -> float:
         return self.study_engine.get_progress()
+
+
+
+    def session_completed(self) -> bool:
+        return self.study_engine.is_completed()
+
+
+
+    def finish_session(self) -> bool:
+        if self._session_finished:
+            return False
+
+        completed = self.study_engine.finish_session()
+
+        if completed:
+            self._session_finished = True
+
+        return completed
+
+
 
     
 
@@ -152,12 +170,6 @@ class SessionController:
         return self.study_engine.current_exercise()
 
 
-
-    def finish_session(self):
-        return self.study_engine.finish_session()
-
-
-
     def learning_state(self):
         objective = self.current_objective()
 
@@ -167,10 +179,8 @@ class SessionController:
         exercise = self.current_exercise()
 
         if exercise is not None:
-            return Activity(
-                type=ActivityType.EXERCISE,
-                item=exercise,
-)
+            return "exercise", exercise
+
 
         assessment = self.current_assessment()
 

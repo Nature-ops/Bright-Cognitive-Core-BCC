@@ -517,3 +517,52 @@ AWS Fundamentals
 → Finish session
 → Record IAM milestone
 → PlanningEngine selects Amazon EC2
+
+
+---
+
+### 2. `CHANGELOG.md`
+
+At the **top** of your changelog, add:
+
+```markdown
+## [Unreleased]
+
+### Added
+
+- Completed the first functional AWS Solutions Architect learning framework.
+- Added EC2 hands-on exercise.
+- Added S3 hands-on exercise.
+- Added VPC hands-on exercise.
+- Added VPC learning skills:
+  - Subnets
+  - Route Tables
+  - Security Groups.
+- Added framework-level completion detection.
+
+### Improved
+
+- Objective progression now works across multiple objectives.
+- Exercise progression now works after objectives are completed.
+- Study-session completion now considers objectives and exercises.
+- Framework milestone completion is persisted in `data/progress.json`.
+- Completed study-session progress is persisted separately from framework progress.
+- CLI now detects when the entire learning framework has been completed.
+- AWS knowledge catalog is now synchronized with the AWS Solutions Architect framework.
+
+### Fixed
+
+- Fixed missing `ec2-lab` exercise reference.
+- Fixed missing `s3-lab` exercise reference.
+- Fixed missing `vpc-lab` exercise reference.
+- Fixed missing VPC skill definitions.
+- Fixed YAML indentation in `aws-skills.yaml`.
+- Fixed framework progression after completing the VPC milestone.
+- Fixed framework completion detection after all milestones are completed.
+
+### Validation
+
+- Repeatedly validated the learning lifecycle with:
+
+```powershell
+python -m tests.test_cli

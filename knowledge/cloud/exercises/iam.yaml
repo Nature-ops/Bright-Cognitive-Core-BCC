@@ -12,3 +12,4 @@ steps:
   - Sign in using the new IAM user.
 
 verification: Successfully sign in using the new IAM user.
+

@@ -1,0 +1,17 @@
+id: vpc-lab
+
+title: VPC Hands-on Lab
+
+description: Practice creating and configuring an Amazon VPC.
+
+steps:
+  - Open the AWS Console.
+  - Navigate to Amazon VPC.
+  - Create a VPC.
+  - Create a subnet.
+  - Configure a route table.
+  - Associate the route table with the subnet.
+  - Configure a security group.
+  - Verify the VPC networking configuration.
+
+verification: Successfully create and configure a VPC with a subnet, route table, and security group.

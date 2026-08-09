@@ -2,10 +2,14 @@
   {
     "framework_id": "aws-sa",
     "completed_milestones": [
-      "aws-fundamentals"
+      "aws-fundamentals",
+      "iam",
+      "ec2",
+      "s3",
+      "vpc"
     ],
     "completed_skills": [],
     "started_at": "2026-07-23T00:01:30.644761Z",
-    "updated_at": "2026-07-23T00:17:03.402306Z"
+    "updated_at": "2026-08-09T19:32:13.043038Z"
   }
 ]

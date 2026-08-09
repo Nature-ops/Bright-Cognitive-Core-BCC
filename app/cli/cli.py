@@ -24,6 +24,15 @@ class BrightCLI:
 
         session = self.controller.start()
 
+
+        if session is None:
+            self.renderer.render_welcome()
+            print()
+            print("🎉 Learning framework completed!")
+            print()
+            print("Congratulations! You have completed all milestones.")
+            return
+
         self.renderer.render_welcome()
 
         self.renderer.render_framework(
@@ -236,11 +245,17 @@ class BrightCLI:
         else:
             print()
 
-            print("🎉 Session completed!")
+            if self.controller.session_completed():
 
-            print()
+                print("🎉 Session completed!")
 
-            print("Congratulations!")
+                print()
+
+                print("Congratulations!")
+
+                self.controller.finish_session()
+
+            return
 
 
     def run_assessment(
@@ -262,7 +277,7 @@ class BrightCLI:
 
             answer = input("\nYour answer: ")
 
-            answers[question.id] = answer.upper()
+            answers[question.id] = answer.strip()
 
 
         result = self.controller.submit_assessment(
@@ -278,6 +293,28 @@ class BrightCLI:
         print(
             f"Passed: {result.passed}"
             )
+
+
+
+        if result.passed:
+
+            print()
+
+            completed = self.controller.finish_session()
+            
+
+            if completed:
+
+                print("🎉 Milestone completed!")
+
+
+
+        else:
+
+            print()
+
+            print("Assessment not passed.")
+            print("Review the material and try again.")
 
 
 
