@@ -227,6 +227,48 @@ class BrightRenderer:
             f"Exercise Progress: {progress:.0f}%"
         )
 
+    def render_milestone_progress(
+        self,
+        framework,
+        completed_ids,
+        progress: float,
+    ) -> None:
+
+        self.render_heading("Progress")
+
+        print()
+        print(f"Framework: {framework.name}")
+
+        print()
+        print("Milestones")
+        print("----------")
+
+        for milestone in framework.milestones:
+
+            mark = (
+                "✓"
+                if milestone.id in completed_ids
+                else "○"
+            )
+
+            print(f"{mark} {milestone.title}")
+
+        print()
+        print(f"Overall Progress: {progress:.0f}%")
+
+        completed = sum(
+            1
+            for milestone in framework.milestones
+            if milestone.id in completed_ids
+        )
+
+        total = len(framework.milestones)
+
+        print()
+        print(f"Completed: {completed} / {total}")
+
+    
+
 
     def render_question(
         self,
