@@ -99,7 +99,28 @@ class BrightCLI:
         )
 
     def show_progress(self):
-        print("Progress coming soon.")
+
+        session = self.controller.study_engine.session
+
+        if session is None:
+            print("\nNo active learning session.")
+            return
+
+        framework = session.learning_plan.framework
+
+        progress = self.controller.milestone_progress()
+
+        completed = (
+            self.controller.study_engine.framework_progress_service
+            .get_progress(framework.id)
+            .completed_milestones
+        )
+
+        self.renderer.render_milestone_progress(
+            framework,
+            completed,
+            progress,
+        )
 
 
 

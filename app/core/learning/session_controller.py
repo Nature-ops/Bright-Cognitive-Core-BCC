@@ -213,6 +213,26 @@ class SessionController:
         )
 
 
+
+    def milestone_progress(self) -> float:
+
+        assert self.study_engine.session is not None
+
+        framework = (
+            self.study_engine.session.learning_plan.framework
+        )
+
+        milestone_ids = [
+            milestone.id
+            for milestone in framework.milestones
+        ]
+
+        return self.study_engine.framework_progress_service.milestone_progress(
+            framework.id,
+            milestone_ids,
+        )
+
+
     def submit_assessment(
         self,
         answers,

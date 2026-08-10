@@ -5,6 +5,7 @@ from datetime import UTC, datetime
 from app.models.progress import Progress
 
 
+
 class ProgressService:
 
     def __init__(self):
@@ -99,5 +100,28 @@ class ProgressService:
         progress.updated_at = datetime.now(UTC)
 
         self.update_progress(progress)
+
+
+
+    def milestone_progress(
+        self,
+        framework_id: str,
+        milestone_ids: list[str],
+    ) -> float:
+
+        progress = self.get_progress(framework_id)
+
+        total = len(milestone_ids)
+
+        if total == 0:
+            return 100.0
+
+        completed = sum(
+            1
+            for milestone_id in milestone_ids
+            if milestone_id in progress.completed_milestones
+        )
+
+        return completed / total * 100
 
 
