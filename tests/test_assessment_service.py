@@ -130,6 +130,8 @@ def main():
 
     test_exact_passing_score()
 
+    test_answer_normalization()
+
     print()
     print("AssessmentService tests passed.")
 
@@ -191,6 +193,44 @@ def test_exact_passing_score():
         assert result.total_questions == 10
         assert result.score == 70.0
         assert result.passed is True
+
+
+
+
+def test_answer_normalization():
+
+    assessment = Assessment(
+        id="normalization-test",
+        title="Answer Normalization Test",
+        passing_score=70,
+        questions=[
+            Question(
+                id="q1",
+                prompt="What does IAM stand for?",
+                options=[
+                    "Identity and Access Management",
+                    "Internet Access Manager",
+                ],
+                answer="Identity and Access Management",
+            ),
+        ],
+    )
+
+    service = AssessmentService()
+
+    answers = {
+        "q1": "  identity and access management  "
+    }
+
+    result = service.evaluate(
+        assessment,
+        answers,
+    )
+
+    assert result.correct_answers == 1
+    assert result.total_questions == 1
+    assert result.score == 100.0
+    assert result.passed is True
 
 
 if __name__ == "__main__":
