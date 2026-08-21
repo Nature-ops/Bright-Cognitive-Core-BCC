@@ -1,3 +1,5 @@
+
+from app.models.learning_plan import LearningPlan
 from app.services.assessment_engine import AssessmentEngine
 from app.services.exercise_engine import ExerciseEngine
 from app.services.planning_engine import PlanningEngine
@@ -28,12 +30,31 @@ def build_study_session():
         "knowledge/cloud/assessments"
     )
 
-    learning_plan = planner.create_learning_plan_for_framework(
-        "aws-sa"
+    framework = planner.knowledge.framework
+
+    milestone = planner.knowledge.get_milestone(
+        "iam"
     )
 
-    if learning_plan is None:
-        raise RuntimeError("Framework completed.")
+    if milestone is None:
+        raise RuntimeError("IAM milestone not found.")
+
+    skills = [
+        planner.knowledge.get_skill(skill_id)
+        for skill_id in milestone.skill_ids
+    ]
+
+    resources = [
+        planner.knowledge.get_resource(resource_id)
+        for resource_id in milestone.resource_ids
+    ]
+
+    learning_plan = LearningPlan(
+        framework=framework,
+        milestone=milestone,
+        skills=skills,
+        resources=resources,
+    )
 
     session_service = StudySessionService(
         resource_engine,
