@@ -3,34 +3,31 @@ from app.cli.renderer import BrightRenderer
 from app.core.learning.session_controller import SessionController
 
 
-
 class BrightCLI:
 
     def __init__(
         self,
         controller: SessionController,
     ):
-
         self.controller = controller
-
         self.renderer = BrightRenderer()
-
         self.menu = BrightMenu()
-
-
-    
 
     def run(self):
 
         session = self.controller.start()
 
-
         if session is None:
+
             self.renderer.render_welcome()
+
             print()
             print("🎉 Learning framework completed!")
             print()
-            print("Congratulations! You have completed all milestones.")
+            print(
+                "Congratulations! You have completed all milestones."
+            )
+
             return
 
         self.renderer.render_welcome()
@@ -45,29 +42,18 @@ class BrightCLI:
 
         while True:
 
-            
-
             choice = self.menu.show_main_menu()
 
             result = self.handle_choice(choice)
 
-            
-
             if not result:
-                
                 break
-
-
 
     def show_objectives(self):
 
-        objectives = (
-            self.controller.objectives()
-        )
+        objectives = self.controller.objectives()
 
-        completed = (
-            self.controller.completed_objectives()
-        )
+        completed = self.controller.completed_objectives()
 
         self.renderer.render_objectives(
             objectives,
@@ -76,22 +62,22 @@ class BrightCLI:
 
     def show_resources(self):
 
-        resources = (
-            self.controller.resources()
-        )
+        resources = self.controller.resources()
 
         self.renderer.render_resources(
             resources
         )
 
     def show_exercises(self):
+
         self.renderer.render_exercises(
-        self.controller.exercises()
+            self.controller.exercises()
         )
 
     def take_assessment(self):
+
         assessment = (
-        self.controller.current_assessment()
+            self.controller.current_assessment()
         )
 
         self.renderer.render_assessment(
@@ -103,15 +89,22 @@ class BrightCLI:
         session = self.controller.study_engine.session
 
         if session is None:
+
             print("\nNo active learning session.")
+
             return
 
-        framework = session.learning_plan.framework
+        framework = (
+            session.learning_plan.framework
+        )
 
-        progress = self.controller.milestone_progress()
+        progress = (
+            self.controller.milestone_progress()
+        )
 
         completed = (
-            self.controller.study_engine.framework_progress_service
+            self.controller.study_engine
+            .framework_progress_service
             .get_progress(framework.id)
             .completed_milestones
         )
@@ -122,24 +115,14 @@ class BrightCLI:
             progress,
         )
 
-
-
-
-
-    
-
     def handle_choice(
         self,
         choice: int,
     ) -> bool:
 
-        
-
         if choice == 1:
 
-            
             self.continue_learning()
-            
 
         elif choice == 2:
 
@@ -174,10 +157,11 @@ class BrightCLI:
         return True
 
     def continue_learning(self):
-        
 
-        state, item = self.controller.learning_state()
-    
+        state, item = (
+            self.controller.learning_state()
+        )
+
         if state == "objective":
 
             self.renderer.render_current_objective(
@@ -189,7 +173,8 @@ class BrightCLI:
             )
 
             completed = (
-                self.controller.complete_current_objective()
+                self.controller
+                .complete_current_objective()
             )
 
             if completed is not None:
@@ -202,7 +187,6 @@ class BrightCLI:
                     self.controller.objective_progress()
                 )
 
-
                 next_state, next_item = (
                     self.controller.learning_state()
                 )
@@ -213,9 +197,7 @@ class BrightCLI:
                         next_item
                     )
 
-                    return
-
-
+            return
 
         elif state == "exercise":
 
@@ -228,7 +210,8 @@ class BrightCLI:
             )
 
             completed = (
-                self.controller.complete_current_exercise()
+                self.controller
+                .complete_current_exercise()
             )
 
             if completed is not None:
@@ -253,7 +236,6 @@ class BrightCLI:
 
             return
 
-
         elif state == "assessment":
 
             self.run_assessment(
@@ -262,8 +244,8 @@ class BrightCLI:
 
             return
 
-
         else:
+
             print()
 
             if self.controller.session_completed():
@@ -271,18 +253,17 @@ class BrightCLI:
                 print("🎉 Session completed!")
 
                 print()
-
                 print("Congratulations!")
 
                 self.controller.finish_session()
 
             return
 
-
     def run_assessment(
         self,
         assessment,
     ):
+
         answers = {}
 
         for index, question in enumerate(
@@ -299,66 +280,85 @@ class BrightCLI:
             while True:
 
                 answer = input(
-                    "\nYour answer: ").strip()
+                    "\nYour answer: "
+                ).strip()
+
                 try:
+
                     answer_index = int(answer) - 1
-                    selected_answer = question.options[answer_index]
+
+                    selected_answer = (
+                        question.options[answer_index]
+                    )
 
                 except (ValueError, IndexError):
+
                     print(
-                        "Invalid input. Please enter a valid number.")
+                        "Invalid input. "
+                        "Please enter a valid number."
+                    )
+
                     continue
-                answers[question.id] = selected_answer
+
+                answers[question.id] = (
+                    selected_answer
+                )
+
                 break
 
-        result = self.controller.submit_assessment(
-            answers
+        result = (
+            self.controller.submit_assessment(
+                answers
+            )
         )
 
         print()
 
+        self.renderer.render_heading(
+            "Assessment Result"
+        )
+
+        print(
+            f"Correct: {result.correct_answers} / "
+            f"{result.total_questions}"
+        )
+
         print(
             f"Score: {result.score:.0f}%"
-            )
+        )
+
+        status = (
+            "PASSED"
+            if result.passed
+            else "FAILED"
+        )
 
         print(
-            f"Passed: {result.passed}"
-            )
-
-
+            f"Status: {status}"
+        )
 
         if result.passed:
 
             print()
 
-            completed = self.controller.finish_session()
-            
+            completed = (
+                self.controller.finish_session()
+            )
 
             if completed:
 
-                print("🎉 Milestone completed!")
-
-
+                print(
+                    "🎉 Milestone completed!"
+                )
 
         else:
 
             print()
 
-            print("Assessment not passed.")
-            print("Review the material and try again.")
+            print(
+                "Assessment not passed."
+            )
 
-
-
-    
-
-
-
-
-        
-
-
-        
-        
-            
-
-                    
+            print(
+                "Review the material and try again."
+            )
