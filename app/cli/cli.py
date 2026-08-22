@@ -255,7 +255,29 @@ class BrightCLI:
                 print()
                 print("Congratulations!")
 
-                self.controller.finish_session()
+                next_session = (
+                    self.controller
+                    .advance_to_next_milestone()
+                )
+
+                if next_session is None:
+
+                    print()
+                    print("🎉 Learning framework completed!")
+                    print()
+                    print(
+                        "Congratulations! You have completed all milestones."
+                    )
+
+                else:
+
+                    self.renderer.render_framework(
+                        next_session.learning_plan.framework
+                    )
+
+                    self.renderer.render_milestone(
+                        next_session.learning_plan.milestone
+                    )
 
             return
 
@@ -341,14 +363,36 @@ class BrightCLI:
 
             print()
 
-            completed = (
-                self.controller.finish_session()
+            next_session = (
+                self.controller
+                .advance_to_next_milestone()
             )
 
-            if completed:
+            if next_session is None:
 
                 print(
                     "🎉 Milestone completed!"
+                )
+
+                print()
+                print("🎉 Learning framework completed!")
+                print()
+                print(
+                    "Congratulations! You have completed all milestones."
+                )
+
+            else:
+
+                print(
+                    "🎉 Milestone completed!"
+                )
+
+                self.renderer.render_framework(
+                    next_session.learning_plan.framework
+                )
+
+                self.renderer.render_milestone(
+                    next_session.learning_plan.milestone
                 )
 
         else:

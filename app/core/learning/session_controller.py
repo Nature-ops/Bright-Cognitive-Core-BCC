@@ -129,6 +129,37 @@ class SessionController:
         return completed
 
 
+    def advance_to_next_milestone(self):
+        if not self.session_completed():
+            return None
+
+        if not self.finish_session():
+            return None
+
+        framework = self.planner.knowledge.framework
+
+        learning_plan = (
+            self.planner.create_learning_plan_for_framework(
+                framework.id
+            )
+        )
+
+        if learning_plan is None:
+            return None
+
+        session = (
+            self.study_session_service.create_session(
+                learning_plan
+            )
+        )
+
+        self.study_engine.start_session(session)
+
+        self._session_finished = False
+
+        return session
+
+
 
     
 
@@ -244,5 +275,3 @@ class SessionController:
         return self.study_engine.submit_assessment(
             answers
         )
-
-    
