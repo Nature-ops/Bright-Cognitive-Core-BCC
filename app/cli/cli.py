@@ -296,10 +296,20 @@ class BrightCLI:
                 len(assessment.questions),
             )
 
-            answer = input("\nYour answer: ")
+            while True:
 
-            answers[question.id] = answer.strip()
+                answer = input(
+                    "\nYour answer: ").strip()
+                try:
+                    answer_index = int(answer) - 1
+                    selected_answer = question.options[answer_index]
 
+                except (ValueError, IndexError):
+                    print(
+                        "Invalid input. Please enter a valid number.")
+                    continue
+                answers[question.id] = selected_answer
+                break
 
         result = self.controller.submit_assessment(
             answers

@@ -285,9 +285,11 @@ class BrightRenderer:
 
         print()
 
-        for option in question.options:
+        for index, option in enumerate(
+            question.options,
+            start=1):
 
-            print(option)
+            print(f"{index}. {option}")
 
 
 

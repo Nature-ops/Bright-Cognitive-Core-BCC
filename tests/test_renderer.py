@@ -1,14 +1,10 @@
 from app.cli.renderer import BrightRenderer
-from app.core.learning.session_controller import SessionController
+from tests.test_utils import build_study_session
 
 
 def main():
 
-    controller = SessionController(
-        "knowledge/cloud/frameworks/aws-sa.yaml"
-    )
-
-    session = controller.start()
+    session = build_study_session()
 
     renderer = BrightRenderer()
 
@@ -21,7 +17,8 @@ def main():
     )
 
     renderer.render_objectives(
-        session.objectives
+        session.objectives,
+        [],
     )
 
     renderer.render_resources(
