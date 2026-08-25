@@ -102,12 +102,7 @@ class BrightCLI:
             self.controller.milestone_progress()
         )
 
-        completed = (
-            self.controller.study_engine
-            .framework_progress_service
-            .get_progress(framework.id)
-            .completed_milestones
-        )
+        completed = self.controller.completed_milestones()
 
         self.renderer.render_milestone_progress(
             framework,
