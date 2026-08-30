@@ -5,6 +5,7 @@ from app.services.study_session_service import StudySessionService
 from app.services.resource_engine import ResourceEngine
 from app.services.exercise_engine import ExerciseEngine
 from app.services.assessment_engine import AssessmentEngine
+from tests.test_utils import iam_passing_answers
 
 
 def main():
@@ -164,11 +165,7 @@ def main():
 
         assert session.assessment is not None
 
-        answers = {
-            "iam-q1": "Identity and Access Management",
-            "iam-q2": "IAM Role",
-            "iam-q3": "Least privilege",
-        }
+        answers = iam_passing_answers()
 
         result = engine.submit_assessment(
             answers

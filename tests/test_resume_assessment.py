@@ -1,5 +1,8 @@
 from app.services.study_engine import StudyEngine
-from tests.test_utils import build_study_session
+from tests.test_utils import (
+    build_study_session,
+    iam_passing_answers,
+)
 
 
 def main():
@@ -29,11 +32,7 @@ def main():
 
     assert session.assessment is not None
 
-    passing_answers = {
-        "iam-q1": "Identity and Access Management",
-        "iam-q2": "IAM Role",
-        "iam-q3": "Least privilege",
-    }
+    passing_answers = iam_passing_answers()
 
     result = engine1.submit_assessment(
         passing_answers

@@ -7,6 +7,14 @@ from app.services.resource_engine import ResourceEngine
 from app.services.study_session_service import StudySessionService
 
 
+def iam_passing_answers() -> dict[str, str]:
+    return {
+        "iam-q1": "Identity and Access Management",
+        "iam-q2": "IAM Role",
+        "iam-q3": "Least privilege",
+    }
+
+
 def build_study_session():
 
     planner = PlanningEngine()
