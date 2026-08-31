@@ -9,6 +9,7 @@ from app.services.assessment_service import AssessmentService
 from app.services.assessment_remediation_service import (
     AssessmentRemediationService,
 )
+from app.services.learning_gap_service import LearningGapService
 from app.repositories.json_learning_progress_repository import (
     JsonLearningProgressRepository,
 )
@@ -46,6 +47,8 @@ class StudyEngine:
         self.assessment_remediation_service = (
             AssessmentRemediationService()
         )
+
+        self.learning_gap_service = LearningGapService()
 
         self.framework_progress_service = (
             framework_progress_repository
@@ -329,6 +332,13 @@ class StudyEngine:
         result.remediation = (
             self.assessment_remediation_service
             .create_remediation(assessment, result)
+        )
+
+        result.learning_gaps = (
+            self.learning_gap_service.create_learning_gaps(
+                assessment,
+                result,
+            )
         )
 
         if result.passed:

@@ -1,6 +1,7 @@
 from pydantic import BaseModel, Field
 
 from app.models.assessment_remediation import AssessmentRemediation
+from app.models.learning_gap import LearningGap
 
 
 class AssessmentResult(BaseModel):
@@ -24,5 +25,9 @@ class AssessmentResult(BaseModel):
     )
 
     remediation: list[AssessmentRemediation] = Field(
+        default_factory=list
+    )
+
+    learning_gaps: list[LearningGap] = Field(
         default_factory=list
     )

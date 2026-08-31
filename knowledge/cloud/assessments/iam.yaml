@@ -9,6 +9,7 @@ passing_score: 70
 questions:
 
   - id: iam-q1
+    objective_id: iam-users
     prompt: What does IAM stand for?
 
     options:
@@ -24,6 +25,7 @@ questions:
 
 
   - id: iam-q2
+    objective_id: iam-users
     prompt: Which IAM identity can be assumed by a user, application, or AWS service?
 
     options:
@@ -39,6 +41,7 @@ questions:
 
 
   - id: iam-q3
+    objective_id: iam-policies
     prompt: Which security principle should be used when assigning IAM permissions?
 
     options:
