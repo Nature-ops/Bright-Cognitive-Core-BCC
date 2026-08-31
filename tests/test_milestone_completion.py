@@ -2,6 +2,7 @@ import app.services.study_engine as study_engine_module
 from tests.persistence_fixtures import (
     IsolatedProgressTestCase,
     TemporaryProgressService,
+    TemporaryStudyProgressService,
 )
 from tests.test_utils import build_study_session
 
@@ -49,7 +50,7 @@ class MilestoneCompletionTest(IsolatedProgressTestCase):
             1,
         )
         self.assertFalse(
-            engine.progress_service.exists(self.session.id)
+            TemporaryStudyProgressService().exists(self.session.id)
         )
 
 

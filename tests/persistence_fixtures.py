@@ -8,6 +8,9 @@ import app.services.study_engine as study_engine_module
 from app.repositories.json_learning_progress_repository import (
     JsonLearningProgressRepository,
 )
+from app.repositories.json_study_progress_repository import (
+    JsonStudyProgressRepository,
+)
 from app.services.progress_service import ProgressService
 from app.services.study_progress_service import StudyProgressService
 
@@ -35,6 +38,13 @@ class TemporaryLearningProgressRepository(
 ):
     def __init__(self):
         super().__init__(TemporaryProgressService())
+
+
+class TemporaryStudyProgressRepository(
+    JsonStudyProgressRepository
+):
+    def __init__(self):
+        super().__init__(TemporaryStudyProgressService())
 
 
 class IsolatedProgressTestCase(TestCase):
@@ -66,8 +76,8 @@ class IsolatedProgressTestCase(TestCase):
             ),
             patch.object(
                 study_engine_module,
-                "StudyProgressService",
-                TemporaryStudyProgressService,
+                "JsonStudyProgressRepository",
+                TemporaryStudyProgressRepository,
             ),
         ]
 

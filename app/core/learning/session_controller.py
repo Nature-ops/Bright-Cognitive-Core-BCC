@@ -5,6 +5,9 @@ from app.models.objective import Objective
 from app.repositories.learning_progress_repository import (
     LearningProgressRepository,
 )
+from app.repositories.study_progress_repository import (
+    StudyProgressRepository,
+)
 from app.services.assessment_engine import AssessmentEngine
 from app.services.exercise_engine import ExerciseEngine
 from app.services.planning_engine import PlanningEngine
@@ -20,6 +23,7 @@ class SessionController:
         self,
         framework_path: str | Path,
         learning_progress_repository: LearningProgressRepository | None = None,
+        study_progress_repository: StudyProgressRepository | None = None,
     ):
 
         self.framework_path = Path(
@@ -45,7 +49,10 @@ class SessionController:
         )
 
         self.study_engine = StudyEngine(
-            learning_progress_repository
+            framework_progress_repository=(
+                learning_progress_repository
+            ),
+            study_progress_repository=study_progress_repository,
         )
 
         self._session_finished = False

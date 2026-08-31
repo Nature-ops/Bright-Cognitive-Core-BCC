@@ -4,14 +4,19 @@ from app.models.framework import Framework
 from datetime import datetime, UTC 
 from app.models.objective import Objective
 from app.models.exercise import Exercise
-from app.services.study_progress_service import StudyProgressService
 from app.models.assessment_result import AssessmentResult
 from app.services.assessment_service import AssessmentService
 from app.repositories.json_learning_progress_repository import (
     JsonLearningProgressRepository,
 )
+from app.repositories.json_study_progress_repository import (
+    JsonStudyProgressRepository,
+)
 from app.repositories.learning_progress_repository import (
     LearningProgressRepository,
+)
+from app.repositories.study_progress_repository import (
+    StudyProgressRepository,
 )
 
 
@@ -21,11 +26,15 @@ class StudyEngine:
     def __init__(
         self,
         framework_progress_repository: LearningProgressRepository | None = None,
+        study_progress_repository: StudyProgressRepository | None = None,
     ):
 
         self.session: StudySession | None = None
 
-        self.progress_service = StudyProgressService()
+        self.study_progress_repository = (
+            study_progress_repository
+            or JsonStudyProgressRepository()
+        )
 
         self.progress: StudyProgress | None = None
 
@@ -46,7 +55,7 @@ class StudyEngine:
 
         self.session = session
 
-        saved_progress = self.progress_service.load(session.id)
+        saved_progress = self.study_progress_repository.load(session.id)
 
         if saved_progress is not None:
 
@@ -60,7 +69,7 @@ class StudyEngine:
 
             self.progress.updated_at = datetime.now(UTC)
 
-            self.progress_service.save(self.progress)
+            self.study_progress_repository.save(self.progress)
 
 
 
@@ -109,7 +118,7 @@ class StudyEngine:
 
     
 
-            self.progress_service.save(
+            self.study_progress_repository.save(
                 self.progress
             )
 
@@ -223,7 +232,7 @@ class StudyEngine:
                 milestone_id=learning_plan.milestone.id,
             )
 
-            self.progress_service.delete(
+            self.study_progress_repository.delete(
                 self.session.id
             )
 
@@ -264,7 +273,7 @@ class StudyEngine:
 
             self.progress.updated_at = datetime.now(UTC)
 
-            self.progress_service.save(
+            self.study_progress_repository.save(
                 self.progress
             )
     
@@ -316,7 +325,7 @@ class StudyEngine:
 
             self.progress.updated_at = datetime.now(UTC)
 
-            self.progress_service.save(
+            self.study_progress_repository.save(
                 self.progress
             )
 

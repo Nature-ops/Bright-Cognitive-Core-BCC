@@ -1,9 +1,32 @@
 import app.services.study_engine as study_engine_module
+from app.models.study_progress import StudyProgress
+from app.repositories.study_progress_repository import (
+    StudyProgressRepository,
+)
 from tests.persistence_fixtures import IsolatedProgressTestCase
 from tests.test_utils import (
     build_study_session,
     iam_passing_answers,
 )
+
+
+class InMemoryStudyProgressRepository(StudyProgressRepository):
+    def __init__(self):
+        self.records: dict[str, StudyProgress] = {}
+
+    def load(self, session_id: str) -> StudyProgress | None:
+        progress = self.records.get(session_id)
+
+        if progress is None:
+            return None
+
+        return progress.model_copy(deep=True)
+
+    def save(self, progress: StudyProgress) -> None:
+        self.records[progress.session_id] = progress.model_copy(deep=True)
+
+    def delete(self, session_id: str) -> None:
+        self.records.pop(session_id, None)
 
 
 class SessionResumptionTest(IsolatedProgressTestCase):
@@ -13,7 +36,11 @@ class SessionResumptionTest(IsolatedProgressTestCase):
         self.session = build_study_session()
 
     def test_restarts_with_persisted_session_progress(self):
-        first_engine = study_engine_module.StudyEngine()
+        repository = InMemoryStudyProgressRepository()
+
+        first_engine = study_engine_module.StudyEngine(
+            study_progress_repository=repository,
+        )
         first_engine.start_session(self.session)
 
         first_objective = first_engine.current_objective()
@@ -31,11 +58,11 @@ class SessionResumptionTest(IsolatedProgressTestCase):
         )
 
         self.assertTrue(result.passed)
-        self.assertTrue(
-            first_engine.progress_service.exists(self.session.id)
-        )
+        self.assertIn(self.session.id, repository.records)
 
-        resumed_engine = study_engine_module.StudyEngine()
+        resumed_engine = study_engine_module.StudyEngine(
+            study_progress_repository=repository,
+        )
         resumed_engine.start_session(self.session)
 
         self.assertIsNotNone(resumed_engine.progress)
