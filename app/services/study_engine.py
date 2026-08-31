@@ -11,6 +11,9 @@ from app.services.assessment_remediation_service import (
     AssessmentRemediationService,
 )
 from app.services.learning_gap_service import LearningGapService
+from app.services.objective_assessment_evidence_service import (
+    ObjectiveAssessmentEvidenceService,
+)
 from app.repositories.json_learning_progress_repository import (
     JsonLearningProgressRepository,
 )
@@ -62,6 +65,10 @@ class StudyEngine:
         )
 
         self.learning_gap_service = LearningGapService()
+
+        self.objective_assessment_evidence_service = (
+            ObjectiveAssessmentEvidenceService()
+        )
 
         self.framework_progress_service = (
             framework_progress_repository
@@ -354,6 +361,13 @@ class StudyEngine:
             )
         )
 
+        objective_evidence = (
+            self.objective_assessment_evidence_service.create_evidence(
+                assessment,
+                result,
+            )
+        )
+
         self.assessment_evidence_repository.record_attempt(
             AssessmentEvidence(
                 framework_id=(
@@ -370,6 +384,12 @@ class StudyEngine:
                     gap.objective_id
                     for gap in result.learning_gaps
                 ],
+                assessed_objective_ids=(
+                    objective_evidence.assessed_objective_ids
+                ),
+                successful_objective_ids=(
+                    objective_evidence.successful_objective_ids
+                ),
             )
         )
 

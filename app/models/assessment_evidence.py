@@ -11,6 +11,8 @@ class AssessmentEvidence(BaseModel):
     passed: bool
     incorrect_question_ids: list[str] = Field(default_factory=list)
     learning_gap_objective_ids: list[str] = Field(default_factory=list)
+    assessed_objective_ids: list[str] = Field(default_factory=list)
+    successful_objective_ids: list[str] = Field(default_factory=list)
     recorded_at: datetime = Field(
         default_factory=lambda: datetime.now(UTC)
     )

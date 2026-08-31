@@ -91,6 +91,22 @@ class AssessmentEvidenceRecordingTest(IsolatedProgressTestCase):
             repository.list_attempts()[0].learning_gap_objective_ids,
             ["iam-users", "iam-policies"],
         )
+        self.assertEqual(
+            repository.list_attempts()[0].assessed_objective_ids,
+            ["iam-users", "iam-policies"],
+        )
+        self.assertEqual(
+            repository.list_attempts()[0].successful_objective_ids,
+            [],
+        )
+        self.assertEqual(
+            repository.list_attempts()[1].assessed_objective_ids,
+            ["iam-users", "iam-policies"],
+        )
+        self.assertEqual(
+            repository.list_attempts()[1].successful_objective_ids,
+            ["iam-users", "iam-policies"],
+        )
 
     def test_passing_imperfect_attempt_preserves_gap_evidence(self):
         session = build_study_session()
@@ -132,4 +148,12 @@ class AssessmentEvidenceRecordingTest(IsolatedProgressTestCase):
         self.assertEqual(
             evidence.learning_gap_objective_ids,
             ["iam-users", "iam-policies"],
+        )
+        self.assertEqual(
+            evidence.assessed_objective_ids,
+            ["iam-users", "iam-policies"],
+        )
+        self.assertEqual(
+            evidence.successful_objective_ids,
+            [],
         )

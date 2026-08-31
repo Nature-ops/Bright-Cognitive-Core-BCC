@@ -23,6 +23,9 @@ from app.services.study_session_service import StudySessionService
 from app.services.repeated_weakness_service import (
     RepeatedWeaknessService,
 )
+from app.services.objective_learning_state_service import (
+    ObjectiveLearningStateService,
+)
 
 
 
@@ -56,6 +59,10 @@ class SessionController:
         )
 
         self.repeated_weakness_service = RepeatedWeaknessService()
+
+        self.objective_learning_state_service = (
+            ObjectiveLearningStateService()
+        )
 
         self.study_session_service = (
             StudySessionService(
@@ -292,6 +299,15 @@ class SessionController:
     def repeated_weaknesses(self):
         return self.repeated_weakness_service.find_repeated_weaknesses(
             self.assessment_evidence_repository.list_attempts()
+        )
+
+
+    def current_learning_states(self):
+        return (
+            self.objective_learning_state_service
+            .current_learning_states(
+                self.assessment_evidence_repository.list_attempts()
+            )
         )
 
 
