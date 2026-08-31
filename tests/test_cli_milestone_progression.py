@@ -5,6 +5,7 @@ from unittest.mock import patch
 from app.cli.cli import BrightCLI
 from app.core.learning.session_controller import SessionController
 from tests.persistence_fixtures import IsolatedProgressTestCase
+from tests.persistence_fixtures import TemporaryProgressService
 
 
 class CLIMilestoneProgressionTest(IsolatedProgressTestCase):
@@ -15,11 +16,11 @@ class CLIMilestoneProgressionTest(IsolatedProgressTestCase):
             "knowledge/cloud/frameworks/aws-sa.yaml"
         )
 
-        progress = self.controller.planner.progress.get_progress(
+        progress = TemporaryProgressService().get_progress(
             "aws-sa"
         )
         progress.completed_milestones = ["aws-fundamentals"]
-        self.controller.planner.progress.update_progress(progress)
+        TemporaryProgressService().update_progress(progress)
 
     def test_passing_iam_advances_cli_to_ec2_without_restart(self):
         cli = BrightCLI(self.controller)
@@ -44,7 +45,7 @@ class CLIMilestoneProgressionTest(IsolatedProgressTestCase):
 
         rendered_output = output.getvalue()
         completed_milestones = (
-            self.controller.planner.progress
+            TemporaryProgressService()
             .get_progress("aws-sa")
             .completed_milestones
         )

@@ -1,5 +1,8 @@
 from app.core.learning.session_controller import SessionController
-from tests.persistence_fixtures import IsolatedProgressTestCase
+from tests.persistence_fixtures import (
+    IsolatedProgressTestCase,
+    TemporaryProgressService,
+)
 
 
 class FrameworkCompletionTest(IsolatedProgressTestCase):
@@ -10,7 +13,7 @@ class FrameworkCompletionTest(IsolatedProgressTestCase):
             "knowledge/cloud/frameworks/aws-sa.yaml"
         )
 
-        progress = self.controller.planner.progress.get_progress(
+        progress = TemporaryProgressService().get_progress(
             "aws-sa"
         )
         progress.completed_milestones = [
@@ -19,7 +22,7 @@ class FrameworkCompletionTest(IsolatedProgressTestCase):
             "ec2",
             "s3",
         ]
-        self.controller.planner.progress.update_progress(progress)
+        TemporaryProgressService().update_progress(progress)
 
     def test_completing_final_milestone_completes_framework(self):
         session = self.controller.start()

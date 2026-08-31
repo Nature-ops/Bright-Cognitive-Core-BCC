@@ -6,13 +6,21 @@ from app.models.exercise import Exercise
 from app.services.study_progress_service import StudyProgressService
 from app.models.assessment_result import AssessmentResult
 from app.services.assessment_service import AssessmentService
-from app.services.progress_service import ProgressService
+from app.repositories.json_learning_progress_repository import (
+    JsonLearningProgressRepository,
+)
+from app.repositories.learning_progress_repository import (
+    LearningProgressRepository,
+)
 
 
 
 class StudyEngine:
 
-    def __init__(self):
+    def __init__(
+        self,
+        framework_progress_repository: LearningProgressRepository | None = None,
+    ):
 
         self.session: StudySession | None = None
 
@@ -22,7 +30,10 @@ class StudyEngine:
 
         self.assessment_service = AssessmentService()
 
-        self.framework_progress_service = ProgressService()
+        self.framework_progress_service = (
+            framework_progress_repository
+            or JsonLearningProgressRepository()
+        )
 
         
 

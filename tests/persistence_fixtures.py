@@ -5,6 +5,9 @@ from unittest.mock import patch
 
 import app.services.planning_engine as planning_engine_module
 import app.services.study_engine as study_engine_module
+from app.repositories.json_learning_progress_repository import (
+    JsonLearningProgressRepository,
+)
 from app.services.progress_service import ProgressService
 from app.services.study_progress_service import StudyProgressService
 
@@ -27,6 +30,13 @@ class TemporaryStudyProgressService(StudyProgressService):
         self.progress_directory.mkdir(parents=True, exist_ok=True)
 
 
+class TemporaryLearningProgressRepository(
+    JsonLearningProgressRepository
+):
+    def __init__(self):
+        super().__init__(TemporaryProgressService())
+
+
 class IsolatedProgressTestCase(TestCase):
     def setUp(self):
         super().setUp()
@@ -46,13 +56,13 @@ class IsolatedProgressTestCase(TestCase):
         patches = [
             patch.object(
                 planning_engine_module,
-                "ProgressService",
-                TemporaryProgressService,
+                "JsonLearningProgressRepository",
+                TemporaryLearningProgressRepository,
             ),
             patch.object(
                 study_engine_module,
-                "ProgressService",
-                TemporaryProgressService,
+                "JsonLearningProgressRepository",
+                TemporaryLearningProgressRepository,
             ),
             patch.object(
                 study_engine_module,

@@ -2,14 +2,25 @@ from pathlib import Path
 from typing import Optional
 from app.models.learning_plan import LearningPlan
 from app.models.milestone import Milestone
+from app.repositories.json_learning_progress_repository import (
+    JsonLearningProgressRepository,
+)
+from app.repositories.learning_progress_repository import (
+    LearningProgressRepository,
+)
 from app.services.knowledge_engine import KnowledgeEngine
-from app.services.progress_service import ProgressService
 
 class PlanningEngine:
 
-    def __init__(self):
+    def __init__(
+        self,
+        progress_repository: LearningProgressRepository | None = None,
+    ):
         self.knowledge = KnowledgeEngine()
-        self.progress = ProgressService()
+        self.progress_repository = (
+            progress_repository
+            or JsonLearningProgressRepository()
+        )
 
     def load_framework(self, path: str | Path) -> None:
         self.knowledge.load_framework(path)
@@ -75,7 +86,7 @@ class PlanningEngine:
         framework_id: str
     ) -> Optional[LearningPlan]:
 
-        progress = self.progress.get_progress(framework_id)
+        progress = self.progress_repository.get_progress(framework_id)
 
         return self.create_learning_plan(
             progress.completed_milestones
