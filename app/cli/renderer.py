@@ -89,6 +89,23 @@ class BrightRenderer:
         print(assessment.title)
 
 
+    def render_assessment_remediation(
+        self,
+        remediation,
+    ) -> None:
+
+        if not remediation:
+            return
+
+        print()
+        print("Review before retrying:")
+
+        for item in remediation:
+            print()
+            print(f"- {item.prompt}")
+            print(f"  {item.explanation}")
+
+
     def divider(self) -> None:
 
         print("=" * 50)
@@ -302,4 +319,3 @@ class BrightRenderer:
 
 
         
-                

@@ -6,6 +6,9 @@ from app.models.objective import Objective
 from app.models.exercise import Exercise
 from app.models.assessment_result import AssessmentResult
 from app.services.assessment_service import AssessmentService
+from app.services.assessment_remediation_service import (
+    AssessmentRemediationService,
+)
 from app.repositories.json_learning_progress_repository import (
     JsonLearningProgressRepository,
 )
@@ -39,6 +42,10 @@ class StudyEngine:
         self.progress: StudyProgress | None = None
 
         self.assessment_service = AssessmentService()
+
+        self.assessment_remediation_service = (
+            AssessmentRemediationService()
+        )
 
         self.framework_progress_service = (
             framework_progress_repository
@@ -317,6 +324,11 @@ class StudyEngine:
         result = self.assessment_service.evaluate(
             assessment,
             answers,
+        )
+
+        result.remediation = (
+            self.assessment_remediation_service
+            .create_remediation(assessment, result)
         )
 
         if result.passed:

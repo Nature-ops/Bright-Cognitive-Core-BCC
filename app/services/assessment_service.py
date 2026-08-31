@@ -11,6 +11,7 @@ class AssessmentService:
     ) -> AssessmentResult:
 
         correct_answers = 0
+        incorrect_question_ids = []
 
         for question in assessment.questions:
 
@@ -24,6 +25,8 @@ class AssessmentService:
                 == question.answer.strip().casefold()
             ):
                 correct_answers += 1
+            else:
+                incorrect_question_ids.append(question.id)
 
         total_questions = len(
             assessment.questions
@@ -50,4 +53,5 @@ class AssessmentService:
             total_questions=total_questions,
             score=score,
             passed=passed,
+            incorrect_question_ids=incorrect_question_ids,
         )

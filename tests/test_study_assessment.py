@@ -27,6 +27,14 @@ class StudyAssessmentTest(IsolatedProgressTestCase):
         self.assertIsNotNone(self.engine.progress)
         assert self.engine.progress is not None
         self.assertFalse(self.engine.progress.assessment_completed)
+        self.assertEqual(
+            failed_result.incorrect_question_ids,
+            ["iam-q1", "iam-q2", "iam-q3"],
+        )
+        self.assertEqual(
+            [item.question_id for item in failed_result.remediation],
+            ["iam-q1", "iam-q2", "iam-q3"],
+        )
 
     def test_passing_assessment_completes_progress(self):
         passed_result = self.engine.submit_assessment(
@@ -37,6 +45,8 @@ class StudyAssessmentTest(IsolatedProgressTestCase):
         self.assertIsNotNone(self.engine.progress)
         assert self.engine.progress is not None
         self.assertTrue(self.engine.progress.assessment_completed)
+        self.assertEqual(passed_result.incorrect_question_ids, [])
+        self.assertEqual(passed_result.remediation, [])
 
 if __name__ == "__main__":
     import unittest

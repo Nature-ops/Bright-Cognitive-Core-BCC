@@ -390,6 +390,12 @@ class BrightCLI:
 
             print()
 
+            self.renderer.render_assessment_remediation(
+                result.remediation
+            )
+
+            print()
+
             print(
                 "Assessment not passed."
             )
