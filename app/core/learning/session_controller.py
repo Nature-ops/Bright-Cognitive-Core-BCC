@@ -8,6 +8,9 @@ from app.repositories.learning_progress_repository import (
 from app.repositories.study_progress_repository import (
     StudyProgressRepository,
 )
+from app.repositories.assessment_evidence_repository import (
+    AssessmentEvidenceRepository,
+)
 from app.services.assessment_engine import AssessmentEngine
 from app.services.exercise_engine import ExerciseEngine
 from app.services.planning_engine import PlanningEngine
@@ -24,6 +27,7 @@ class SessionController:
         framework_path: str | Path,
         learning_progress_repository: LearningProgressRepository | None = None,
         study_progress_repository: StudyProgressRepository | None = None,
+        assessment_evidence_repository: AssessmentEvidenceRepository | None = None,
     ):
 
         self.framework_path = Path(
@@ -53,6 +57,9 @@ class SessionController:
                 learning_progress_repository
             ),
             study_progress_repository=study_progress_repository,
+            assessment_evidence_repository=(
+                assessment_evidence_repository
+            ),
         )
 
         self._session_finished = False

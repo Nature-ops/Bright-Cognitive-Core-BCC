@@ -11,6 +11,12 @@ from app.repositories.json_learning_progress_repository import (
 from app.repositories.json_study_progress_repository import (
     JsonStudyProgressRepository,
 )
+from app.repositories.json_assessment_evidence_repository import (
+    JsonAssessmentEvidenceRepository,
+)
+from app.services.assessment_evidence_service import (
+    AssessmentEvidenceService,
+)
 from app.services.progress_service import ProgressService
 from app.services.study_progress_service import StudyProgressService
 
@@ -33,6 +39,16 @@ class TemporaryStudyProgressService(StudyProgressService):
         self.progress_directory.mkdir(parents=True, exist_ok=True)
 
 
+class TemporaryAssessmentEvidenceService(AssessmentEvidenceService):
+    evidence_file_path: Path
+
+    def __init__(self):
+        self.evidence_file = self.evidence_file_path
+
+        if not self.evidence_file.exists():
+            self.evidence_file.write_text("[]", encoding="utf-8")
+
+
 class TemporaryLearningProgressRepository(
     JsonLearningProgressRepository
 ):
@@ -45,6 +61,13 @@ class TemporaryStudyProgressRepository(
 ):
     def __init__(self):
         super().__init__(TemporaryStudyProgressService())
+
+
+class TemporaryAssessmentEvidenceRepository(
+    JsonAssessmentEvidenceRepository
+):
+    def __init__(self):
+        super().__init__(TemporaryAssessmentEvidenceService())
 
 
 class IsolatedProgressTestCase(TestCase):
@@ -62,6 +85,9 @@ class IsolatedProgressTestCase(TestCase):
         TemporaryStudyProgressService.progress_directory_path = (
             temporary_path / "study_progress"
         )
+        TemporaryAssessmentEvidenceService.evidence_file_path = (
+            temporary_path / "assessment_evidence.json"
+        )
 
         patches = [
             patch.object(
@@ -78,6 +104,11 @@ class IsolatedProgressTestCase(TestCase):
                 study_engine_module,
                 "JsonStudyProgressRepository",
                 TemporaryStudyProgressRepository,
+            ),
+            patch.object(
+                study_engine_module,
+                "JsonAssessmentEvidenceRepository",
+                TemporaryAssessmentEvidenceRepository,
             ),
         ]
 

@@ -5,6 +5,7 @@ from datetime import datetime, UTC
 from app.models.objective import Objective
 from app.models.exercise import Exercise
 from app.models.assessment_result import AssessmentResult
+from app.models.assessment_evidence import AssessmentEvidence
 from app.services.assessment_service import AssessmentService
 from app.services.assessment_remediation_service import (
     AssessmentRemediationService,
@@ -15,6 +16,12 @@ from app.repositories.json_learning_progress_repository import (
 )
 from app.repositories.json_study_progress_repository import (
     JsonStudyProgressRepository,
+)
+from app.repositories.json_assessment_evidence_repository import (
+    JsonAssessmentEvidenceRepository,
+)
+from app.repositories.assessment_evidence_repository import (
+    AssessmentEvidenceRepository,
 )
 from app.repositories.learning_progress_repository import (
     LearningProgressRepository,
@@ -31,6 +38,7 @@ class StudyEngine:
         self,
         framework_progress_repository: LearningProgressRepository | None = None,
         study_progress_repository: StudyProgressRepository | None = None,
+        assessment_evidence_repository: AssessmentEvidenceRepository | None = None,
     ):
 
         self.session: StudySession | None = None
@@ -41,6 +49,11 @@ class StudyEngine:
         )
 
         self.progress: StudyProgress | None = None
+
+        self.assessment_evidence_repository = (
+            assessment_evidence_repository
+            or JsonAssessmentEvidenceRepository()
+        )
 
         self.assessment_service = AssessmentService()
 
@@ -338,6 +351,25 @@ class StudyEngine:
             self.learning_gap_service.create_learning_gaps(
                 assessment,
                 result,
+            )
+        )
+
+        self.assessment_evidence_repository.record_attempt(
+            AssessmentEvidence(
+                framework_id=(
+                    self.session.learning_plan.framework.id
+                ),
+                milestone_id=(
+                    self.session.learning_plan.milestone.id
+                ),
+                assessment_id=result.assessment_id,
+                score=result.score,
+                passed=result.passed,
+                incorrect_question_ids=result.incorrect_question_ids,
+                learning_gap_objective_ids=[
+                    gap.objective_id
+                    for gap in result.learning_gaps
+                ],
             )
         )
 
