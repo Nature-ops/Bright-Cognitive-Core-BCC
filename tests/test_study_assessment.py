@@ -1,117 +1,44 @@
-from app.services.study_engine import StudyEngine
+import app.services.study_engine as study_engine_module
+from tests.persistence_fixtures import IsolatedProgressTestCase
 from tests.test_utils import (
     build_study_session,
     iam_passing_answers,
 )
 
 
-def main():
+class StudyAssessmentTest(IsolatedProgressTestCase):
+    def setUp(self):
+        super().setUp()
 
-    session = build_study_session()
+        self.session = build_study_session()
+        self.engine = study_engine_module.StudyEngine()
+        self.engine.start_session(self.session)
 
-    engine = StudyEngine()
+    def test_failed_assessment_does_not_complete_progress(self):
+        failed_result = self.engine.submit_assessment(
+            {
+                "iam-q1": "Internet Access Manager",
+                "iam-q2": "IAM Group",
+                "iam-q3": "Maximum access",
+            }
+        )
 
-    # Ensure clean test state
-    engine.progress_service.delete(
-        session.id
-    )
+        self.assertFalse(failed_result.passed)
+        self.assertIsNotNone(self.engine.progress)
+        assert self.engine.progress is not None
+        self.assertFalse(self.engine.progress.assessment_completed)
 
-    engine.start_session(session)
+    def test_passing_assessment_completes_progress(self):
+        passed_result = self.engine.submit_assessment(
+            iam_passing_answers()
+        )
 
-    print("=" * 50)
-    print("Study Assessment Test")
-    print("=" * 50)
-
-    assert session.assessment is not None
-
-    print("\nAssessment")
-    print("----------")
-    print(session.assessment.title)
-
-    # -----------------------------------------
-    # Failing attempt
-    # -----------------------------------------
-
-    failing_answers = {
-        "iam-q1": "Internet Access Manager",
-        "iam-q2": "IAM Group",
-        "iam-q3": "Maximum access",
-    }
-
-    failed_result = engine.submit_assessment(
-        failing_answers
-    )
-
-    print("\nFailing Attempt")
-    print("---------------")
-
-    print(
-        f"Score     : "
-        f"{failed_result.score:.0f}%"
-    )
-
-    print(
-        f"Passed    : "
-        f"{failed_result.passed}"
-    )
-
-    assert engine.progress is not None
-
-    print(
-        f"Completed : "
-        f"{engine.progress.assessment_completed}"
-    )
-
-    assert failed_result.passed is False
-
-    assert (
-        engine.progress.assessment_completed
-        is False
-    )
-
-    # -----------------------------------------
-    # Passing attempt
-    # -----------------------------------------
-
-    passing_answers = iam_passing_answers()
-
-    passed_result = engine.submit_assessment(
-        passing_answers
-    )
-
-    print("\nPassing Attempt")
-    print("---------------")
-
-    print(
-        f"Score     : "
-        f"{passed_result.score:.0f}%"
-    )
-
-    print(
-        f"Passed    : "
-        f"{passed_result.passed}"
-    )
-
-    print(
-        f"Completed : "
-        f"{engine.progress.assessment_completed}"
-    )
-
-    assert passed_result.passed is True
-
-    assert (
-        engine.progress.assessment_completed
-        is True
-    )
-
-    # Clean up test state
-    engine.progress_service.delete(
-        session.id
-    )
-
-    print()
-    print("Study assessment test passed.")
-
+        self.assertTrue(passed_result.passed)
+        self.assertIsNotNone(self.engine.progress)
+        assert self.engine.progress is not None
+        self.assertTrue(self.engine.progress.assessment_completed)
 
 if __name__ == "__main__":
-    main()
+    import unittest
+
+    unittest.main()
