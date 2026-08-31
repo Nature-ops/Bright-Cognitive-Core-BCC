@@ -43,6 +43,9 @@ from app.services.learning_decision_service import LearningDecisionService
 from app.services.targeted_learning_intervention_service import (
     TargetedLearningInterventionService,
 )
+from app.services.adaptive_learning_feedback_service import (
+    AdaptiveLearningFeedbackService,
+)
 
 
 
@@ -93,6 +96,10 @@ class SessionController:
 
         self.targeted_learning_intervention_service = (
             TargetedLearningInterventionService()
+        )
+
+        self.adaptive_learning_feedback_service = (
+            AdaptiveLearningFeedbackService()
         )
 
         self.study_session_service = (
@@ -376,6 +383,13 @@ class SessionController:
 
     def intervention_outcomes(self) -> list[InterventionOutcomeEvidence]:
         return self.intervention_outcome_evidence_repository.list_outcomes()
+
+
+    def adaptive_learning_feedback(self):
+        return self.adaptive_learning_feedback_service.create_adaptive_feedback(
+            self.targeted_learning_interventions(),
+            self.intervention_outcomes(),
+        )
 
 
     def current_framework(self) -> Framework | None:
