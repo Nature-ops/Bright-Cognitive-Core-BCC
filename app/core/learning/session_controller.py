@@ -1,4 +1,5 @@
 from pathlib import Path
+from typing import Literal
 
 from app.models.framework import Framework
 from app.models.objective import Objective
@@ -13,6 +14,18 @@ from app.repositories.assessment_evidence_repository import (
 )
 from app.repositories.json_assessment_evidence_repository import (
     JsonAssessmentEvidenceRepository,
+)
+from app.repositories.intervention_outcome_evidence_repository import (
+    InterventionOutcomeEvidenceRepository,
+)
+from app.repositories.json_intervention_outcome_evidence_repository import (
+    JsonInterventionOutcomeEvidenceRepository,
+)
+from app.models.intervention_outcome_evidence import (
+    InterventionOutcomeEvidence,
+)
+from app.models.targeted_learning_intervention import (
+    TargetedLearningIntervention,
 )
 from app.services.assessment_engine import AssessmentEngine
 from app.services.exercise_engine import ExerciseEngine
@@ -41,6 +54,9 @@ class SessionController:
         learning_progress_repository: LearningProgressRepository | None = None,
         study_progress_repository: StudyProgressRepository | None = None,
         assessment_evidence_repository: AssessmentEvidenceRepository | None = None,
+        intervention_outcome_evidence_repository: (
+            InterventionOutcomeEvidenceRepository | None
+        ) = None,
     ):
 
         self.framework_path = Path(
@@ -60,6 +76,11 @@ class SessionController:
         self.assessment_evidence_repository = (
             assessment_evidence_repository
             or JsonAssessmentEvidenceRepository()
+        )
+
+        self.intervention_outcome_evidence_repository = (
+            intervention_outcome_evidence_repository
+            or JsonInterventionOutcomeEvidenceRepository()
         )
 
         self.repeated_weakness_service = RepeatedWeaknessService()
@@ -332,6 +353,29 @@ class SessionController:
             self.targeted_learning_intervention_service
             .create_targeted_interventions(self.learning_decisions())
         )
+
+
+    def record_intervention_outcome(
+        self,
+        intervention: TargetedLearningIntervention,
+        completion_status: Literal["COMPLETED", "NOT_COMPLETED"],
+    ) -> InterventionOutcomeEvidence:
+        evidence = InterventionOutcomeEvidence(
+            framework_id=intervention.framework_id,
+            objective_id=intervention.objective_id,
+            intervention_type=intervention.intervention_type,
+            required_activity=intervention.required_activity,
+            completion_status=completion_status,
+            source_action=intervention.source_action,
+        )
+        self.intervention_outcome_evidence_repository.record_outcome(
+            evidence
+        )
+        return evidence
+
+
+    def intervention_outcomes(self) -> list[InterventionOutcomeEvidence]:
+        return self.intervention_outcome_evidence_repository.list_outcomes()
 
 
     def current_framework(self) -> Framework | None:

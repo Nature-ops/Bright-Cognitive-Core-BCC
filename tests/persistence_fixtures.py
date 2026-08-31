@@ -15,8 +15,14 @@ from app.repositories.json_study_progress_repository import (
 from app.repositories.json_assessment_evidence_repository import (
     JsonAssessmentEvidenceRepository,
 )
+from app.repositories.json_intervention_outcome_evidence_repository import (
+    JsonInterventionOutcomeEvidenceRepository,
+)
 from app.services.assessment_evidence_service import (
     AssessmentEvidenceService,
+)
+from app.services.intervention_outcome_evidence_service import (
+    InterventionOutcomeEvidenceService,
 )
 from app.services.progress_service import ProgressService
 from app.services.study_progress_service import StudyProgressService
@@ -50,6 +56,15 @@ class TemporaryAssessmentEvidenceService(AssessmentEvidenceService):
             self.evidence_file.write_text("[]", encoding="utf-8")
 
 
+class TemporaryInterventionOutcomeEvidenceService(
+    InterventionOutcomeEvidenceService
+):
+    evidence_file_path: Path
+
+    def __init__(self):
+        self.evidence_file = self.evidence_file_path
+
+
 class TemporaryLearningProgressRepository(
     JsonLearningProgressRepository
 ):
@@ -71,6 +86,13 @@ class TemporaryAssessmentEvidenceRepository(
         super().__init__(TemporaryAssessmentEvidenceService())
 
 
+class TemporaryInterventionOutcomeEvidenceRepository(
+    JsonInterventionOutcomeEvidenceRepository
+):
+    def __init__(self):
+        super().__init__(TemporaryInterventionOutcomeEvidenceService())
+
+
 class IsolatedProgressTestCase(TestCase):
     def setUp(self):
         super().setUp()
@@ -88,6 +110,9 @@ class IsolatedProgressTestCase(TestCase):
         )
         TemporaryAssessmentEvidenceService.evidence_file_path = (
             temporary_path / "assessment_evidence.json"
+        )
+        TemporaryInterventionOutcomeEvidenceService.evidence_file_path = (
+            temporary_path / "intervention_outcome_evidence.json"
         )
 
         patches = [
@@ -115,6 +140,11 @@ class IsolatedProgressTestCase(TestCase):
                 session_controller_module,
                 "JsonAssessmentEvidenceRepository",
                 TemporaryAssessmentEvidenceRepository,
+            ),
+            patch.object(
+                session_controller_module,
+                "JsonInterventionOutcomeEvidenceRepository",
+                TemporaryInterventionOutcomeEvidenceRepository,
             ),
         ]
 
