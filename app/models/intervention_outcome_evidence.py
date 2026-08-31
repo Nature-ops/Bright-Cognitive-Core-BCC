@@ -3,6 +3,8 @@ from typing import Literal
 
 from pydantic import BaseModel, Field
 
+from app.core.cognitive.completion_status import CompletionStatus
+
 
 class InterventionOutcomeEvidence(BaseModel):
     """An append-only factual record of an intervention activity outcome."""
@@ -14,7 +16,7 @@ class InterventionOutcomeEvidence(BaseModel):
         "RECOVERY_VERIFICATION",
     ]
     required_activity: Literal["PRACTICE", "ASSESSMENT"]
-    completion_status: Literal["COMPLETED", "NOT_COMPLETED"]
+    completion_status: CompletionStatus
     source_action: Literal[
         "REINFORCE_OBJECTIVE",
         "VERIFY_RECOVERY",

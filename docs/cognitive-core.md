@@ -114,6 +114,11 @@ The architecture should support future cognitive capabilities without major rede
 
 The Cognitive Core is developed before application-specific functionality.
 
+6. Completion Evidence
+
+Completion records that an activity occurred; it does not imply domain
+success.
+
 ---
 
 ## Current Status

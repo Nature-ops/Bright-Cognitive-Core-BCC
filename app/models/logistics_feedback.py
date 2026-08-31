@@ -2,6 +2,8 @@ from typing import Literal
 
 from pydantic import BaseModel
 
+from app.core.cognitive.completion_status import CompletionStatus
+
 
 class LogisticsFeedback(BaseModel):
     """A deterministic interpretation of one logistics activity outcome."""
@@ -12,7 +14,7 @@ class LogisticsFeedback(BaseModel):
         "CUSTOMER_NOTIFICATION",
         "DELAY_ESCALATION",
     ]
-    source_completion_status: Literal["COMPLETED", "NOT_COMPLETED"]
+    source_completion_status: CompletionStatus
     feedback_state: Literal[
         "CONTINUE_MONITORING",
         "RETRY_INTERVENTION",

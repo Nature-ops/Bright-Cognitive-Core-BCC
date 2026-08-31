@@ -2,6 +2,8 @@ from typing import Literal
 
 from pydantic import BaseModel
 
+from app.core.cognitive.completion_status import CompletionStatus
+
 
 class AdaptiveLearningFeedback(BaseModel):
     """A deterministic interpretation of an intervention outcome."""
@@ -12,7 +14,7 @@ class AdaptiveLearningFeedback(BaseModel):
         "REINFORCEMENT",
         "RECOVERY_VERIFICATION",
     ]
-    source_completion_status: Literal["COMPLETED", "NOT_COMPLETED"]
+    source_completion_status: CompletionStatus
     feedback_state: Literal[
         "REPEAT_INTERVENTION",
         "READY_FOR_VERIFICATION",
