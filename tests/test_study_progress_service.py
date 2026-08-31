@@ -1,47 +1,36 @@
 from app.models.study_progress import StudyProgress
-from app.services.study_progress_service import StudyProgressService
+from tests.persistence_fixtures import (
+    IsolatedProgressTestCase,
+    TemporaryStudyProgressService,
+)
 
 
-def main():
+class StudyProgressServiceTest(IsolatedProgressTestCase):
+    def test_save_load_and_delete_progress(self):
+        service = TemporaryStudyProgressService()
+        progress = StudyProgress(
+            session_id="test-session",
+            completed_objectives=["iam-users"],
+            completed_exercises=["iam-lab"],
+            assessment_completed=True,
+        )
 
-    service = StudyProgressService()
+        service.save(progress)
 
-    progress = StudyProgress(
-        session_id="test-session"
-    )
+        self.assertTrue(service.exists(progress.session_id))
 
-    print("=" * 50)
-    print("Study Progress Service Test")
-    print("=" * 50)
+        reloaded_progress = TemporaryStudyProgressService().load(
+            progress.session_id
+        )
 
-    print("\nSaving progress...")
-    service.save(progress)
+        self.assertEqual(reloaded_progress, progress)
 
-    print("Saved.")
+        service.delete(progress.session_id)
 
-    print("\nChecking if progress exists...")
-    print(service.exists("test-session"))
-
-    print("\nLoading progress...")
-    loaded = service.load("test-session")
-
-    if loaded:
-        print("Loaded successfully.")
-        print(f"Session ID: {loaded.session_id}")
-        print(f"Objectives: {loaded.completed_objectives}")
-        print(f"Exercises: {loaded.completed_exercises}")
-        print(f"Assessment: {loaded.assessment_completed}")
-    else:
-        print("Failed to load progress.")
-
-    print("\nDeleting progress...")
-    service.delete("test-session")
-
-    print("Deleted.")
-
-    print("\nExists after delete?")
-    print(service.exists("test-session"))
+        self.assertFalse(service.exists(progress.session_id))
 
 
 if __name__ == "__main__":
-    main()
+    import unittest
+
+    unittest.main()
