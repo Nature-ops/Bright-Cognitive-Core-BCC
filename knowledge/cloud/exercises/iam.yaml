@@ -13,3 +13,7 @@ steps:
 
 verification: Successfully sign in using the new IAM user.
 
+objective_ids:
+  - iam-users
+  - iam-policies
+
