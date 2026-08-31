@@ -1,153 +1,53 @@
-from app.services.study_engine import StudyEngine
+import app.services.study_engine as study_engine_module
+from tests.persistence_fixtures import IsolatedProgressTestCase
 from tests.test_utils import (
     build_study_session,
     iam_passing_answers,
 )
 
 
-def main():
+class SessionCompletionTest(IsolatedProgressTestCase):
+    def setUp(self):
+        super().setUp()
 
-    session = build_study_session()
+        self.session = build_study_session()
+        self.engine = study_engine_module.StudyEngine()
+        self.engine.start_session(self.session)
 
-    engine = StudyEngine()
+    def test_session_completion_requires_all_requirements(self):
+        while objective := self.engine.current_objective():
+            self.engine.complete_objective(objective.id)
 
-    # Ensure clean test state
-    engine.progress_service.delete(session.id)
+        self.assertFalse(self.engine.is_completed())
+        self.assertFalse(self.engine.finish_session())
 
-    engine.start_session(session)
+        while exercise := self.engine.current_exercise():
+            self.engine.complete_exercise(exercise.id)
 
-    print("=" * 50)
-    print("Session Completion Test")
-    print("=" * 50)
+        self.assertFalse(self.engine.is_completed())
+        self.assertFalse(self.engine.finish_session())
 
-    # Complete all objectives
-    objective = engine.current_objective()
-
-    while objective:
-
-        engine.complete_objective(
-            objective.id
+        failed_result = self.engine.submit_assessment(
+            {
+                "iam-q1": "Internet Access Manager",
+                "iam-q2": "IAM Group",
+                "iam-q3": "Maximum access",
+            }
         )
 
-        objective = engine.current_objective()
+        self.assertFalse(failed_result.passed)
+        self.assertFalse(self.engine.is_completed())
+        self.assertFalse(self.engine.finish_session())
 
-    print("\nAfter Objectives")
-    print("----------------")
-
-    print(
-        f"Objective Progress : "
-        f"{engine.get_progress():.0f}%"
-    )
-
-    print(
-        f"Exercise Progress  : "
-        f"{engine.get_exercise_progress():.0f}%"
-    )
-
-    print(
-        f"Session Completed  : "
-        f"{engine.is_completed()}"
-    )
-
-    # Session must NOT be complete yet
-    assert engine.is_completed() is False
-
-    # Complete all exercises
-    exercise = engine.current_exercise()
-
-    while exercise:
-
-        engine.complete_exercise(
-            exercise.id
+        passed_result = self.engine.submit_assessment(
+            iam_passing_answers()
         )
 
-        exercise = engine.current_exercise()
-
-    print("\nAfter Exercises")
-    print("---------------")
-
-    print(
-        f"Objective Progress : "
-        f"{engine.get_progress():.0f}%"
-    )
-
-    print(
-        f"Exercise Progress  : "
-        f"{engine.get_exercise_progress():.0f}%"
-    )
-
-    print(
-        f"Session Completed  : "
-        f"{engine.is_completed()}"
-    )
-
-    # Now it MUST be complete
-    assert engine.is_completed() is False
-
-
-    print("\nAfter Failed Assessment")
-    print("-----------------------")
-
-    failing_answers = {
-        "iam-q1": "Internet Access Manager",
-        "iam-q2": "IAM Group",
-        "iam-q3": "Maximum access",
-    }
-
-    failed_result = engine.submit_assessment(
-        failing_answers
-    )
-
-    print(
-        f"Assessment Score   : "
-        f"{failed_result.score:.0f}%"
-    )
-
-    print(
-        f"Assessment Passed  : "
-        f"{failed_result.passed}"
-    )
-
-    print(
-        f"Session Completed  : "
-        f"{engine.is_completed()}"
-    )
-
-    assert failed_result.passed is False
-    assert engine.is_completed() is False
-
-    print("\nAfter Passed Assessment")
-    print("-----------------------")
-
-    passing_answers = iam_passing_answers()
-
-    passed_result = engine.submit_assessment(
-        passing_answers
-    )
-
-    print(
-        f"Assessment Score   : "
-        f"{passed_result.score:.0f}%"
-    )
-
-    print(
-        f"Assessment Passed  : "
-        f"{passed_result.passed}"
-    )
-
-    print(
-        f"Session Completed  : "
-        f"{engine.is_completed()}"
-    )
-
-    assert passed_result.passed is True
-    assert engine.is_completed() is True
-
-    finished = engine.finish_session()
-
-    assert finished is True
-
-    print("\nSession finished successfully.")
+        self.assertTrue(passed_result.passed)
+        self.assertTrue(self.engine.is_completed())
+        self.assertTrue(self.engine.finish_session())
 
 if __name__ == "__main__":
-    main()
+    import unittest
+
+    unittest.main()
