@@ -11,12 +11,18 @@ from app.repositories.study_progress_repository import (
 from app.repositories.assessment_evidence_repository import (
     AssessmentEvidenceRepository,
 )
+from app.repositories.json_assessment_evidence_repository import (
+    JsonAssessmentEvidenceRepository,
+)
 from app.services.assessment_engine import AssessmentEngine
 from app.services.exercise_engine import ExerciseEngine
 from app.services.planning_engine import PlanningEngine
 from app.services.resource_engine import ResourceEngine
 from app.services.study_engine import StudyEngine
 from app.services.study_session_service import StudySessionService
+from app.services.repeated_weakness_service import (
+    RepeatedWeaknessService,
+)
 
 
 
@@ -44,6 +50,13 @@ class SessionController:
 
         self.assessment_engine = AssessmentEngine()
 
+        self.assessment_evidence_repository = (
+            assessment_evidence_repository
+            or JsonAssessmentEvidenceRepository()
+        )
+
+        self.repeated_weakness_service = RepeatedWeaknessService()
+
         self.study_session_service = (
             StudySessionService(
                 self.resource_engine,
@@ -58,7 +71,7 @@ class SessionController:
             ),
             study_progress_repository=study_progress_repository,
             assessment_evidence_repository=(
-                assessment_evidence_repository
+                self.assessment_evidence_repository
             ),
         )
 
@@ -274,6 +287,12 @@ class SessionController:
 
     def completed_milestones(self) -> list[str]:
         return self.study_engine.completed_milestones()
+
+
+    def repeated_weaknesses(self):
+        return self.repeated_weakness_service.find_repeated_weaknesses(
+            self.assessment_evidence_repository.list_attempts()
+        )
 
 
     def current_framework(self) -> Framework | None:

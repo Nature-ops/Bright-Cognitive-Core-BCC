@@ -5,6 +5,7 @@ from unittest.mock import patch
 
 import app.services.planning_engine as planning_engine_module
 import app.services.study_engine as study_engine_module
+import app.core.learning.session_controller as session_controller_module
 from app.repositories.json_learning_progress_repository import (
     JsonLearningProgressRepository,
 )
@@ -107,6 +108,11 @@ class IsolatedProgressTestCase(TestCase):
             ),
             patch.object(
                 study_engine_module,
+                "JsonAssessmentEvidenceRepository",
+                TemporaryAssessmentEvidenceRepository,
+            ),
+            patch.object(
+                session_controller_module,
                 "JsonAssessmentEvidenceRepository",
                 TemporaryAssessmentEvidenceRepository,
             ),
