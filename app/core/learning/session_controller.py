@@ -27,6 +27,9 @@ from app.services.objective_learning_state_service import (
     ObjectiveLearningStateService,
 )
 from app.services.learning_decision_service import LearningDecisionService
+from app.services.targeted_learning_intervention_service import (
+    TargetedLearningInterventionService,
+)
 
 
 
@@ -66,6 +69,10 @@ class SessionController:
         )
 
         self.learning_decision_service = LearningDecisionService()
+
+        self.targeted_learning_intervention_service = (
+            TargetedLearningInterventionService()
+        )
 
         self.study_session_service = (
             StudySessionService(
@@ -317,6 +324,13 @@ class SessionController:
     def learning_decisions(self):
         return self.learning_decision_service.create_learning_decisions(
             self.current_learning_states()
+        )
+
+
+    def targeted_learning_interventions(self):
+        return (
+            self.targeted_learning_intervention_service
+            .create_targeted_interventions(self.learning_decisions())
         )
 
 
