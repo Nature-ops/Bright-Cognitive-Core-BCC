@@ -184,7 +184,7 @@ or other real learner state.
 
 # PHASE 3 — Application Boundary Cleanup
 
-Status: IN PROGRESS
+Status: COMPLETE
 
 Goal:
 
@@ -195,14 +195,18 @@ Keep UI, orchestration, domain logic, and persistence properly separated.
 - [x] CLI no longer directly accesses framework ProgressService
 - [x] SessionController exposes completed milestone information
 - [x] Automatic progression is controlled by SessionController
+- [x] Audit CLI access to StudyEngine internals
+- [x] Ensure CLI communicates through SessionController APIs
+- [x] Remove active framework-progress and study-progress service leaks
+- [x] Add focused controller APIs for framework progress rendering
+- [x] Keep persistence implementations behind injected repository boundaries
 
-## Next
+## Deferred non-blockers
 
-- [ ] Audit all CLI access to StudyEngine internals
-- [ ] Ensure CLI communicates through SessionController APIs
-- [ ] Identify remaining service leaks
-- [ ] Add controller APIs only where they represent meaningful application operations
-- [ ] Avoid exposing implementation-specific services through controllers
+- Further encapsulate SessionController's existing session/objective read
+  delegation only when a concrete caller requires a new application operation.
+- Rename legacy internal service attribute names only as part of a focused
+  migration that needs them.
 
 ## Rule
 
