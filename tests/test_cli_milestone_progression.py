@@ -1,11 +1,30 @@
 from contextlib import redirect_stdout
 from io import StringIO
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 
 from app.cli.cli import BrightCLI
 from app.core.learning.session_controller import SessionController
 from tests.persistence_fixtures import IsolatedProgressTestCase
 from tests.persistence_fixtures import TemporaryProgressService
+from tests.test_utils import build_study_session
+
+
+class ProgressControllerStub:
+    def __init__(self, framework):
+        self.framework = framework
+
+    @property
+    def study_engine(self):
+        raise AssertionError("CLI must not access StudyEngine directly")
+
+    def current_framework(self):
+        return self.framework
+
+    def milestone_progress(self):
+        return 50.0
+
+    def completed_milestones(self):
+        return ["aws-fundamentals"]
 
 
 class CLIMilestoneProgressionTest(IsolatedProgressTestCase):
@@ -73,6 +92,22 @@ class CLIMilestoneProgressionTest(IsolatedProgressTestCase):
         )
         self.assertEqual(completed_milestones.count("iam"), 1)
         self.assertFalse(self.controller._session_finished)
+
+    def test_show_progress_uses_only_controller_apis(self):
+        session = build_study_session()
+        controller = ProgressControllerStub(
+            session.learning_plan.framework
+        )
+        cli = BrightCLI(controller)
+        cli.renderer = Mock()
+
+        cli.show_progress()
+
+        cli.renderer.render_milestone_progress.assert_called_once_with(
+            session.learning_plan.framework,
+            ["aws-fundamentals"],
+            50.0,
+        )
 
 
 if __name__ == "__main__":

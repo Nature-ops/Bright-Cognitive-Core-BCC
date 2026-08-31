@@ -1,5 +1,6 @@
 from pathlib import Path
 
+from app.models.framework import Framework
 from app.models.objective import Objective
 from app.services.assessment_engine import AssessmentEngine
 from app.services.exercise_engine import ExerciseEngine
@@ -246,37 +247,15 @@ class SessionController:
 
 
     def milestone_progress(self) -> float:
-
-        assert self.study_engine.session is not None
-
-        framework = (
-            self.study_engine.session.learning_plan.framework
-        )
-
-        milestone_ids = [
-            milestone.id
-            for milestone in framework.milestones
-        ]
-
-        return self.study_engine.framework_progress_service.milestone_progress(
-            framework.id,
-            milestone_ids,
-        )
+        return self.study_engine.milestone_progress()
 
 
     def completed_milestones(self) -> list[str]:
+        return self.study_engine.completed_milestones()
 
-        assert self.study_engine.session is not None
 
-        framework = (
-            self.study_engine.session.learning_plan.framework
-        )
-
-        return (
-            self.study_engine.framework_progress_service
-            .get_progress(framework.id)
-            .completed_milestones
-        )
+    def current_framework(self) -> Framework | None:
+        return self.study_engine.current_framework()
 
 
     def submit_assessment(

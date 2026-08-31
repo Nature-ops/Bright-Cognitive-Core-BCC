@@ -1,5 +1,6 @@
 from app.models.study_session import StudySession
 from app.models.study_progress import StudyProgress
+from app.models.framework import Framework
 from datetime import datetime, UTC 
 from app.models.objective import Objective
 from app.models.exercise import Exercise
@@ -132,6 +133,45 @@ class StudyEngine:
             return 100.0
 
         return completed / total * 100        
+
+
+    def current_framework(self) -> Framework | None:
+        if self.session is None:
+            return None
+
+        return self.session.learning_plan.framework
+
+
+    def milestone_progress(self) -> float:
+        self._require_session()
+
+        framework = self.current_framework()
+
+        assert framework is not None
+
+        milestone_ids = [
+            milestone.id
+            for milestone in framework.milestones
+        ]
+
+        return self.framework_progress_service.milestone_progress(
+            framework.id,
+            milestone_ids,
+        )
+
+
+    def completed_milestones(self) -> list[str]:
+        self._require_session()
+
+        framework = self.current_framework()
+
+        assert framework is not None
+
+        return (
+            self.framework_progress_service
+            .get_progress(framework.id)
+            .completed_milestones
+        )
 
 
     def is_completed(self) -> bool:

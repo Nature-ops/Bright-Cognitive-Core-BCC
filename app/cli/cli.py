@@ -86,17 +86,13 @@ class BrightCLI:
 
     def show_progress(self):
 
-        session = self.controller.study_engine.session
+        framework = self.controller.current_framework()
 
-        if session is None:
+        if framework is None:
 
             print("\nNo active learning session.")
 
             return
-
-        framework = (
-            session.learning_plan.framework
-        )
 
         progress = (
             self.controller.milestone_progress()
