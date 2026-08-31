@@ -2,6 +2,9 @@ from pathlib import Path
 
 from app.models.framework import Framework
 from app.models.objective import Objective
+from app.repositories.learning_progress_repository import (
+    LearningProgressRepository,
+)
 from app.services.assessment_engine import AssessmentEngine
 from app.services.exercise_engine import ExerciseEngine
 from app.services.planning_engine import PlanningEngine
@@ -16,13 +19,16 @@ class SessionController:
     def __init__(
         self,
         framework_path: str | Path,
+        learning_progress_repository: LearningProgressRepository | None = None,
     ):
 
         self.framework_path = Path(
             framework_path
         )
 
-        self.planner = PlanningEngine()
+        self.planner = PlanningEngine(
+            learning_progress_repository
+        )
 
         self.resource_engine = ResourceEngine()
 
@@ -38,7 +44,9 @@ class SessionController:
             )
         )
 
-        self.study_engine = StudyEngine()
+        self.study_engine = StudyEngine(
+            learning_progress_repository
+        )
 
         self._session_finished = False
 
